@@ -41,7 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
               //welcome back, you've been missed!
               Text(
-                'Let\'s create an account for you!',
+                'Ayo Buat Akun Kamu!',
                 style: TextStyle(
                   color: Colors.grey[700],
                   fontSize: 16,
@@ -79,8 +79,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
               //sign in button
               MyButton(
-                text: "Sign Up",
-                onTap: signUserUp,
+                text: "Daftar",
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                },
               ),
 
               const SizedBox(height: 30),
@@ -99,7 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
-                        'Or Continue With',
+                        'Atau Lanjut Dengan',
                         style: TextStyle(color: Colors.grey[700]),
                       ),
                     ),
@@ -131,20 +136,20 @@ class _RegisterPageState extends State<RegisterPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Already have an Account?',
+                    'Sudah Memiliki Akun?',
                     style: TextStyle(color: Colors.grey[700]),
                   ),
                   const SizedBox(width: 4),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const LoginPage()),
                       );
                     },
                     child: const Text(
-                      'Login Now',
+                      'Masuk Sekarang',
                       style: TextStyle(
                         color: Color.fromRGBO(129, 12, 168, 1),
                         fontWeight: FontWeight.bold,

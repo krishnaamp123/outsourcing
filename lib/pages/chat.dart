@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:hospital/screens/SeeAll.dart';
-import 'package:hospital/widgets/text_widget.dart';
+import 'package:outsourcing/components/text_widget.dart';
+import 'package:outsourcing/pages/see_all.dart';
 import 'Profile.dart';
 
 class Chat extends StatefulWidget {

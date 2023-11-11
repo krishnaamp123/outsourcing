@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:hospital/res/lists.dart';
-import 'package:hospital/widgets/text_widget.dart';
-import 'Oppointment.dart';
+import 'package:outsourcing/components/text_widget.dart';
+import 'package:outsourcing/list.dart';
+import 'package:outsourcing/pages/oppoinment.dart';
 
 class Profile extends StatefulWidget {
   final AssetImage image;

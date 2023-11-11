@@ -1,37 +1,22 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:hospital/screens/SeeAll.dart';
-import 'package:outsourcing/components/text_widget.dart';
-import 'Profile.dart';
 
-class Chat extends StatefulWidget {
-  final AssetImage image;
-  final String name;
-  final String specialist;
-  const Chat(
-      {super.key,
-      required this.image,
-      required this.name,
-      required this.specialist});
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:outsourcing/components/text_widget.dart';
+import 'package:outsourcing/list.dart';
+import 'package:outsourcing/pages/see_all.dart';
+
+class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
-  State<Chat> createState() => _ChatState();
+  State<Home> createState() => _HomeState();
 }
 
-class _ChatState extends State<Chat> {
-  late Size size;
-  var animate = false;
+class _HomeState extends State<Home> {
   var opacity = 0.0;
-
-  animator() {
-    if (opacity == 0.0) {
-      opacity = 1.0;
-      animate = true;
-    } else {
-      opacity = 0.0;
-      animate = false;
-    }
-    setState(() {});
-  }
+  bool position = false;
 
   @override
   void initState() {
@@ -39,316 +24,503 @@ class _ChatState extends State<Chat> {
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
+
+      setState(() {});
     });
+  }
+
+  animator() {
+    if (opacity == 1) {
+      opacity = 0;
+      position = false;
+    } else {
+      opacity = 1;
+      position = true;
+    }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Container(
-        color: Colors.white,
-        padding: const EdgeInsets.only(top: 40),
-        height: size.height,
-        width: size.width,
-        child: Stack(
-          children: [
-            AnimatedPositioned(
+      body: SafeArea(
+        child: Container(
+          color: Colors.white,
+          padding: const EdgeInsets.only(top: 30, left: 0, right: 0),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Stack(
+            children: [
+              AnimatedPositioned(
                 duration: const Duration(milliseconds: 400),
-                top: animate ? 1 : 50,
-                bottom: 1,
-                left: 1,
-                right: 1,
+                top: position ? 1 : 100,
+                right: 20,
+                left: 20,
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 400),
                   opacity: opacity,
-                  child: SizedBox(
-                    height: size.height,
-                    width: size.width,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                            top: 1,
-                            child: Container(
-                              padding:
-                                  const EdgeInsets.only(left: 20, right: 20),
-                              height: 70,
-                              color: Colors.white,
-                              width: size.width,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      animator();
-                                      Timer(const Duration(milliseconds: 500),
-                                          () {
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => SeeAll(),
-                                            ));
-                                      });
-                                    },
-                                    child: const Icon(
-                                      Icons.arrow_back_ios_new_sharp,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      animator();
-                                      await Future.delayed(
-                                          const Duration(milliseconds: 400));
-                                      await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Profile(
-                                                image: widget.image,
-                                                name: widget.name,
-                                                speciality: widget.specialist),
-                                          ));
-                                      animator();
-                                    },
-                                    child: CircleAvatar(
-                                      radius: 25,
-                                      backgroundColor: Colors.blue,
-                                      backgroundImage: widget.image,
-                                    ),
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      TextWidget(
-                                        widget.name,
-                                        15,
-                                        Colors.black,
-                                        FontWeight.bold,
-                                        letterSpace: 0,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            height: 10,
-                                            width: 10,
-                                            decoration: const BoxDecoration(
-                                                color: Colors.green,
-                                                shape: BoxShape.circle),
-                                          ),
-                                          TextWidget(
-                                            "online",
-                                            13,
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            letterSpace: 1,
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        height: 35,
-                                        width: 35,
-                                        decoration: BoxDecoration(
-                                            color: Colors.blue.shade900,
-                                            shape: BoxShape.circle),
-                                        child: Center(
-                                          child: Icon(
-                                            Icons.video_camera_front,
-                                            color: Colors.white.withOpacity(.7),
-                                          ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextWidget("Halo", 17, Colors.black.withOpacity(.7),
+                              FontWeight.bold),
+                          TextWidget(
+                              "Krishna", 25, Colors.black, FontWeight.bold),
+                        ],
+                      ),
+                      const Icon(Icons.phonelink_ring)
+                    ],
+                  ),
+                ),
+              ),
+              AnimatedPositioned(
+                top: position ? 80 : 140,
+                left: 20,
+                right: 20,
+                duration: const Duration(milliseconds: 400),
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 400),
+                  opacity: opacity,
+                  child: Container(
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          prefixIcon: Icon(
+                            Icons.search_sharp,
+                            size: 30,
+                            color: Colors.black.withOpacity(.5),
+                          ),
+                          hintText: "   Search"),
+                    ),
+                  ),
+                ),
+              ),
+              AnimatedPositioned(
+                  top: position ? 150 : 220,
+                  right: 20,
+                  left: 20,
+                  duration: const Duration(milliseconds: 400),
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 400),
+                    opacity: opacity,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Container(
+                        height: 150,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.blue.shade700,
+                                  Colors.blue.shade900,
+                                  Colors.blue.shade900,
+                                ])),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                                top: 25,
+                                left: 20,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      radius: 30,
+                                      child: Center(
+                                        child: Image(
+                                          fit: BoxFit.fill,
+                                          image:
+                                              AssetImage('lib/images/p1.png'),
                                         ),
                                       ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        TextWidget(
+                                          "You're invited to the live",
+                                          15,
+                                          Colors.white,
+                                          FontWeight.normal,
+                                          letterSpace: 1,
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            TextWidget(
+                                              "Stream with  ",
+                                              15,
+                                              Colors.white,
+                                              FontWeight.normal,
+                                              letterSpace: 1,
+                                            ),
+                                            TextWidget(
+                                              "Dr.Navida",
+                                              15,
+                                              Colors.white,
+                                              FontWeight.bold,
+                                              letterSpace: 2,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )),
+                            Positioned(
+                                top: 100,
+                                left: 20,
+                                child: Container(
+                                  height: 1,
+                                  width: 300,
+                                  color: Colors.white.withOpacity(.5),
+                                )),
+                            Positioned(
+                                top: 115,
+                                left: 20,
+                                right: 1,
+                                child: Container(
+                                  width: double.infinity,
+                                  child: Row(
+                                    children: [
+                                      TextWidget(
+                                          "120K people join live Stream!",
+                                          15,
+                                          Colors.white,
+                                          FontWeight.bold,
+                                          letterSpace: 1),
                                       const SizedBox(
                                         width: 10,
                                       ),
-                                      Container(
-                                        height: 35,
-                                        width: 35,
-                                        decoration: BoxDecoration(
-                                            color: Colors.blue.shade900,
-                                            shape: BoxShape.circle),
-                                        child: Center(
-                                          child: Icon(
-                                            Icons.wifi_calling_outlined,
-                                            color: Colors.white.withOpacity(.7),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            )),
-                        Positioned(
-                            top: 70,
-                            child: Container(
-                              height: size.height / 1.35,
-                              width: size.width,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              color: Colors.white,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  msgBox(
-                                      size,
-                                      "Use the Stick on other hand Fandit",
-                                      "08:20",
-                                      Colors.blue.withOpacity(.1),
-                                      Colors.grey),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: msgBox(size, "Thanks doc!", "09:20",
-                                        Colors.blue.shade900, Colors.white),
-                                  ),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          height: 1,
-                                          width: size.width / 3,
-                                          color: Colors.black.withOpacity(.5),
-                                        ),
-                                      ),
-                                      TextWidget(
-                                          "today",
-                                          14,
-                                          Colors.black.withOpacity(.5),
-                                          FontWeight.bold),
-                                      Expanded(
-                                        child: Container(
-                                          height: 1,
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          color: Colors.black.withOpacity(.5),
+                                      const Expanded(
+                                        child: Stack(
+                                          children: [
+                                            Positioned(
+                                              child: CircleAvatar(
+                                                radius: 15,
+                                                backgroundColor: Colors.blue,
+                                              ),
+                                            ),
+                                            Positioned(
+                                              left: 20,
+                                              child: CircleAvatar(
+                                                radius: 15,
+                                                backgroundColor: Colors.red,
+                                              ),
+                                            ),
+                                            Positioned(
+                                              left: 40,
+                                              child: CircleAvatar(
+                                                radius: 15,
+                                                backgroundColor: Colors.white,
+                                              ),
+                                            )
+                                          ],
                                         ),
                                       )
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  msgBox(
-                                      size,
-                                      "Morning!\n\nHow the result did it\nwork well",
-                                      "08:20",
-                                      Colors.blue.withOpacity(.1),
-                                      Colors.grey),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: msgBox(
-                                        size,
-                                        "Morning doc,Problem is\nsolved,Thanks doc",
-                                        "08:25",
-                                        Colors.blue.shade900,
-                                        Colors.white),
-                                  ),
-                                  const Image(
-                                    image: AssetImage(
-                                      'assets/images/emoji.png',
-                                    ),
-                                    width: 130,
-                                    height: 130,
-                                  )
-                                ],
-                              ),
-                            )),
-                        Positioned(
-                            bottom: 10,
-                            left: 30,
-                            right: 30,
-                            child: Container(
-                              padding:
-                                  const EdgeInsets.only(left: 40, right: 40),
-                              height: size.height / 13,
-                              width: size.width,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Center(
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "Type Something...",
-                                      suffixIcon: Transform.rotate(
-                                          angle: -0.7,
-                                          child: const Icon(
-                                            Icons.send,
-                                            color: Colors.blue,
-                                            size: 30,
-                                          ))),
-                                ),
-                              ),
-                            ))
-                      ],
+                                )),
+                            const Positioned(
+                                top: 10,
+                                right: 10,
+                                child: Icon(
+                                  Icons.close_outlined,
+                                  color: Colors.white,
+                                  size: 15,
+                                ))
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ))
+                  )),
+              categoryRow(),
+              AnimatedPositioned(
+                  top: position ? 420 : 500,
+                  left: 20,
+                  right: 20,
+                  duration: const Duration(milliseconds: 400),
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 300),
+                    opacity: opacity,
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextWidget(
+                            "Our Doctors",
+                            25,
+                            Colors.black.withOpacity(.8),
+                            FontWeight.bold,
+                            letterSpace: 0,
+                          ),
+                          InkWell(
+                              onTap: () async {
+                                animator();
+                                setState(() {});
+                                // Timer(Duration(seconds: 1),() {
+                                //   Navigator.push(context, MaterialPageRoute(builder: (context) => SeeAll(),));
+                                //   animator();
+                                // },);
+                                await Future.delayed(
+                                    const Duration(milliseconds: 500));
+                                await Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return SeeAll();
+                                  },
+                                ));
+
+                                setState(() {
+                                  animator();
+                                });
+                              },
+                              child: TextWidget(
+                                "See all",
+                                15,
+                                Colors.blue.shade600.withOpacity(.8),
+                                FontWeight.bold,
+                                letterSpace: 0,
+                              )),
+                        ],
+                      ),
+                    ),
+                  )),
+              doctorList(),
+              Align(
+                  alignment: Alignment.bottomCenter,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 400),
+                    opacity: opacity,
+                    child: CurvedNavigationBar(
+                        backgroundColor: Colors.white,
+                        items: const [
+                          Icon(
+                            Icons.home_filled,
+                            color: Colors.blue,
+                            size: 30,
+                          ),
+                          Icon(
+                            Icons.calendar_month_rounded,
+                            color: Colors.black,
+                            size: 30,
+                          ),
+                          Icon(
+                            Icons.whatshot_outlined,
+                            color: Colors.black,
+                            size: 30,
+                          ),
+                          Icon(
+                            Icons.account_circle_outlined,
+                            color: Colors.black,
+                            size: 30,
+                          ),
+                        ]),
+                  ))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget doctorList() {
+    return AnimatedPositioned(
+        top: position ? 460 : 550,
+        left: 20,
+        right: 20,
+        duration: const Duration(milliseconds: 400),
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 400),
+          opacity: opacity,
+          child: AnimatedOpacity(
+            opacity: opacity,
+            duration: const Duration(milliseconds: 300),
+            child: SizedBox(
+              height: 270,
+              width: MediaQuery.of(context).size.width,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    doctorCard(names[0], spacilality[0], images[0]),
+                    doctorCard(names[1], spacilality[1], images[1]),
+                    doctorCard(names[2], spacilality[2], images[2]),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ));
+  }
+
+  Widget doctorCard(String name, String specialist, AssetImage image) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: SizedBox(
+        height: 120,
+        width: double.infinity,
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 10,
+            ),
+            CircleAvatar(
+              radius: 30,
+              backgroundImage: image,
+              backgroundColor: Colors.blue,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextWidget(
+                  name,
+                  20,
+                  Colors.black,
+                  FontWeight.bold,
+                  letterSpace: 0,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                TextWidget(
+                  specialist,
+                  17,
+                  Colors.black,
+                  FontWeight.bold,
+                  letterSpace: 0,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.star,
+                      color: Colors.orangeAccent,
+                    ),
+                    Icon(
+                      Icons.star,
+                      color: Colors.orangeAccent,
+                    ),
+                    Icon(
+                      Icons.star,
+                      color: Colors.orangeAccent,
+                    ),
+                    Icon(
+                      Icons.star,
+                      color: Colors.orangeAccent,
+                    ),
+                    Icon(
+                      Icons.star,
+                      color: Colors.orangeAccent,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const Spacer(),
+            const Icon(
+              Icons.navigation_sharp,
+              color: Colors.blue,
+            ),
+            const SizedBox(
+              width: 20,
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget msgBox(
-      Size size, String msg, String time, Color color, Color textColor) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      width: size.width / 2,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(20),
-            bottomLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20)),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextWidget(
-            msg,
-            15,
-            textColor,
-            FontWeight.bold,
-            letterSpace: 1,
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: TextWidget(
-              time,
-              13,
-              textColor,
-              FontWeight.bold,
-              letterSpace: 0,
+  Widget categoryRow() {
+    return AnimatedPositioned(
+        top: position ? 320 : 420,
+        left: 25,
+        right: 25,
+        duration: const Duration(milliseconds: 400),
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 400),
+          opacity: opacity,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                category("lib/images/capsule.png", "Drug", 5),
+                category("lib/images/virus.png", "Virus", 10),
+                category("lib/images/heart.png", "Physo", 10),
+                category("lib/images/app.png", "Other", 12),
+              ],
             ),
           ),
-        ],
-      ),
+        ));
+  }
+
+  Widget category(String asset, String txt, double padding) {
+    return Column(
+      children: [
+        InkWell(
+          child: Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: Container(
+              padding: EdgeInsets.all(padding),
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Center(
+                child: Image(
+                  image: AssetImage(asset),
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        TextWidget(
+          txt,
+          16,
+          Colors.black,
+          FontWeight.bold,
+          letterSpace: 1,
+        ),
+      ],
     );
   }
 }

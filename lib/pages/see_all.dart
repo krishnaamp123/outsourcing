@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:outsourcing/list.dart';
 import 'package:outsourcing/pages/dashboard.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'package:hospital/res/lists.dart';
 import 'Chat.dart';
 
 class SeeAll extends StatefulWidget {

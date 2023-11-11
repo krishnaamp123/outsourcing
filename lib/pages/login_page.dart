@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:outsourcing/components/my_button.dart';
 import 'package:outsourcing/components/my_textfield.dart';
 import 'package:outsourcing/components/square_tile.dart';
+import 'package:outsourcing/pages/dashboard.dart';
 import 'package:outsourcing/pages/regis_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -40,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
 
               //welcome back, you've been missed!
               Text(
-                'Welcome back you\'ve been missed!',
+                'Selamat Datang Di OutsourcingApp!',
                 style: TextStyle(
                   color: Colors.grey[700],
                   fontSize: 16,
@@ -74,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'Forgot Password?',
+                      'Lupa Password?',
                       style: TextStyle(color: Colors.grey[600]),
                     ),
                   ],
@@ -85,8 +86,15 @@ class _LoginPageState extends State<LoginPage> {
 
               //sign in button
               MyButton(
-                text: "Sign In",
-                onTap: signUserIn,
+                text: "Masuk",
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Home(),
+                    ),
+                  );
+                },
               ),
 
               const SizedBox(height: 30),
@@ -105,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
-                        'Or Continue With',
+                        'Atau Lanjut Dengan',
                         style: TextStyle(color: Colors.grey[700]),
                       ),
                     ),
@@ -137,19 +145,19 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Didn\'t Have Account?',
+                    'Belum Punya Akun?',
                     style: TextStyle(color: Colors.grey[700]),
                   ),
                   const SizedBox(width: 4),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => RegisterPage()),
                       );
                     },
                     child: const Text(
-                      'Register Now',
+                      'Daftar Sekarang',
                       style: TextStyle(
                         color: Color.fromRGBO(129, 12, 168, 1),
                         fontWeight: FontWeight.bold,

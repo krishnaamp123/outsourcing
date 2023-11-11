@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 var images = const [
-  AssetImage('assets/images/doctor2.png'),
-  AssetImage('assets/images/doctor3.png'),
-  AssetImage('assets/images/doctor4.png'),
-  AssetImage('assets/images/doctor5.png'),
-  AssetImage('assets/images/doctor6.png'),
-  AssetImage('assets/images/doctor7.png'),
-  AssetImage('assets/images/doctor5.png'),
+  AssetImage('lib/images/doctor2.png'),
+  AssetImage('lib/images/doctor3.png'),
+  AssetImage('lib/images/doctor4.png'),
+  AssetImage('lib/images/doctor5.png'),
+  AssetImage('lib/images/doctor6.png'),
+  AssetImage('lib/images/doctor7.png'),
+  AssetImage('lib/images/doctor5.png'),
 ];
 var names = [
   "Dr. John Carter",

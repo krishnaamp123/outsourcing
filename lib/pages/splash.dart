@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:outsourcing/pages/dashboard.dart';
 import 'package:outsourcing/components/text_widget.dart';
+import 'package:outsourcing/pages/login_page.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -59,9 +59,9 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                       height: 20,
                     ),
                     TextWidget(
-                      "Complete",
+                      "Penyedia",
                       35,
-                      Colors.black,
+                      Color.fromRGBO(45, 3, 59, 1),
                       FontWeight.bold,
                       letterSpace: 5,
                     ),
@@ -69,9 +69,9 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                       height: 5,
                     ),
                     TextWidget(
-                      "Health",
+                      "Jasa",
                       35,
-                      Colors.black,
+                      Color.fromRGBO(45, 3, 59, 1),
                       FontWeight.bold,
                       letterSpace: 5,
                     ),
@@ -79,37 +79,31 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                       height: 5,
                     ),
                     TextWidget(
-                      "Solution",
+                      "Kebutuhan",
                       35,
-                      Colors.black,
+                      Color.fromRGBO(45, 3, 59, 1),
+                      FontWeight.bold,
+                      letterSpace: 5,
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TextWidget(
+                      "Outsourcing",
+                      35,
+                      Color.fromRGBO(45, 3, 59, 1),
                       FontWeight.bold,
                       letterSpace: 5,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    TextWidget("Early Protection for\nFamily Health", 18,
-                        Colors.black.withOpacity(.7), FontWeight.bold),
+                    TextWidget("Cari Jasa Outsourcing?\nOutsourcingApp Aja!",
+                        18, Color.fromRGBO(129, 12, 168, 1), FontWeight.bold),
                   ],
                 ),
               ),
             ),
-            AnimatedPositioned(
-                bottom: 1,
-                left: position ? 50 : 150,
-                duration: const Duration(milliseconds: 400),
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: Container(
-                    height: 450,
-                    width: 400,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/doctor6.png'),
-                            fit: BoxFit.fill)),
-                  ),
-                )),
             AnimatedPositioned(
                 bottom: 60,
                 duration: const Duration(milliseconds: 400),
@@ -125,7 +119,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const Home(),
+                              builder: (context) => const LoginPage(),
                             ));
                       },
                     );
@@ -137,11 +131,11 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                       width: 150,
                       height: 60,
                       decoration: BoxDecoration(
-                          color: Colors.blue.shade900,
+                          color: const Color.fromRGBO(45, 3, 59, 1),
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
                         child: TextWidget(
-                          "Get Started",
+                          "Mulai",
                           17,
                           Colors.white,
                           FontWeight.bold,
