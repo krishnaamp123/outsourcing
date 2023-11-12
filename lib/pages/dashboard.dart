@@ -321,22 +321,22 @@ class _HomeState extends State<Home> {
                         items: const [
                           Icon(
                             Icons.home_filled,
-                            color: Colors.blue,
+                            color: Color.fromRGBO(129, 12, 168, 1),
                             size: 30,
                           ),
                           Icon(
                             Icons.calendar_month_rounded,
-                            color: Colors.black,
+                            color: Color.fromRGBO(45, 3, 59, 1),
                             size: 30,
                           ),
                           Icon(
                             Icons.whatshot_outlined,
-                            color: Colors.black,
+                            color: Color.fromRGBO(45, 3, 59, 1),
                             size: 30,
                           ),
                           Icon(
                             Icons.account_circle_outlined,
-                            color: Colors.black,
+                            color: Color.fromRGBO(45, 3, 59, 1),
                             size: 30,
                           ),
                         ]),
