@@ -1,6 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:outsourcing/pages/login_page.dart';
 import 'package:outsourcing/pages/splash.dart';
 
 void main() {

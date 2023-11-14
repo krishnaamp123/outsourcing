@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:outsourcing/components/text_widget.dart';
@@ -77,35 +75,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               AnimatedPositioned(
-                top: position ? 80 : 140,
-                left: 20,
-                right: 20,
-                duration: const Duration(milliseconds: 400),
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: Container(
-                    height: 50,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(
-                            Icons.search_sharp,
-                            size: 30,
-                            color: Colors.black.withOpacity(.5),
-                          ),
-                          hintText: "   Search"),
-                    ),
-                  ),
-                ),
-              ),
-              AnimatedPositioned(
-                  top: position ? 150 : 220,
+                  top: position ? 80 : 220,
                   right: 20,
                   left: 20,
                   duration: const Duration(milliseconds: 400),
