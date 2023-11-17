@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:outsourcing/components/image_slider.dart';
 import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/list.dart';
 import 'package:outsourcing/pages/see_all.dart';
@@ -20,7 +19,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
@@ -51,6 +49,7 @@ class _HomeState extends State<Home> {
           width: MediaQuery.of(context).size.width,
           child: Stack(
             children: [
+//Top Bar
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 400),
                 top: position ? 1 : 100,
@@ -64,26 +63,26 @@ class _HomeState extends State<Home> {
                     children: [
                       Image.asset(
                         'lib/images/logotok.png',
-                        height: 50,
-                        width: 50,
+                        height: 40,
+                        width: 40,
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextWidget("Halo", 17, Colors.black.withOpacity(.7),
+                          TextWidget("Halo", 15, Colors.black.withOpacity(.7),
                               FontWeight.bold),
                           TextWidget(
-                              "Krishna", 25, Colors.black, FontWeight.bold),
+                              "Krishna", 20, Colors.black, FontWeight.bold),
                         ],
                       ),
-                      Expanded(
+                      const Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Icon(
                               Icons.notifications,
-                              size: 40, // Ukuran ikon
+                              size: 35, // Ukuran ikon
                               color: Color.fromRGBO(45, 3, 59, 1), // Warna ikon
                             )
                           ],
@@ -93,41 +92,65 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
+//Slider
               AnimatedPositioned(
-                  top: position ? 80 : 220,
-                  right: 20,
-                  left: 20,
+                top: position ? 60 : 220,
+                right: 20,
+                left: 20,
+                duration: const Duration(milliseconds: 400),
+                child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 400),
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 400),
-                    opacity: opacity,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Container(
-                        height: 150,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Colors.blue.shade700,
-                                  Colors.blue.shade900,
-                                  Colors.blue.shade900,
-                                ])),
-                        child: CarouselSlider(
-                          options: CarouselOptions(
-                            autoPlay: true,
-                            aspectRatio: 2.0,
-                            enlargeCenterPage: true,
-                          ),
-                          items: imageSliders,
+                  opacity: opacity,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Container(
+                      height: 180,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        gradient: const LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color.fromRGBO(229, 184, 244, 1),
+                            Color.fromRGBO(129, 12, 168, 1),
+                            Color.fromRGBO(45, 3, 59, 1),
+                          ],
                         ),
                       ),
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          aspectRatio: 2.0,
+                          viewportFraction: 0.8,
+                          enlargeCenterPage: true,
+                        ),
+                        items: [
+                          'lib/images/cleaningservice.jpg',
+                          'lib/images/housekeeping.jpg',
+                          'lib/images/satpam.jpeg',
+                        ].map((item) {
+                          return Container(
+                            margin: const EdgeInsets.all(2.0),
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(5.0),
+                              ),
+                              child: Image.asset(
+                                item,
+                                fit: BoxFit.cover,
+                                width: 1000.0,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
-                  )),
+                  ),
+                ),
+              ),
               categoryRow(),
               AnimatedPositioned(
                   top: position ? 420 : 500,
@@ -137,46 +160,45 @@ class _HomeState extends State<Home> {
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 300),
                     opacity: opacity,
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextWidget(
-                            "Our Doctors",
-                            25,
-                            Colors.black.withOpacity(.8),
-                            FontWeight.bold,
-                            letterSpace: 0,
-                          ),
-                          InkWell(
-                              onTap: () async {
-                                animator();
-                                setState(() {});
-                                // Timer(Duration(seconds: 1),() {
-                                //   Navigator.push(context, MaterialPageRoute(builder: (context) => SeeAll(),));
-                                //   animator();
-                                // },);
-                                await Future.delayed(
-                                    const Duration(milliseconds: 500));
-                                await Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) {
-                                    return SeeAll();
-                                  },
-                                ));
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextWidget(
+                          "Our Doctors",
+                          25,
+                          Colors.black.withOpacity(.8),
+                          FontWeight.bold,
+                          letterSpace: 0,
+                        ),
+                        InkWell(
+                            onTap: () async {
+                              animator();
+                              setState(() {});
+                              // Timer(Duration(seconds: 1),() {
+                              //   Navigator.push(context, MaterialPageRoute(builder: (context) => SeeAll(),));
+                              //   animator();
+                              // },);
+                              await Future.delayed(
+                                  const Duration(milliseconds: 500));
+                              // ignore: use_build_context_synchronously
+                              await Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return SeeAll();
+                                },
+                              ));
 
-                                setState(() {
-                                  animator();
-                                });
-                              },
-                              child: TextWidget(
-                                "See all",
-                                15,
-                                Colors.blue.shade600.withOpacity(.8),
-                                FontWeight.bold,
-                                letterSpace: 0,
-                              )),
-                        ],
-                      ),
+                              setState(() {
+                                animator();
+                              });
+                            },
+                            child: TextWidget(
+                              "See all",
+                              15,
+                              Colors.blue.shade600.withOpacity(.8),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                            )),
+                      ],
                     ),
                   )),
               doctorList(),
