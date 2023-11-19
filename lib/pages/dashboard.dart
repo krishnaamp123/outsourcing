@@ -94,7 +94,7 @@ class _HomeState extends State<Home> {
               ),
 //Slider
               AnimatedPositioned(
-                top: position ? 60 : 220,
+                top: position ? 60 : 120,
                 right: 20,
                 left: 20,
                 duration: const Duration(milliseconds: 400),
@@ -153,7 +153,7 @@ class _HomeState extends State<Home> {
               ),
               categoryRow(),
               AnimatedPositioned(
-                  top: position ? 420 : 500,
+                  top: position ? 350 : 430,
                   left: 20,
                   right: 20,
                   duration: const Duration(milliseconds: 400),
@@ -164,9 +164,9 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextWidget(
-                          "Our Doctors",
-                          25,
-                          Colors.black.withOpacity(.8),
+                          "Layanan kami",
+                          20,
+                          const Color.fromRGBO(45, 3, 59, 1),
                           FontWeight.bold,
                           letterSpace: 0,
                         ),
@@ -192,45 +192,49 @@ class _HomeState extends State<Home> {
                               });
                             },
                             child: TextWidget(
-                              "See all",
+                              "Lihat Semua",
                               15,
-                              Colors.blue.shade600.withOpacity(.8),
+                              const Color.fromRGBO(193, 71, 233, 1),
                               FontWeight.bold,
                               letterSpace: 0,
                             )),
                       ],
                     ),
                   )),
-              doctorList(),
+              serviceList(),
               Align(
                   alignment: Alignment.bottomCenter,
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 400),
                     opacity: opacity,
                     child: CurvedNavigationBar(
-                        backgroundColor: Colors.white,
-                        items: const [
-                          Icon(
-                            Icons.home_filled,
-                            color: Color.fromRGBO(129, 12, 168, 1),
-                            size: 30,
-                          ),
-                          Icon(
-                            Icons.calendar_month_rounded,
-                            color: Color.fromRGBO(45, 3, 59, 1),
-                            size: 30,
-                          ),
-                          Icon(
-                            Icons.whatshot_outlined,
-                            color: Color.fromRGBO(45, 3, 59, 1),
-                            size: 30,
-                          ),
-                          Icon(
-                            Icons.account_circle_outlined,
-                            color: Color.fromRGBO(45, 3, 59, 1),
-                            size: 30,
-                          ),
-                        ]),
+                      color: const Color.fromRGBO(45, 3, 59, 1),
+                      backgroundColor: Colors.white,
+                      buttonBackgroundColor: const Color.fromRGBO(45, 3, 59, 1),
+                      height: 60,
+                      items: const [
+                        Icon(
+                          Icons.home_filled,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        Icon(
+                          Icons.add_circle,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        Icon(
+                          Icons.history_rounded,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        Icon(
+                          Icons.person,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ],
+                    ),
                   ))
             ],
           ),
@@ -239,33 +243,32 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget doctorList() {
+  Widget serviceList() {
     return AnimatedPositioned(
-        top: position ? 460 : 550,
-        left: 20,
-        right: 20,
+      top: position ? 380 : 470,
+      left: 20,
+      right: 20,
+      duration: const Duration(milliseconds: 400),
+      child: AnimatedOpacity(
         duration: const Duration(milliseconds: 400),
-        child: AnimatedOpacity(
-          duration: const Duration(milliseconds: 400),
-          opacity: opacity,
-          child: AnimatedOpacity(
-            opacity: opacity,
-            duration: const Duration(milliseconds: 300),
-            child: SizedBox(
-              height: 270,
-              width: MediaQuery.of(context).size.width,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    doctorCard(names[0], spacilality[0], images[0]),
-                    doctorCard(names[1], spacilality[1], images[1]),
-                    doctorCard(names[2], spacilality[2], images[2]),
-                  ],
-                ),
-              ),
+        opacity: opacity,
+        child: SizedBox(
+          height: 220,
+          width: MediaQuery.of(context).size.width,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                doctorCard(names[0], spacilality[0], images[0]),
+                doctorCard(names[1], spacilality[1], images[1]),
+                doctorCard(names[2], spacilality[2], images[2]),
+                doctorCard(names[2], spacilality[2], images[2]),
+                doctorCard(names[2], spacilality[2], images[2]),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Widget doctorCard(String name, String specialist, AssetImage image) {
@@ -275,7 +278,7 @@ class _HomeState extends State<Home> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: SizedBox(
-        height: 120,
+        height: 100,
         width: double.infinity,
         child: Row(
           children: [
@@ -310,43 +313,7 @@ class _HomeState extends State<Home> {
                   FontWeight.bold,
                   letterSpace: 0,
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.star,
-                      color: Colors.orangeAccent,
-                    ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.orangeAccent,
-                    ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.orangeAccent,
-                    ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.orangeAccent,
-                    ),
-                    Icon(
-                      Icons.star,
-                      color: Colors.orangeAccent,
-                    ),
-                  ],
-                ),
               ],
-            ),
-            const Spacer(),
-            const Icon(
-              Icons.navigation_sharp,
-              color: Colors.blue,
-            ),
-            const SizedBox(
-              width: 20,
             ),
           ],
         ),
@@ -356,7 +323,7 @@ class _HomeState extends State<Home> {
 
   Widget categoryRow() {
     return AnimatedPositioned(
-        top: position ? 320 : 420,
+        top: position ? 250 : 420,
         left: 25,
         right: 25,
         duration: const Duration(milliseconds: 400),
@@ -368,10 +335,10 @@ class _HomeState extends State<Home> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                category("lib/images/capsule.png", "Drug", 5),
-                category("lib/images/virus.png", "Virus", 10),
-                category("lib/images/heart.png", "Physo", 10),
-                category("lib/images/app.png", "Other", 12),
+                category("lib/images/icon_cleaning_service.png", "Cleaner", 5),
+                category("lib/images/icon_driver.png", "Driver", 5),
+                category("lib/images/icon_housekeeping.png", "Housekeeper", 5),
+                category("lib/images/icon_security.png", "Security", 5),
               ],
             ),
           ),
@@ -406,7 +373,7 @@ class _HomeState extends State<Home> {
         ),
         TextWidget(
           txt,
-          16,
+          12,
           Colors.black,
           FontWeight.bold,
           letterSpace: 1,
