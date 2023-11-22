@@ -7,6 +7,8 @@ import 'package:outsourcing/components/text_widget.dart';
 import 'Chat.dart';
 
 class SeeAll extends StatefulWidget {
+  const SeeAll({super.key});
+
   @override
   State<SeeAll> createState() => _SeeAllState();
 }
@@ -40,13 +42,13 @@ class _SeeAllState extends State<SeeAll> {
     return Scaffold(
       body: Container(
         color: Colors.white,
-        padding: EdgeInsets.only(top: 70),
+        padding: const EdgeInsets.only(top: 70),
         height: size.height,
         width: size.width,
         child: Stack(
           children: [
             AnimatedPositioned(
-              duration: Duration(milliseconds: 400),
+              duration: const Duration(milliseconds: 400),
               top: position ? 1 : 50,
               left: 20,
               right: 20,
@@ -56,22 +58,22 @@ class _SeeAllState extends State<SeeAll> {
                 top: position ? 60 : 120,
                 right: 20,
                 left: 20,
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 child: findDoctor()),
             AnimatedPositioned(
                 top: position ? 390 : 450,
                 right: 20,
                 left: 20,
-                duration: Duration(milliseconds: 400),
+                duration: const Duration(milliseconds: 400),
                 child: AnimatedOpacity(
                   opacity: opacity,
-                  duration: Duration(milliseconds: 400),
-                  child: Container(
+                  duration: const Duration(milliseconds: 400),
+                  child: SizedBox(
                     width: size.width,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextWidget(
+                        const TextWidget(
                           "Nearby Doctors",
                           22,
                           Colors.black,
@@ -93,11 +95,11 @@ class _SeeAllState extends State<SeeAll> {
                 top: position ? 430 : 500,
                 left: 20,
                 right: 20,
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
                 child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 500),
                     opacity: opacity,
-                    child: Container(
+                    child: SizedBox(
                       height: 350,
                       child: ListView.builder(
                         itemCount: 7,
@@ -112,7 +114,7 @@ class _SeeAllState extends State<SeeAll> {
                                   builder: (context) => Chat(
                                       image: images[index],
                                       name: names[index],
-                                      specialist: spacilality[index]),
+                                      specialist: desc[index]),
                                 ));
                             animator();
                           },
@@ -151,7 +153,7 @@ class _SeeAllState extends State<SeeAll> {
                                         height: 5,
                                       ),
                                       TextWidget(
-                                        spacilality[index],
+                                        desc[index],
                                         17,
                                         Colors.black,
                                         FontWeight.bold,
@@ -231,14 +233,14 @@ class _SeeAllState extends State<SeeAll> {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Positioned(
+              const Positioned(
                   top: 25,
                   left: 20,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         backgroundColor: Colors.white,
                         radius: 30,
                         child: Center(
@@ -248,13 +250,13 @@ class _SeeAllState extends State<SeeAll> {
                           ),
                         ),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 10,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(
+                          SizedBox(
                             height: 10,
                           ),
                           TextWidget(
@@ -264,7 +266,7 @@ class _SeeAllState extends State<SeeAll> {
                             FontWeight.bold,
                             letterSpace: 0,
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 5,
                           ),
                           Column(
@@ -338,7 +340,7 @@ class _SeeAllState extends State<SeeAll> {
               size: 25,
             ),
           ),
-          TextWidget("Our Doctors", 25, Colors.black, FontWeight.bold),
+          const TextWidget("Our Doctors", 25, Colors.black, FontWeight.bold),
           const Icon(
             Icons.search,
             color: Colors.black,

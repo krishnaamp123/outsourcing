@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
                         children: [
                           TextWidget("Halo", 15, Colors.black.withOpacity(.7),
                               FontWeight.bold),
-                          TextWidget(
+                          const TextWidget(
                               "Krishna", 20, Colors.black, FontWeight.bold),
                         ],
                       ),
@@ -102,6 +102,7 @@ class _HomeState extends State<Home> {
                   duration: const Duration(milliseconds: 400),
                   opacity: opacity,
                   child: Card(
+                    elevation: 2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
@@ -163,10 +164,10 @@ class _HomeState extends State<Home> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextWidget(
-                          "Layanan kami",
+                        const TextWidget(
+                          "Paket Layanan",
                           20,
-                          const Color.fromRGBO(45, 3, 59, 1),
+                          Color.fromRGBO(45, 3, 59, 1),
                           FontWeight.bold,
                           letterSpace: 0,
                         ),
@@ -183,7 +184,7 @@ class _HomeState extends State<Home> {
                               // ignore: use_build_context_synchronously
                               await Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
-                                  return SeeAll();
+                                  return const SeeAll();
                                 },
                               ));
 
@@ -191,10 +192,10 @@ class _HomeState extends State<Home> {
                                 animator();
                               });
                             },
-                            child: TextWidget(
+                            child: const TextWidget(
                               "Lihat Semua",
                               15,
-                              const Color.fromRGBO(193, 71, 233, 1),
+                              Color.fromRGBO(193, 71, 233, 1),
                               FontWeight.bold,
                               letterSpace: 0,
                             )),
@@ -219,7 +220,7 @@ class _HomeState extends State<Home> {
                           size: 30,
                         ),
                         Icon(
-                          Icons.add_circle,
+                          Icons.payment,
                           color: Colors.white,
                           size: 30,
                         ),
@@ -253,16 +254,16 @@ class _HomeState extends State<Home> {
         duration: const Duration(milliseconds: 400),
         opacity: opacity,
         child: SizedBox(
-          height: 220,
+          height: 300,
           width: MediaQuery.of(context).size.width,
           child: SingleChildScrollView(
             child: Column(
               children: [
-                doctorCard(names[0], spacilality[0], images[0]),
-                doctorCard(names[1], spacilality[1], images[1]),
-                doctorCard(names[2], spacilality[2], images[2]),
-                doctorCard(names[2], spacilality[2], images[2]),
-                doctorCard(names[2], spacilality[2], images[2]),
+                paketLayanan(names[0], desc[0], images[0]),
+                paketLayanan(names[1], desc[1], images[1]),
+                paketLayanan(names[2], desc[2], images[2]),
+                paketLayanan(names[2], desc[2], images[2]),
+                paketLayanan(names[2], desc[2], images[2]),
               ],
             ),
           ),
@@ -271,7 +272,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget doctorCard(String name, String specialist, AssetImage image) {
+  Widget paketLayanan(String name, String desc, AssetImage image) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -283,35 +284,38 @@ class _HomeState extends State<Home> {
         child: Row(
           children: [
             const SizedBox(
-              width: 10,
+              width: 15,
             ),
             CircleAvatar(
               radius: 30,
               backgroundImage: image,
-              backgroundColor: Colors.blue,
+              backgroundColor: const Color.fromRGBO(193, 71, 233, 1),
             ),
             const SizedBox(
-              width: 10,
+              width: 15,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextWidget(
                   name,
-                  20,
-                  Colors.black,
+                  18,
+                  const Color.fromRGBO(45, 3, 59, 1),
                   FontWeight.bold,
                   letterSpace: 0,
+                  textAlign: TextAlign.left,
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 TextWidget(
-                  specialist,
-                  17,
-                  Colors.black,
-                  FontWeight.bold,
+                  desc,
+                  15,
+                  const Color.fromRGBO(193, 71, 233, 1),
+                  FontWeight.normal,
                   letterSpace: 0,
+                  textAlign: TextAlign.left,
                 ),
               ],
             ),
@@ -335,10 +339,11 @@ class _HomeState extends State<Home> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                category("lib/images/icon_cleaning_service.png", "Cleaner", 5),
-                category("lib/images/icon_driver.png", "Driver", 5),
-                category("lib/images/icon_housekeeping.png", "Housekeeper", 5),
-                category("lib/images/icon_security.png", "Security", 5),
+                category("lib/images/icon/ic_cleaner.png", "Cleaner", 5),
+                category("lib/images/icon/ic_driver.png", "Driver", 5),
+                category(
+                    "lib/images/icon/ic_housekeeper.png", "Housekeeper", 5),
+                category("lib/images/icon/ic_policeman.png", "Security", 5),
               ],
             ),
           ),

@@ -1,29 +1,18 @@
 import 'package:flutter/material.dart';
 
 var images = const [
-  AssetImage('lib/images/doctor2.png'),
-  AssetImage('lib/images/doctor3.png'),
-  AssetImage('lib/images/doctor4.png'),
-  AssetImage('lib/images/doctor5.png'),
-  AssetImage('lib/images/doctor6.png'),
-  AssetImage('lib/images/doctor7.png'),
-  AssetImage('lib/images/doctor5.png'),
+  AssetImage('lib/images/icon/ic_security_event.png'),
+  AssetImage('lib/images/icon/ic_security_komplek.png'),
+  AssetImage('lib/images/icon/ic_security_kantor.png'),
 ];
 var names = [
-  "Dr. John Carter",
-  "Dr. Michaela Quinn",
-  "Dr. Frasier Crane",
-  "Dr. Leonard H.",
-  "Dr. Doogie Howser",
-  "Dr. Gregory",
-  "Dr. John Dorian",
+  "Security Event",
+  "Security Komplek",
+  "Security Kantor",
 ];
-var spacilality = [
-  "Anesthesiologists",
-  "Rectal Surgeons",
-  "Allergists/Immunologists",
+var desc = [
+  "pax: 15 Security, 1 Hari",
+  "pax: 2 Security, 1 Tahun",
+  "pax: 4 Security, 1 Bulan",
   "Critical Care Specialists",
-  "Endocrinologists",
-  "Family Physicians",
-  "Gastroenterologists",
 ];

@@ -93,7 +93,7 @@ class _ProfileState extends State<Profile> {
                           height: 5,
                         ),
                         TextWidget(
-                          spacilality[0],
+                          desc[0],
                           15,
                           Colors.black.withOpacity(.6),
                           FontWeight.bold,
@@ -139,7 +139,7 @@ class _ProfileState extends State<Profile> {
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    TextWidget(
+                                    const TextWidget(
                                       "4,5 from 5",
                                       23,
                                       Colors.black,
@@ -192,7 +192,7 @@ class _ProfileState extends State<Profile> {
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    TextWidget(
+                                    const TextWidget(
                                       "130 +",
                                       23,
                                       Colors.black,
@@ -241,7 +241,7 @@ class _ProfileState extends State<Profile> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextWidget(
+                        const TextWidget(
                             "Biography", 25, Colors.black, FontWeight.bold),
                         const SizedBox(
                           height: 20,
@@ -264,7 +264,7 @@ class _ProfileState extends State<Profile> {
                 child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 400),
                     opacity: opacity,
-                    child: TextWidget(
+                    child: const TextWidget(
                       " Read more",
                       15,
                       Colors.blue,
@@ -287,7 +287,7 @@ class _ProfileState extends State<Profile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextWidget(
+                        const TextWidget(
                             "Shedule", 25, Colors.black, FontWeight.bold),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -303,7 +303,7 @@ class _ProfileState extends State<Profile> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: Column(
+                                child: const Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     TextWidget(
@@ -335,7 +335,7 @@ class _ProfileState extends State<Profile> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: Column(
+                                child: const Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     TextWidget(
@@ -360,7 +360,7 @@ class _ProfileState extends State<Profile> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: Column(
+                                child: const Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     TextWidget(
@@ -385,7 +385,7 @@ class _ProfileState extends State<Profile> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: Column(
+                                child: const Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     TextWidget(
@@ -433,7 +433,7 @@ class _ProfileState extends State<Profile> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          TextWidget(
+                          const TextWidget(
                             "Make an appointment",
                             18,
                             Colors.white,
