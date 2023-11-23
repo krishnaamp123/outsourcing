@@ -52,10 +52,10 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
               child: AnimatedOpacity(
                 opacity: opacity,
                 duration: const Duration(milliseconds: 400),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     TextWidget(
@@ -65,7 +65,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                       FontWeight.bold,
                       letterSpace: 5,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 5,
                     ),
                     TextWidget(
@@ -75,7 +75,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                       FontWeight.bold,
                       letterSpace: 5,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 5,
                     ),
                     TextWidget(
@@ -85,7 +85,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                       FontWeight.bold,
                       letterSpace: 5,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 5,
                     ),
                     TextWidget(
@@ -95,7 +95,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                       FontWeight.bold,
                       letterSpace: 5,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     TextWidget("Cari Jasa Outsourcing?\nOutsourcingApp Aja!",
@@ -133,7 +133,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                       decoration: BoxDecoration(
                           color: const Color.fromRGBO(45, 3, 59, 1),
                           borderRadius: BorderRadius.circular(10)),
-                      child: Center(
+                      child: const Center(
                         child: TextWidget(
                           "Mulai",
                           17,

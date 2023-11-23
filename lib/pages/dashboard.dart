@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/list.dart';
 import 'package:outsourcing/pages/see_all.dart';
@@ -203,40 +203,6 @@ class _HomeState extends State<Home> {
                     ),
                   )),
               serviceList(),
-              Align(
-                  alignment: Alignment.bottomCenter,
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 400),
-                    opacity: opacity,
-                    child: CurvedNavigationBar(
-                      color: const Color.fromRGBO(45, 3, 59, 1),
-                      backgroundColor: Colors.white,
-                      buttonBackgroundColor: const Color.fromRGBO(45, 3, 59, 1),
-                      height: 60,
-                      items: const [
-                        Icon(
-                          Icons.home_filled,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                        Icon(
-                          Icons.payment,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                        Icon(
-                          Icons.history_rounded,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                        Icon(
-                          Icons.person,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ],
-                    ),
-                  ))
             ],
           ),
         ),

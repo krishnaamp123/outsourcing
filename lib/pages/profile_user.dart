@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-class Order extends StatefulWidget {
-  const Order({super.key});
+class ProfileUser extends StatefulWidget {
+  const ProfileUser({super.key});
 
   @override
-  State<Order> createState() => _OrderState();
+  State<ProfileUser> createState() => _ProfileUserState();
 }
 
-class _OrderState extends State<Order> {
+class _ProfileUserState extends State<ProfileUser> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
         child: Text(
-          "Order",
+          "Profile",
           style: TextStyle(fontSize: 30),
         ),
       ),

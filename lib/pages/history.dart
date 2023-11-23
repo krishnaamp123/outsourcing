@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-class Order extends StatefulWidget {
-  const Order({super.key});
+class History extends StatefulWidget {
+  const History({super.key});
 
   @override
-  State<Order> createState() => _OrderState();
+  State<History> createState() => _HistoryState();
 }
 
-class _OrderState extends State<Order> {
+class _HistoryState extends State<History> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
         child: Text(
-          "Order",
+          "History",
           style: TextStyle(fontSize: 30),
         ),
       ),
