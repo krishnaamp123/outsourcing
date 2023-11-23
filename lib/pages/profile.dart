@@ -1,18 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/list.dart';
 import 'package:outsourcing/pages/oppoinment.dart';
 
 class Profile extends StatefulWidget {
   final AssetImage image;
   final String name;
-  final String speciality;
+  final String desc;
   const Profile(
-      {super.key,
-      required this.image,
-      required this.name,
-      required this.speciality});
+      {super.key, required this.image, required this.name, required this.desc});
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -83,7 +79,7 @@ class _ProfileState extends State<Profile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextWidget(
-                          names[0],
+                          widget.name,
                           25,
                           Colors.black,
                           FontWeight.bold,
@@ -93,7 +89,7 @@ class _ProfileState extends State<Profile> {
                           height: 5,
                         ),
                         TextWidget(
-                          desc[0],
+                          widget.desc,
                           15,
                           Colors.black.withOpacity(.6),
                           FontWeight.bold,

@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:outsourcing/list.dart';
-import 'package:outsourcing/pages/dashboard.dart';
+import 'package:outsourcing/main.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'Chat.dart';
+import 'package:outsourcing/pages/Profile.dart';
 
 class SeeAll extends StatefulWidget {
   const SeeAll({super.key});
@@ -42,7 +41,7 @@ class _SeeAllState extends State<SeeAll> {
     return Scaffold(
       body: Container(
         color: Colors.white,
-        padding: const EdgeInsets.only(top: 70),
+        padding: const EdgeInsets.only(top: 60),
         height: size.height,
         width: size.width,
         child: Stack(
@@ -59,9 +58,9 @@ class _SeeAllState extends State<SeeAll> {
                 right: 20,
                 left: 20,
                 duration: const Duration(milliseconds: 300),
-                child: findDoctor()),
+                child: info()),
             AnimatedPositioned(
-                top: position ? 390 : 450,
+                top: position ? 180 : 240,
                 right: 20,
                 left: 20,
                 duration: const Duration(milliseconds: 400),
@@ -70,20 +69,13 @@ class _SeeAllState extends State<SeeAll> {
                   duration: const Duration(milliseconds: 400),
                   child: SizedBox(
                     width: size.width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const TextWidget(
-                          "Nearby Doctors",
-                          22,
-                          Colors.black,
-                          FontWeight.bold,
-                          letterSpace: 0,
-                        ),
                         TextWidget(
-                          "See all",
-                          14,
-                          Colors.blue.shade900,
+                          "Semua Paket Layanan",
+                          20,
+                          Color.fromRGBO(45, 3, 59, 1),
                           FontWeight.bold,
                           letterSpace: 0,
                         ),
@@ -92,7 +84,7 @@ class _SeeAllState extends State<SeeAll> {
                   ),
                 )),
             AnimatedPositioned(
-                top: position ? 430 : 500,
+                top: position ? 220 : 290,
                 left: 20,
                 right: 20,
                 duration: const Duration(milliseconds: 500),
@@ -100,21 +92,21 @@ class _SeeAllState extends State<SeeAll> {
                     duration: const Duration(milliseconds: 500),
                     opacity: opacity,
                     child: SizedBox(
-                      height: 350,
+                      height: 460,
                       child: ListView.builder(
-                        itemCount: 7,
+                        itemCount: 6,
                         itemBuilder: (context, index) => InkWell(
                           onTap: () async {
                             animator();
                             await Future.delayed(
-                                const Duration(milliseconds: 500));
+                                const Duration(milliseconds: 400));
                             await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Chat(
+                                  builder: (context) => Profile(
                                       image: images[index],
                                       name: names[index],
-                                      specialist: desc[index]),
+                                      desc: desc[index]),
                                 ));
                             animator();
                           },
@@ -124,79 +116,47 @@ class _SeeAllState extends State<SeeAll> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: SizedBox(
-                              height: 120,
+                              height: 100,
                               width: double.infinity,
                               child: Row(
                                 children: [
                                   const SizedBox(
-                                    width: 20,
+                                    width: 15,
                                   ),
                                   CircleAvatar(
                                     radius: 30,
                                     backgroundImage: images[index],
-                                    backgroundColor: Colors.blue,
+                                    backgroundColor:
+                                        const Color.fromRGBO(193, 71, 233, 1),
                                   ),
                                   const SizedBox(
-                                    width: 10,
+                                    width: 15,
                                   ),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       TextWidget(
                                         names[index],
-                                        20,
-                                        Colors.black,
+                                        18,
+                                        const Color.fromRGBO(45, 3, 59, 1),
                                         FontWeight.bold,
                                         letterSpace: 0,
+                                        textAlign: TextAlign.left,
                                       ),
                                       const SizedBox(
                                         height: 5,
                                       ),
                                       TextWidget(
                                         desc[index],
-                                        17,
-                                        Colors.black,
-                                        FontWeight.bold,
+                                        15,
+                                        const Color.fromRGBO(193, 71, 233, 1),
+                                        FontWeight.normal,
                                         letterSpace: 0,
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      const Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.orangeAccent,
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.orangeAccent,
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.orangeAccent,
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.orangeAccent,
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.orangeAccent,
-                                          ),
-                                        ],
+                                        textAlign: TextAlign.left,
                                       ),
                                     ],
-                                  ),
-                                  const Spacer(),
-                                  const Icon(
-                                    Icons.navigation_sharp,
-                                    color: Colors.blue,
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
                                   ),
                                 ],
                               ),
@@ -211,107 +171,59 @@ class _SeeAllState extends State<SeeAll> {
     );
   }
 
-  Widget findDoctor() {
+  Widget info() {
     return AnimatedOpacity(
       duration: const Duration(milliseconds: 400),
       opacity: opacity,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Container(
-          height: 300,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.blue.shade700,
-                    Colors.blue.shade900,
-                    Colors.blue.shade900,
-                  ])),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              const Positioned(
-                  top: 25,
-                  left: 20,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 30,
-                        child: Center(
-                          child: Image(
-                            fit: BoxFit.fill,
-                            image: AssetImage('assets/images/p1.png'),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextWidget(
-                            "Find Doctors!",
-                            18,
-                            Colors.white,
-                            FontWeight.bold,
-                            letterSpace: 0,
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              TextWidget(
-                                "Use this feature to find a doctor\nclosest to you",
-                                15,
-                                Colors.white,
-                                FontWeight.normal,
-                                letterSpace: 0,
-                              ),
-                            ],
-                          ),
-                        ],
-                      )
-                    ],
-                  )),
-              Positioned(
-                  top: 115,
-                  left: 20,
-                  right: 20,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      height: 150,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage('assets/images/map.png'))),
+            height: 100,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromRGBO(229, 184, 244, 1),
+                      Color.fromRGBO(129, 12, 168, 1),
+                      Color.fromRGBO(45, 3, 59, 1),
+                    ])),
+            child: const Row(
+              children: [
+                SizedBox(width: 15),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextWidget(
+                      "OutsourcingApp Info :",
+                      18,
+                      Colors.white,
+                      FontWeight.bold,
+                      letterSpace: 0,
                     ),
-                  )),
-              const Positioned(
-                  top: 15,
-                  right: 15,
-                  child: Icon(
-                    Icons.close_outlined,
-                    color: Colors.white,
-                    size: 15,
-                  ))
-            ],
-          ),
-        ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TextWidget(
+                          "Temukan paket layanan yang anda cari disini,\ndapatkan harga lebih murah dengan paket layanan",
+                          14,
+                          Colors.white,
+                          FontWeight.normal,
+                          letterSpace: 0,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            )),
       ),
     );
   }
@@ -321,7 +233,7 @@ class _SeeAllState extends State<SeeAll> {
       opacity: opacity,
       duration: const Duration(milliseconds: 400),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           InkWell(
             onTap: () {
@@ -330,22 +242,30 @@ class _SeeAllState extends State<SeeAll> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Home(),
+                      builder: (context) => const Start(),
                     ));
               });
             },
             child: const Icon(
               Icons.arrow_back_ios_rounded,
-              color: Colors.black,
-              size: 25,
+              color: Color.fromRGBO(45, 3, 59, 1),
+              size: 30,
             ),
           ),
-          const TextWidget("Our Doctors", 25, Colors.black, FontWeight.bold),
-          const Icon(
-            Icons.search,
-            color: Colors.black,
-            size: 25,
-          )
+          const Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextWidget(
+                  "Layanan Kami",
+                  25,
+                  Color.fromRGBO(45, 3, 59, 1),
+                  FontWeight.bold,
+                  letterSpace: 0,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

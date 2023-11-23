@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/list.dart';
@@ -228,8 +227,9 @@ class _HomeState extends State<Home> {
                 paketLayanan(names[0], desc[0], images[0]),
                 paketLayanan(names[1], desc[1], images[1]),
                 paketLayanan(names[2], desc[2], images[2]),
-                paketLayanan(names[2], desc[2], images[2]),
-                paketLayanan(names[2], desc[2], images[2]),
+                paketLayanan(names[3], desc[3], images[3]),
+                paketLayanan(names[4], desc[4], images[4]),
+                paketLayanan(names[5], desc[5], images[5]),
               ],
             ),
           ),
@@ -345,7 +345,7 @@ class _HomeState extends State<Home> {
         TextWidget(
           txt,
           12,
-          Colors.black,
+          const Color.fromRGBO(45, 3, 59, 1),
           FontWeight.bold,
           letterSpace: 1,
         ),
