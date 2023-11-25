@@ -3,7 +3,6 @@ import 'package:outsourcing/components/my_button.dart';
 import 'package:outsourcing/components/my_textfield.dart';
 import 'package:outsourcing/components/square_tile.dart';
 import 'package:outsourcing/main.dart';
-import 'package:outsourcing/pages/dashboard.dart';
 import 'package:outsourcing/pages/regis_page.dart';
 
 class LoginPage extends StatefulWidget {

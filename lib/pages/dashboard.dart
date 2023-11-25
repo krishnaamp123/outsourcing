@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/list.dart';
+import 'package:outsourcing/pages/file/list.dart';
 import 'package:outsourcing/pages/see_all.dart';
 
 class Home extends StatefulWidget {
@@ -294,8 +294,8 @@ class _HomeState extends State<Home> {
   Widget categoryRow() {
     return AnimatedPositioned(
         top: position ? 250 : 420,
-        left: 25,
-        right: 25,
+        left: 20,
+        right: 20,
         duration: const Duration(milliseconds: 400),
         child: AnimatedOpacity(
           duration: const Duration(milliseconds: 400),

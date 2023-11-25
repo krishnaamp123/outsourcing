@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:outsourcing/pages/dashboard.dart';
 import 'package:outsourcing/pages/history.dart';
 import 'package:outsourcing/pages/order.dart';
-import 'package:outsourcing/pages/profile_user.dart';
+import 'package:outsourcing/pages/profile/profile_user.dart';
 import 'package:outsourcing/pages/splash.dart';
 
 void main() {
@@ -96,7 +96,7 @@ class _StartState extends State<Start> {
         widget = const History();
         break;
       case 3:
-        widget = const ProfileUser();
+        widget = ProfileUser();
         break;
       default:
         widget = const Home();
