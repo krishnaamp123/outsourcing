@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outsourcing/components/my_button.dart';
 import 'package:outsourcing/components/profile/appbar_widget.dart';
 import 'package:outsourcing/pages/file/user_data.dart';
 import 'package:string_validator/string_validator.dart';
@@ -99,8 +100,9 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                       child: SizedBox(
                         width: 330,
                         height: 50,
-                        child: ElevatedButton(
-                          onPressed: () {
+                        child: MyButton(
+                          text: "Ubah",
+                          onTap: () {
                             // Validate returns true if the form is valid, or false otherwise.
                             if (_formKey.currentState!.validate() &&
                                 isAlpha(firstNameController.text +
@@ -111,10 +113,6 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                               Navigator.pop(context);
                             }
                           },
-                          child: const Text(
-                            'Update',
-                            style: TextStyle(fontSize: 15),
-                          ),
                         ),
                       )))
             ],

@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
 //Top Bar
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 400),
-                top: position ? 1 : 100,
+                top: position ? 1 : 1,
                 right: 20,
                 left: 20,
                 child: AnimatedOpacity(
@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
               ),
 //Slider
               AnimatedPositioned(
-                top: position ? 60 : 120,
+                top: position ? 60 : 60,
                 right: 20,
                 left: 20,
                 duration: const Duration(milliseconds: 400),
@@ -153,7 +153,7 @@ class _HomeState extends State<Home> {
               ),
               categoryRow(),
               AnimatedPositioned(
-                  top: position ? 350 : 430,
+                  top: position ? 350 : 350,
                   left: 20,
                   right: 20,
                   duration: const Duration(milliseconds: 400),
@@ -211,7 +211,7 @@ class _HomeState extends State<Home> {
 
   Widget serviceList() {
     return AnimatedPositioned(
-      top: position ? 380 : 470,
+      top: position ? 380 : 480,
       left: 20,
       right: 20,
       duration: const Duration(milliseconds: 400),
@@ -293,7 +293,7 @@ class _HomeState extends State<Home> {
 
   Widget categoryRow() {
     return AnimatedPositioned(
-        top: position ? 250 : 420,
+        top: position ? 250 : 250,
         left: 20,
         right: 20,
         duration: const Duration(milliseconds: 400),
