@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/my_button.dart';
-import 'package:outsourcing/components/profile/appbar_widget.dart';
-import 'package:outsourcing/pages/file/user_data.dart';
+import 'package:outsourcing/view/file/user_data.dart';
+import 'package:outsourcing/view/profile/components/appbar_widget.dart';
 import 'package:string_validator/string_validator.dart';
 
 // This class handles the Page to edit the Name Section of the User Profile.

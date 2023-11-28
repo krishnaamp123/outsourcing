@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:outsourcing/pages/file/list.dart';
+import 'package:outsourcing/view/file/list.dart';
 import 'package:outsourcing/main.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/pages/Profile.dart';
+import 'package:outsourcing/view/Profile.dart';
 
 class SeeAll extends StatefulWidget {
   const SeeAll({super.key});

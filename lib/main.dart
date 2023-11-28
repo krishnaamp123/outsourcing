@@ -1,11 +1,12 @@
+import 'package:outsourcing/core.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:outsourcing/pages/dashboard.dart';
-import 'package:outsourcing/pages/history.dart';
-import 'package:outsourcing/pages/order.dart';
-import 'package:outsourcing/pages/profile/profile_user.dart';
-import 'package:outsourcing/pages/splash.dart';
+import 'package:outsourcing/view/dashboard.dart';
+import 'package:outsourcing/view/history.dart';
+import 'package:outsourcing/view/order.dart';
+import 'package:outsourcing/view/profile/profile_user.dart';
+import 'package:outsourcing/view/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -96,7 +97,7 @@ class _StartState extends State<Start> {
         widget = const History();
         break;
       case 3:
-        widget = ProfileUser();
+        widget = const ProfileUser();
         break;
       default:
         widget = const Home();

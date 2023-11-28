@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:outsourcing/components/my_button.dart';
 import 'package:outsourcing/components/my_textfield.dart';
 import 'package:outsourcing/components/square_tile.dart';
-import 'package:outsourcing/main.dart';
-import 'package:outsourcing/pages/regis_page.dart';
+import 'package:outsourcing/view/login_page.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final Function()? onTap;
-  const LoginPage({super.key, this.onTap});
+  const RegisterPage({super.key, this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   //text editing controllers
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void signUserIn() {}
+  //sign user in method
+  void signUserUp() {}
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
 
               //welcome back, you've been missed!
               Text(
-                'Selamat Datang Di OutsourcingApp!',
+                'Ayo Buat Akun Kamu!',
                 style: TextStyle(
                   color: Colors.grey[700],
                   fontSize: 16,
@@ -66,33 +66,24 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: true,
               ),
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 5),
 
-              //forgot password?
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Lupa Password?',
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
-                  ],
-                ),
+              //confirm password textfield
+              MyTextField(
+                controller: passwordController,
+                hintText: 'Confirm Password',
+                obscureText: true,
               ),
 
               const SizedBox(height: 20),
 
               //sign in button
               MyButton(
-                text: "Masuk",
+                text: "Daftar",
                 onTap: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => const Start(),
-                    ),
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
                   );
                 },
               ),
@@ -130,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 20),
 
               //google + facebook sign in buttons
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   //google button
@@ -140,12 +131,12 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 20),
 
-              // not a member? register now
+              // login now
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Belum Punya Akun?',
+                    'Sudah Memiliki Akun?',
                     style: TextStyle(color: Colors.grey[700]),
                   ),
                   const SizedBox(width: 4),
@@ -154,11 +145,11 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const RegisterPage()),
+                            builder: (context) => const LoginPage()),
                       );
                     },
                     child: const Text(
-                      'Daftar Sekarang',
+                      'Masuk Sekarang',
                       style: TextStyle(
                         color: Color.fromRGBO(129, 12, 168, 1),
                         fontWeight: FontWeight.bold,

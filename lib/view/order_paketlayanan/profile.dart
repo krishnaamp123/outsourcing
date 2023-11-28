@@ -1,20 +1,21 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/pages/oppoinment.dart';
+import 'package:outsourcing/core.dart';
+import 'package:outsourcing/view/oppoinment.dart';
 
-class Profile extends StatefulWidget {
+class PaketLayanan extends StatefulWidget {
   final AssetImage image;
   final String name;
   final String desc;
-  const Profile(
+  const PaketLayanan(
       {super.key, required this.image, required this.name, required this.desc});
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<PaketLayanan> createState() => _PaketLayananState();
 }
 
-class _ProfileState extends State<Profile> {
+class _PaketLayananState extends State<PaketLayanan> {
   var animate = false;
   var opacity = 0.0;
   late Size size;
@@ -43,6 +44,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: buildAppBar(context),
       body: Container(
         color: Colors.white,
         padding: const EdgeInsets.only(top: 60),

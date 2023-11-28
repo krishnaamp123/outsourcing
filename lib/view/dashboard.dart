@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/pages/file/list.dart';
-import 'package:outsourcing/pages/see_all.dart';
+import 'package:outsourcing/view/file/list.dart';
+import 'package:outsourcing/view/see_all.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
