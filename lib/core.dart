@@ -23,7 +23,7 @@ export 'package:outsourcing/view/profile/edit_image.dart';
 export 'package:outsourcing/view/profile/edit_name.dart';
 export 'package:outsourcing/view/profile/edit_phone.dart';
 export 'package:outsourcing/view/profile/profile_user.dart';
-export 'package:outsourcing/view/order_paketlayanan/profile.dart';
+export 'package:outsourcing/view/order_paketlayanan/paket_layanan.dart';
 export 'package:outsourcing/view/regis_page.dart';
 export 'package:outsourcing/view/see_all.dart';
 export 'package:outsourcing/view/splash.dart';

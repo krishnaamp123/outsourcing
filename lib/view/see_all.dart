@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:outsourcing/core.dart';
 import 'package:outsourcing/view/file/list.dart';
 import 'package:outsourcing/main.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/view/Profile.dart';
+import 'package:outsourcing/view/order_paketlayanan/paket_layanan.dart';
 
 class SeeAll extends StatefulWidget {
   const SeeAll({super.key});
@@ -103,7 +104,7 @@ class _SeeAllState extends State<SeeAll> {
                             await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Profile(
+                                  builder: (context) => PaketLayanan(
                                       image: images[index],
                                       name: names[index],
                                       desc: desc[index]),

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
+import 'package:outsourcing/view/order_paketlayanan/widget/backbutton_widget.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/view/oppoinment.dart';
 
@@ -18,6 +19,7 @@ class PaketLayanan extends StatefulWidget {
 class _PaketLayananState extends State<PaketLayanan> {
   var animate = false;
   var opacity = 0.0;
+  bool position = false;
   late Size size;
 
   @override
@@ -30,12 +32,14 @@ class _PaketLayananState extends State<PaketLayanan> {
   }
 
   animator() {
-    if (opacity == 0.0) {
-      opacity = 1;
+    if (opacity == 1) {
+      opacity = 0;
       animate = true;
+      position = false;
     } else {
-      opacity = 0.0;
+      opacity = 1;
       animate = false;
+      position = true;
     }
     setState(() {});
   }
@@ -44,7 +48,6 @@ class _PaketLayananState extends State<PaketLayanan> {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: buildAppBar(context),
       body: Container(
         color: Colors.white,
         padding: const EdgeInsets.only(top: 60),
@@ -53,8 +56,22 @@ class _PaketLayananState extends State<PaketLayanan> {
         child: Stack(
           children: [
             AnimatedPositioned(
+              duration: const Duration(milliseconds: 400),
+              top: position ? 1 : 50,
+              left: 20,
+              right: 20,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 400),
+                opacity: opacity,
+                child: BackButtonWidget(
+                  animator: animator,
+                  context: context,
+                ),
+              ),
+            ),
+            AnimatedPositioned(
                 top: 1,
-                right: animate ? -100 : -200,
+                right: animate ? 10 : -200,
                 duration: const Duration(milliseconds: 400),
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 400),
