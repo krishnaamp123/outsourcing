@@ -47,7 +47,7 @@ class _BackButtonState extends State<BackButtonWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextWidget(
-                  "Layanan Kami",
+                  "Paket Layanan",
                   25,
                   Color.fromRGBO(45, 3, 59, 1),
                   FontWeight.bold,

@@ -224,12 +224,18 @@ class _HomeState extends State<Home> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                paketLayanan(names[0], desc[0], images[0]),
-                paketLayanan(names[1], desc[1], images[1]),
-                paketLayanan(names[2], desc[2], images[2]),
-                paketLayanan(names[3], desc[3], images[3]),
-                paketLayanan(names[4], desc[4], images[4]),
-                paketLayanan(names[5], desc[5], images[5]),
+                paketLayanan(names[0], desc[0], images[0], item[0], jumlah[0],
+                    hari[0], harga[0]),
+                paketLayanan(names[1], desc[1], images[1], item[1], jumlah[1],
+                    hari[1], harga[1]),
+                paketLayanan(names[2], desc[2], images[2], item[2], jumlah[2],
+                    hari[2], harga[2]),
+                paketLayanan(names[3], desc[3], images[3], item[3], jumlah[3],
+                    hari[3], harga[3]),
+                paketLayanan(names[4], desc[4], images[4], item[4], jumlah[4],
+                    hari[4], harga[4]),
+                paketLayanan(names[5], desc[5], images[5], item[5], jumlah[5],
+                    hari[5], harga[5]),
               ],
             ),
           ),
@@ -238,7 +244,8 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget paketLayanan(String name, String desc, AssetImage image) {
+  Widget paketLayanan(String name, String desc, AssetImage image, String item,
+      String jumlah, String hari, String harga) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(

@@ -70,14 +70,14 @@ class _PaketLayananState extends State<PaketLayanan> {
               ),
             ),
             AnimatedPositioned(
-                top: 1,
-                right: animate ? 10 : -200,
+                top: 60,
+                right: animate ? -90 : -190,
                 duration: const Duration(milliseconds: 400),
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 400),
                   opacity: opacity,
                   child: Container(
-                    height: size.height / 2,
+                    height: size.height / 4,
                     width: size.width,
                     decoration: BoxDecoration(
                         image: DecorationImage(
@@ -85,21 +85,21 @@ class _PaketLayananState extends State<PaketLayanan> {
                   ),
                 )),
             AnimatedPositioned(
-                left: animate ? 1 : -100,
+                left: animate ? 60 : 10,
                 duration: const Duration(milliseconds: 400),
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 400),
                   opacity: opacity,
                   child: Container(
-                    padding: const EdgeInsets.only(top: 80, left: 20),
-                    height: size.height / 2,
+                    padding: const EdgeInsets.only(top: 60, left: 20),
+                    height: size.height,
                     width: size.width,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextWidget(
                           widget.name,
-                          25,
+                          20,
                           Colors.black,
                           FontWeight.bold,
                           letterSpace: 0,
@@ -115,7 +115,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                           letterSpace: 0,
                         ),
                         const SizedBox(
-                          height: 50,
+                          height: 10,
                         ),
                         Row(
                           children: [
@@ -125,12 +125,12 @@ class _PaketLayananState extends State<PaketLayanan> {
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: const SizedBox(
-                                height: 60,
-                                width: 60,
+                                height: 50,
+                                width: 50,
                                 child: Center(
                                   child: Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
+                                    Icons.attach_money,
+                                    color: Colors.green,
                                     size: 30,
                                   ),
                                 ),
@@ -145,18 +145,18 @@ class _PaketLayananState extends State<PaketLayanan> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     TextWidget(
-                                      "Rating",
-                                      17,
+                                      "Harga",
+                                      15,
                                       Colors.black.withOpacity(.5),
                                       FontWeight.bold,
                                       letterSpace: 0,
                                     ),
                                     const SizedBox(
-                                      height: 10,
+                                      height: 5,
                                     ),
                                     const TextWidget(
-                                      "4,5 from 5",
-                                      23,
+                                      "Rp.3.000.000",
+                                      18,
                                       Colors.black,
                                       FontWeight.bold,
                                       letterSpace: 0,
@@ -168,65 +168,45 @@ class _PaketLayananState extends State<PaketLayanan> {
                           ],
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
-                        Row(
-                          children: [
-                            Card(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: const SizedBox(
-                                height: 60,
-                                width: 60,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.people_rounded,
-                                    color: Colors.blue,
-                                    size: 30,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Row(
+                        Card(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: const SizedBox(
+                            height: 50,
+                            width: 180,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextWidget(
-                                      "Patient",
-                                      17,
-                                      Colors.black.withOpacity(.5),
-                                      FontWeight.bold,
-                                      letterSpace: 0,
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    const TextWidget(
-                                      "130 +",
-                                      23,
-                                      Colors.black,
-                                      FontWeight.bold,
-                                      letterSpace: 0,
-                                    ),
-                                  ],
-                                )
+                                Icon(
+                                  Icons.download,
+                                  color: Colors.blue,
+                                  size: 30,
+                                ),
+                                SizedBox(
+                                  height: 0,
+                                ),
+                                TextWidget(
+                                  "Unduh MOU",
+                                  18,
+                                  Colors.black,
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                ),
                               ],
-                            )
-                          ],
-                        )
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 )),
             AnimatedPositioned(
-                top: 300,
-                right: animate ? 1 : -50,
+                top: 200,
+                right: animate ? 80 : -30,
                 duration: const Duration(milliseconds: 400),
                 child: Container(
                   height: 150,
@@ -242,259 +222,78 @@ class _PaketLayananState extends State<PaketLayanan> {
                       ])),
                 )),
             AnimatedPositioned(
-                top: animate ? 380 : 480,
-                left: 1,
-                right: 1,
+              top: position ? 280 : 240,
+              right: 20,
+              left: 20,
+              duration: const Duration(milliseconds: 400),
+              child: AnimatedOpacity(
+                opacity: opacity,
                 duration: const Duration(milliseconds: 400),
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: Container(
-                    padding: const EdgeInsets.only(left: 20, right: 40),
-                    height: size.height / 5,
-                    width: size.width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const TextWidget(
-                            "Biography", 25, Colors.black, FontWeight.bold),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextWidget(
-                          "Famous doctor, hygienist, folklore researcher and sanitary mentor, Charles Laugier, whose contribution to the development",
-                          15,
-                          Colors.black.withOpacity(.5),
-                          FontWeight.normal,
-                          letterSpace: 0,
-                        ),
-                      ],
-                    ),
+                child: SizedBox(
+                  width: size.width,
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      TextWidget(
+                        "Semua Paket Layanan",
+                        20,
+                        Color.fromRGBO(45, 3, 59, 1),
+                        FontWeight.bold,
+                        letterSpace: 0,
+                      ),
+                    ],
                   ),
-                )),
+                ),
+              ),
+            ),
             AnimatedPositioned(
-                top: animate ? 465 : 560,
-                right: 80,
-                duration: const Duration(milliseconds: 400),
-                child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 400),
-                    opacity: opacity,
-                    child: const TextWidget(
-                      " Read more",
-                      15,
-                      Colors.blue,
-                      FontWeight.bold,
-                      letterSpace: 0,
-                    ))),
-            AnimatedPositioned(
-                left: 20,
-                right: 20,
-                bottom: animate ? 80 : -20,
-                duration: const Duration(milliseconds: 400),
-                child: AnimatedOpacity(
-                  opacity: opacity,
-                  duration: const Duration(milliseconds: 400),
-                  child: Container(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    height: 130,
-                    width: size.width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const TextWidget(
-                            "Shedule", 25, Colors.black, FontWeight.bold),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              top: position ? 320 : 290,
+              left: 20,
+              right: 20,
+              duration: const Duration(milliseconds: 500),
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 500),
+                opacity: opacity,
+                child: SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                    itemCount: 6,
+                    itemBuilder: (context, index) => Card(
+                      child: SizedBox(
+                        height: 50,
+                        width: double.infinity,
+                        child: Row(
                           children: [
-                            Card(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: const Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    TextWidget(
-                                      "19",
-                                      15,
-                                      Colors.black,
-                                      FontWeight.bold,
-                                      letterSpace: 0,
-                                    ),
-                                    TextWidget(
-                                      "Thu",
-                                      15,
-                                      Colors.black,
-                                      FontWeight.bold,
-                                      letterSpace: 0,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            const SizedBox(
+                              width: 15,
                             ),
-                            Card(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: const Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    TextWidget(
-                                      "20",
-                                      15,
-                                      Colors.black,
-                                      FontWeight.bold,
-                                      letterSpace: 0,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            TextWidget(
+                              item[index],
+                              18,
+                              const Color.fromRGBO(45, 3, 59, 1),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
                             ),
-                            Card(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: const Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    TextWidget(
-                                      "21",
-                                      15,
-                                      Colors.black,
-                                      FontWeight.bold,
-                                      letterSpace: 0,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            const SizedBox(
+                              height: 5,
                             ),
-                            Card(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: const Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    TextWidget(
-                                      "22",
-                                      15,
-                                      Colors.black,
-                                      FontWeight.bold,
-                                      letterSpace: 0,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            TextWidget(
+                              harga[index],
+                              15,
+                              const Color.fromRGBO(193, 71, 233, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
                             ),
                           ],
-                        )
-                      ],
-                    ),
-                  ),
-                )),
-            AnimatedPositioned(
-                bottom: animate ? 15 : -80,
-                left: 30,
-                right: 30,
-                duration: const Duration(milliseconds: 400),
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: InkWell(
-                    onTap: () async {
-                      animator();
-                      await Future.delayed(const Duration(milliseconds: 400));
-                      await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Oppointment(0)));
-                      animator();
-                    },
-                    child: Container(
-                      height: 65,
-                      width: size.width,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.blue.shade900,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const TextWidget(
-                            "Make an appointment",
-                            18,
-                            Colors.white,
-                            FontWeight.w500,
-                            letterSpace: 1,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          const Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            color: Colors.white,
-                            size: 18,
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            color: Colors.white.withOpacity(.5),
-                            size: 18,
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            color: Colors.white.withOpacity(.2),
-                            size: 18,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                )),
-            AnimatedPositioned(
-                top: animate ? 20 : 100,
-                left: 20,
-                duration: const Duration(milliseconds: 400),
-                child: AnimatedOpacity(
-                    opacity: opacity,
-                    duration: const Duration(milliseconds: 400),
-                    child: InkWell(
-                      onTap: () {
-                        animator();
-                        Navigator.pop(context);
-                      },
-                      child: const Icon(
-                        Icons.arrow_back_ios_new_sharp,
-                        color: Colors.black,
-                      ),
-                    ))),
+                ),
+              ),
+            ),
           ],
         ),
       ),

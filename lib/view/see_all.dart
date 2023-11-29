@@ -107,7 +107,12 @@ class _SeeAllState extends State<SeeAll> {
                                   builder: (context) => PaketLayanan(
                                       image: images[index],
                                       name: names[index],
-                                      desc: desc[index]),
+                                      desc: desc[index]
+                                      item: item[index]
+                                      jumlah: jumlah[index]
+                                      hari: hari[index]
+                                      harga: harga[index]
+                                      ),
                                 ));
                             animator();
                           },
