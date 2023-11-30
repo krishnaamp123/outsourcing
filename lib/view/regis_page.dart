@@ -13,9 +13,12 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final _formKey = GlobalKey<FormState>();
   //text editing controllers
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  String? _usernameError;
+  String? _passwordError;
 
   //sign user in method
   void signUserUp() {}
@@ -51,58 +54,146 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 10),
 
               //username textfield
-              // MyTextField(
-              //   controller: usernameController,
-              //   hintText: 'Email',
-              //   obscureText: false,
-              //   validator: (value) {
-              //     if (value == null || value.isEmpty) {
-              //       return 'Masukkan Email';
-              //     }
-              //     return null;
-              //   },
-              // ),
+              MyTextField(
+                controller: usernameController,
+                hintText: 'Email',
+                obscureText: false,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Masukkan username';
+                  }
+                  return null;
+                },
+                onChanged: (_) {
+                  setState(() {
+                    _usernameError = null;
+                  });
+                },
+              ),
+              _usernameError != null
+                  ? Container(
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.only(left: 30.0),
+                      child: Text(
+                        _usernameError!,
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    )
+                  : SizedBox(),
 
               const SizedBox(height: 5),
 
               //password textfield
-              // MyTextField(
-              //   controller: passwordController,
-              //   hintText: 'Password',
-              //   obscureText: true,
-              //   validator: (value) {
-              //     if (value == null || value.isEmpty) {
-              //       return 'Masukkan Password';
-              //     }
-              //     return null;
-              //   },
-              // ),
+              MyTextField(
+                controller: passwordController,
+                hintText: 'Password',
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Masukkan password';
+                  }
+                  return null;
+                },
+                onChanged: (_) {
+                  setState(() {
+                    _passwordError = null;
+                  });
+                },
+              ),
+              _passwordError != null
+                  ? Container(
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.only(left: 30.0),
+                      child: Text(
+                        _passwordError!,
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    )
+                  : SizedBox(),
 
               const SizedBox(height: 5),
 
               //confirm password textfield
-              // MyTextField(
-              //   controller: passwordController,
-              //   hintText: 'Confirm Password',
-              //   obscureText: true,
-              //   validator: (value) {
-              //     if (value == null || value.isEmpty) {
-              //       return 'Masukkan Password';
-              //     }
-              //     return null;
-              //   },
-              // ),
+              MyTextField(
+                controller: passwordController,
+                hintText: 'Confirm Password',
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Masukkan password';
+                  }
+                  return null;
+                },
+                onChanged: (_) {
+                  setState(() {
+                    _passwordError = null;
+                  });
+                },
+              ),
+              _passwordError != null
+                  ? Container(
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.only(left: 30.0),
+                      child: Text(
+                        _passwordError!,
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    )
+                  : SizedBox(),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
 
               //sign in button
               MyButton(
                 text: "Daftar",
                 onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
+                  if (_formKey.currentState!.validate()) {
+                    String username = usernameController.text;
+                    String password = passwordController.text;
+                    // Cek kembali apakah bidang input kosong sebelum navigasi
+                    if (username.isEmpty) {
+                      setState(() {
+                        _usernameError = 'Masukkan username';
+                        _passwordError = null;
+                      });
+                    } else if (password.isEmpty) {
+                      setState(() {
+                        _passwordError = 'Masukkan password';
+                        _usernameError = null;
+                      });
+                    } else {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginPage(),
+                        ),
+                      );
+                    }
+                  } else {
+                    setState(() {
+                      _usernameError = usernameController.text.isEmpty
+                          ? 'Masukkan username'
+                          : null;
+                      _passwordError = passwordController.text.isEmpty
+                          ? 'Masukkan password'
+                          : null;
+                    });
+                  }
                 },
               ),
 

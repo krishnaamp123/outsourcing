@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:outsourcing/view/order_layanan/widget/backbutton_widget.dart';
 
 class CleanerPage extends StatefulWidget {
   const CleanerPage({Key? key}) : super(key: key);
@@ -10,16 +11,59 @@ class CleanerPage extends StatefulWidget {
 }
 
 class _CleanerPageState extends State<CleanerPage> {
+  var animate = false;
+  var opacity = 0.0;
+  bool position = false;
+  late Size size;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      animator();
+    });
+  }
+
+  animator() {
+    if (opacity == 1) {
+      opacity = 0;
+      animate = true;
+      position = false;
+    } else {
+      opacity = 1;
+      animate = false;
+      position = true;
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [],
+      body: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.only(top: 60),
+        height: size.height,
+        width: size.width,
+        child: Stack(children: [
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 400),
+            top: position ? 1 : 50,
+            left: 20,
+            right: 20,
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 400),
+              opacity: opacity,
+              child: BackButtonWidget(
+                animator: animator,
+                context: context,
+                labelText: 'Pesan Cleaner',
+              ),
+            ),
           ),
-        ),
+        ]),
       ),
     );
   }
