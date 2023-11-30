@@ -51,29 +51,47 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 10),
 
               //username textfield
-              MyTextField(
-                controller: usernameController,
-                hintText: 'Email',
-                obscureText: false,
-              ),
+              // MyTextField(
+              //   controller: usernameController,
+              //   hintText: 'Email',
+              //   obscureText: false,
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Masukkan Email';
+              //     }
+              //     return null;
+              //   },
+              // ),
 
               const SizedBox(height: 5),
 
               //password textfield
-              MyTextField(
-                controller: passwordController,
-                hintText: 'Password',
-                obscureText: true,
-              ),
+              // MyTextField(
+              //   controller: passwordController,
+              //   hintText: 'Password',
+              //   obscureText: true,
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Masukkan Password';
+              //     }
+              //     return null;
+              //   },
+              // ),
 
               const SizedBox(height: 5),
 
               //confirm password textfield
-              MyTextField(
-                controller: passwordController,
-                hintText: 'Confirm Password',
-                obscureText: true,
-              ),
+              // MyTextField(
+              //   controller: passwordController,
+              //   hintText: 'Confirm Password',
+              //   obscureText: true,
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Masukkan Password';
+              //     }
+              //     return null;
+              //   },
+              // ),
 
               const SizedBox(height: 20),
 

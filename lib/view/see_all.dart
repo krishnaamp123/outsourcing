@@ -7,7 +7,8 @@ import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/view/order_paketlayanan/paket_layanan.dart';
 
 class SeeAll extends StatefulWidget {
-  const SeeAll({super.key});
+  final String username;
+  const SeeAll({super.key, required this.username});
 
   @override
   State<SeeAll> createState() => _SeeAllState();
@@ -105,14 +106,11 @@ class _SeeAllState extends State<SeeAll> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => PaketLayanan(
-                                      image: images[index],
-                                      name: names[index],
-                                      desc: desc[index]
-                                      item: item[index]
-                                      jumlah: jumlah[index]
-                                      hari: hari[index]
-                                      harga: harga[index]
-                                      ),
+                                    image: images[index],
+                                    name: names[index],
+                                    desc: desc[index],
+                                    harga: harga[index],
+                                  ),
                                 ));
                             animator();
                           },
@@ -144,6 +142,14 @@ class _SeeAllState extends State<SeeAll> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       TextWidget(
+                                        harga[index],
+                                        0,
+                                        const Color.fromRGBO(45, 3, 59, 1),
+                                        FontWeight.bold,
+                                        letterSpace: 0,
+                                        textAlign: TextAlign.left,
+                                      ),
+                                      TextWidget(
                                         names[index],
                                         18,
                                         const Color.fromRGBO(45, 3, 59, 1),
@@ -157,8 +163,8 @@ class _SeeAllState extends State<SeeAll> {
                                       TextWidget(
                                         desc[index],
                                         15,
-                                        const Color.fromRGBO(193, 71, 233, 1),
-                                        FontWeight.normal,
+                                        Colors.black.withOpacity(.6),
+                                        FontWeight.bold,
                                         letterSpace: 0,
                                         textAlign: TextAlign.left,
                                       ),
@@ -235,6 +241,7 @@ class _SeeAllState extends State<SeeAll> {
   }
 
   Widget upperRow() {
+    String username = widget.username;
     return AnimatedOpacity(
       opacity: opacity,
       duration: const Duration(milliseconds: 400),
@@ -248,7 +255,7 @@ class _SeeAllState extends State<SeeAll> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Start(),
+                      builder: (context) => Start(username: username),
                     ));
               });
             },

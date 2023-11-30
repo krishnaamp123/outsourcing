@@ -25,12 +25,14 @@ class MyApp extends StatelessWidget {
         splashTransition: SplashTransition.fadeTransition,
         nextScreen: const Splash(),
       ),
+      theme: ThemeData(primarySwatch: Colors.purple),
     );
   }
 }
 
 class Start extends StatefulWidget {
-  const Start({super.key});
+  final String username;
+  const Start({Key? key, required this.username}) : super(key: key);
 
   @override
   State<Start> createState() => _StartState();
@@ -79,16 +81,16 @@ class _StartState extends State<Start> {
         height: 60,
       ),
       body: Container(
-        child: getSelectedWidget(index: index),
+        child: getSelectedWidget(index: index, username: widget.username),
       ),
     );
   }
 
-  Widget getSelectedWidget({required int index}) {
+  Widget getSelectedWidget({required int index, required String username}) {
     Widget widget;
     switch (index) {
       case 0:
-        widget = const Home();
+        widget = Home(username: username);
         break;
       case 1:
         widget = const Order();
@@ -100,7 +102,7 @@ class _StartState extends State<Start> {
         widget = const ProfileUser();
         break;
       default:
-        widget = const Home();
+        widget = Home(username: username);
         break;
     }
     return widget;

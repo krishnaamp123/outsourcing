@@ -3,14 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/view/order_paketlayanan/widget/backbutton_widget.dart';
 import 'package:outsourcing/core.dart';
-import 'package:outsourcing/view/oppoinment.dart';
+import 'package:outsourcing/view/order_paketlayanan/widget/buttonpesanan_widget.dart';
+import 'package:outsourcing/view/order_paketlayanan/widget/buttontanggal_widget.dart';
 
 class PaketLayanan extends StatefulWidget {
   final AssetImage image;
   final String name;
   final String desc;
+  final String harga;
+  final Function()? onTap;
   const PaketLayanan(
-      {super.key, required this.image, required this.name, required this.desc});
+      {super.key,
+      required this.image,
+      required this.name,
+      required this.desc,
+      required this.harga,
+      this.onTap});
 
   @override
   State<PaketLayanan> createState() => _PaketLayananState();
@@ -100,7 +108,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                         TextWidget(
                           widget.name,
                           20,
-                          Colors.black,
+                          const Color.fromRGBO(45, 3, 59, 1),
                           FontWeight.bold,
                           letterSpace: 0,
                         ),
@@ -147,17 +155,17 @@ class _PaketLayananState extends State<PaketLayanan> {
                                     TextWidget(
                                       "Harga",
                                       15,
-                                      Colors.black.withOpacity(.5),
+                                      Colors.black.withOpacity(.6),
                                       FontWeight.bold,
                                       letterSpace: 0,
                                     ),
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    const TextWidget(
-                                      "Rp.3.000.000",
+                                    TextWidget(
+                                      widget.harga,
                                       18,
-                                      Colors.black,
+                                      const Color.fromRGBO(45, 3, 59, 1),
                                       FontWeight.bold,
                                       letterSpace: 0,
                                     ),
@@ -192,7 +200,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                                 TextWidget(
                                   "Unduh MOU",
                                   18,
-                                  Colors.black,
+                                  const Color.fromRGBO(45, 3, 59, 1),
                                   FontWeight.bold,
                                   letterSpace: 0,
                                 ),
@@ -223,73 +231,33 @@ class _PaketLayananState extends State<PaketLayanan> {
                 )),
             AnimatedPositioned(
               top: position ? 280 : 240,
-              right: 20,
-              left: 20,
+              right: 30,
+              left: 30,
               duration: const Duration(milliseconds: 400),
               child: AnimatedOpacity(
                 opacity: opacity,
                 duration: const Duration(milliseconds: 400),
                 child: SizedBox(
                   width: size.width,
-                  child: const Row(
+                  child: const Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       TextWidget(
-                        "Semua Paket Layanan",
-                        20,
+                        "Tanggal Pemesanan",
+                        18,
                         Color.fromRGBO(45, 3, 59, 1),
                         FontWeight.bold,
                         letterSpace: 0,
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            AnimatedPositioned(
-              top: position ? 320 : 290,
-              left: 20,
-              right: 20,
-              duration: const Duration(milliseconds: 500),
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 500),
-                opacity: opacity,
-                child: SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    itemCount: 6,
-                    itemBuilder: (context, index) => Card(
-                      child: SizedBox(
-                        height: 50,
-                        width: double.infinity,
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            TextWidget(
-                              item[index],
-                              18,
-                              const Color.fromRGBO(45, 3, 59, 1),
-                              FontWeight.bold,
-                              letterSpace: 0,
-                              textAlign: TextAlign.left,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            TextWidget(
-                              harga[index],
-                              15,
-                              const Color.fromRGBO(193, 71, 233, 1),
-                              FontWeight.normal,
-                              letterSpace: 0,
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
-                        ),
+                      SizedBox(
+                        height: 15,
                       ),
-                    ),
+                      ButtonTanggal(),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      ButtonPesanan(),
+                    ],
                   ),
                 ),
               ),

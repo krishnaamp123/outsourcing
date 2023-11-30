@@ -3,10 +3,15 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/view/file/list.dart';
+import 'package:outsourcing/view/order_layanan/cleaner.dart';
+import 'package:outsourcing/view/order_layanan/driver.dart';
+import 'package:outsourcing/view/order_layanan/housekeeper.dart';
+import 'package:outsourcing/view/order_layanan/security.dart';
 import 'package:outsourcing/view/see_all.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  final String username;
+  const Home({Key? key, required this.username}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -39,6 +44,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    String username = widget.username;
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -71,21 +77,9 @@ class _HomeState extends State<Home> {
                         children: [
                           TextWidget("Halo", 15, Colors.black.withOpacity(.7),
                               FontWeight.bold),
-                          const TextWidget(
-                              "Krishna", 20, Colors.black, FontWeight.bold),
+                          TextWidget(
+                              username, 20, Colors.black, FontWeight.bold),
                         ],
-                      ),
-                      const Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Icon(
-                              Icons.notifications,
-                              size: 35, // Ukuran ikon
-                              color: Color.fromRGBO(45, 3, 59, 1), // Warna ikon
-                            )
-                          ],
-                        ),
                       ),
                     ],
                   ),
@@ -151,7 +145,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              categoryRow(),
+              categoryRow(context),
               AnimatedPositioned(
                   top: position ? 350 : 350,
                   left: 20,
@@ -183,7 +177,9 @@ class _HomeState extends State<Home> {
                               // ignore: use_build_context_synchronously
                               await Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
-                                  return const SeeAll();
+                                  return SeeAll(
+                                    username: username,
+                                  );
                                 },
                               ));
 
@@ -272,6 +268,14 @@ class _HomeState extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextWidget(
+                  harga,
+                  0,
+                  const Color.fromRGBO(45, 3, 59, 1),
+                  FontWeight.bold,
+                  letterSpace: 0,
+                  textAlign: TextAlign.left,
+                ),
+                TextWidget(
                   name,
                   18,
                   const Color.fromRGBO(45, 3, 59, 1),
@@ -285,8 +289,8 @@ class _HomeState extends State<Home> {
                 TextWidget(
                   desc,
                   15,
-                  const Color.fromRGBO(193, 71, 233, 1),
-                  FontWeight.normal,
+                  Colors.black.withOpacity(.6),
+                  FontWeight.bold,
                   letterSpace: 0,
                   textAlign: TextAlign.left,
                 ),
@@ -298,38 +302,93 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget categoryRow() {
+  Widget categoryRow(BuildContext context) {
     return AnimatedPositioned(
-        top: position ? 250 : 250,
-        left: 20,
-        right: 20,
+      top: position ? 250 : 250,
+      left: 20,
+      right: 20,
+      duration: const Duration(milliseconds: 400),
+      child: AnimatedOpacity(
         duration: const Duration(milliseconds: 400),
-        child: AnimatedOpacity(
-          duration: const Duration(milliseconds: 400),
-          opacity: opacity,
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                category("lib/images/icon/ic_cleaner.png", "Cleaner", 5),
-                category("lib/images/icon/ic_driver.png", "Driver", 5),
-                category(
-                    "lib/images/icon/ic_housekeeper.png", "Housekeeper", 5),
-                category("lib/images/icon/ic_policeman.png", "Security", 5),
-              ],
-            ),
+        opacity: opacity,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              category(
+                "lib/images/icon/ic_cleaner.png",
+                "Cleaner",
+                5,
+                () {
+                  // Navigasi ke halaman Cleaner
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CleanerPage(),
+                    ),
+                  );
+                },
+              ),
+              category(
+                "lib/images/icon/ic_driver.png",
+                "Driver",
+                5,
+                () {
+                  // Navigasi ke halaman Driver
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DriverPage(),
+                    ),
+                  );
+                },
+              ),
+              category(
+                "lib/images/icon/ic_housekeeper.png",
+                "Housekeeper",
+                5,
+                () {
+                  // Navigasi ke halaman Housekeeper
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HousekeeperPage(),
+                    ),
+                  );
+                },
+              ),
+              category(
+                "lib/images/icon/ic_policeman.png",
+                "Security",
+                5,
+                () {
+                  // Navigasi ke halaman Security
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SecurityPage(),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
-  Widget category(String asset, String txt, double padding) {
+  Widget category(
+      String asset, String txt, double padding, VoidCallback onTap) {
     return Column(
       children: [
         InkWell(
+          onTap: onTap, // Gunakan fungsi onTap yang diterima dari luar
           child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Container(
               padding: EdgeInsets.all(padding),
               height: 50,
@@ -349,12 +408,14 @@ class _HomeState extends State<Home> {
         const SizedBox(
           height: 5,
         ),
-        TextWidget(
+        Text(
           txt,
-          12,
-          const Color.fromRGBO(45, 3, 59, 1),
-          FontWeight.bold,
-          letterSpace: 1,
+          style: TextStyle(
+            fontSize: 12,
+            color: const Color.fromRGBO(45, 3, 59, 1),
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1,
+          ),
         ),
       ],
     );
