@@ -95,6 +95,7 @@ class _SeeAllState extends State<SeeAll> {
                     opacity: opacity,
                     child: SizedBox(
                       height: 460,
+                      width: MediaQuery.of(context).size.width,
                       child: ListView.builder(
                         itemCount: 6,
                         itemBuilder: (context, index) => InkWell(

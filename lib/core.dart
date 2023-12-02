@@ -15,7 +15,6 @@ export 'package:outsourcing/view/file/user.dart';
 export 'package:outsourcing/view/file/user_data.dart';
 export 'package:outsourcing/view/history.dart';
 export 'package:outsourcing/view/login_page.dart';
-export 'package:outsourcing/view/oppoinment.dart';
 export 'package:outsourcing/view/order.dart';
 export 'package:outsourcing/view/profile/edit_description.dart';
 export 'package:outsourcing/view/profile/edit_email.dart';
