@@ -48,6 +48,7 @@ dependencies:
   image_picker: ^1.0.4
   path_provider: ^2.1.1
   input_quantity: ^2.2.0
+  dropdown_button2: ^2.3.8
 
 dev_dependencies:
   flutter_test:

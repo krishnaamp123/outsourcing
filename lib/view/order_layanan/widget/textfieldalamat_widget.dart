@@ -3,13 +3,15 @@ import 'package:outsourcing/components/text_widget.dart';
 
 class TextFieldAlamat extends StatelessWidget {
   final controller;
-  final String hinttext;
+  final String upText;
+  final String hintText;
   final bool obscureText;
 
   const TextFieldAlamat({
     super.key,
     required this.controller,
-    required this.hinttext,
+    required this.upText,
+    required this.hintText,
     required this.obscureText,
     required String? Function(dynamic value) validator,
     required Null Function(dynamic _) onChanged,
@@ -23,7 +25,7 @@ class TextFieldAlamat extends StatelessWidget {
         Container(
           alignment: Alignment.centerLeft,
           child: TextWidget(
-            hinttext,
+            upText,
             15,
             const Color.fromRGBO(129, 12, 168, 1),
             FontWeight.normal,
@@ -53,6 +55,7 @@ class TextFieldAlamat extends StatelessWidget {
               ),
               fillColor: Colors.grey.withOpacity(0.1),
               filled: true,
+              hintText: hintText,
             ),
           ),
         )
