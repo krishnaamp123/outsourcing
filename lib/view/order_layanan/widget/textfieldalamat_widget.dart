@@ -45,15 +45,13 @@ class TextFieldAlamat extends StatelessWidget {
             decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.all(
-                    Radius.circular(10.0)), // Atur radius di sini
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey.shade400),
-                borderRadius: BorderRadius.all(
-                    Radius.circular(10.0)), // Atur radius di sini
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
-              fillColor: Colors.grey.withOpacity(0.1),
+              fillColor: Colors.white,
               filled: true,
               hintText: hintText,
             ),

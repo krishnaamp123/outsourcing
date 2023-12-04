@@ -1,118 +1,141 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:outsourcing/components/text_widget.dart';
 
-class DropdownItem extends StatefulWidget {
-  const DropdownItem({super.key});
+class CustomDropdown extends StatefulWidget {
+  final List<String> items;
+
+  const CustomDropdown({
+    Key? key,
+    required this.items,
+  }) : super(key: key);
 
   @override
-  State<DropdownItem> createState() => _DropdownItemState();
+  _CustomDropdownState createState() => _CustomDropdownState();
 }
 
-class _DropdownItemState extends State<DropdownItem> {
-  final List<String> items = [
-    'A_Item1',
-    'A_Item2',
-    'A_Item3',
-    'A_Item4',
-    'B_Item1',
-    'B_Item2',
-    'B_Item3',
-    'B_Item4',
-  ];
-
-  String? selectedValue;
-  final TextEditingController textEditingController = TextEditingController();
+class _CustomDropdownState extends State<CustomDropdown> {
+  late String? selectedValue;
+  late TextEditingController textEditingController;
 
   @override
-  void dispose() {
-    textEditingController.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    selectedValue = null;
+    textEditingController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton2<String>(
-            isExpanded: true,
-            hint: Text(
-              'Select Item',
-              style: TextStyle(
-                fontSize: 14,
-                color: Theme.of(context).hintColor,
-              ),
-            ),
-            items: items
-                .map((item) => DropdownMenuItem(
-                      value: item,
-                      child: Text(
-                        item,
-                        style: const TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
-                    ))
-                .toList(),
-            value: selectedValue,
-            onChanged: (value) {
-              setState(() {
-                selectedValue = value;
-              });
-            },
-            buttonStyleData: const ButtonStyleData(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              height: 40,
-              width: 200,
-            ),
-            dropdownStyleData: const DropdownStyleData(
-              maxHeight: 200,
-            ),
-            menuItemStyleData: const MenuItemStyleData(
-              height: 40,
-            ),
-            dropdownSearchData: DropdownSearchData(
-              searchController: textEditingController,
-              searchInnerWidgetHeight: 50,
-              searchInnerWidget: Container(
-                height: 50,
-                padding: const EdgeInsets.only(
-                  top: 8,
-                  bottom: 4,
-                  right: 8,
-                  left: 8,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      child: Column(children: [
+        Container(
+          alignment: Alignment.centerLeft,
+          child: const TextWidget(
+            'Item Tambahan',
+            15,
+            Color.fromRGBO(129, 12, 168, 1),
+            FontWeight.normal,
+            letterSpace: 0,
+            textAlign: TextAlign.left,
+          ),
+        ),
+        const SizedBox(height: 5),
+        Card(
+          elevation: 5, // Atur elevation di sini
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton2<String>(
+              isExpanded: true,
+              hint: Text(
+                'Select Item',
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Theme.of(context).hintColor,
                 ),
-                child: TextFormField(
-                  expands: true,
-                  maxLines: null,
-                  controller: textEditingController,
-                  decoration: InputDecoration(
-                    isDense: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 8,
-                    ),
-                    hintText: 'Search for an item...',
-                    hintStyle: const TextStyle(fontSize: 12),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+              ),
+              items: widget.items
+                  .map((item) => DropdownMenuItem(
+                        value: item,
+                        child: Text(
+                          item,
+                          style: const TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ))
+                  .toList(),
+              value: selectedValue,
+              onChanged: (value) {
+                setState(() {
+                  selectedValue = value!;
+                });
+              },
+              buttonStyleData: const ButtonStyleData(
+                // padding: EdgeInsets.symmetric(horizontal: 5),
+                padding: EdgeInsets.only(left: 0, right: 14),
+                height: 55,
+                // width: 200,
+              ),
+              iconStyleData: const IconStyleData(
+                icon: Icon(
+                  Icons.arrow_forward_ios_outlined,
+                ),
+                iconSize: 14,
+                iconEnabledColor: Colors.grey,
+              ),
+              dropdownStyleData: const DropdownStyleData(
+                maxHeight: 200,
+              ),
+              menuItemStyleData: const MenuItemStyleData(
+                height: 55,
+              ),
+              dropdownSearchData: DropdownSearchData(
+                searchController: textEditingController,
+                searchInnerWidgetHeight: 55,
+                searchInnerWidget: Container(
+                  height: 55,
+                  padding: const EdgeInsets.only(
+                    top: 8,
+                    bottom: 4,
+                    right: 8,
+                    left: 8,
+                  ),
+                  child: TextFormField(
+                    expands: true,
+                    maxLines: null,
+                    controller: textEditingController,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 8,
+                      ),
+                      hintText: 'Search for an Item...',
+                      hintStyle: const TextStyle(fontSize: 15),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
                 ),
+                searchMatchFn: (item, searchValue) {
+                  return item.value.toString().contains(searchValue);
+                },
               ),
-              searchMatchFn: (item, searchValue) {
-                return item.value.toString().contains(searchValue);
+              //This to clear the search value when you close the menu
+              onMenuStateChange: (isOpen) {
+                if (!isOpen) {
+                  textEditingController.clear();
+                }
               },
             ),
-            //This to clear the search value when you close the menu
-            onMenuStateChange: (isOpen) {
-              if (!isOpen) {
-                textEditingController.clear();
-              }
-            },
           ),
         ),
-      ),
+      ]),
     );
   }
 }
