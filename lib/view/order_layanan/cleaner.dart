@@ -7,7 +7,7 @@ import 'package:outsourcing/view/order_layanan/cleanerdetail.dart';
 import 'package:outsourcing/view/order_layanan/widget/backbutton_widget.dart';
 import 'package:outsourcing/view/order_layanan/widget/buttonlanjut.dart';
 import 'package:outsourcing/view/order_layanan/widget/dropdown_widget.dart';
-import 'package:outsourcing/view/order_layanan/widget/textfieldalamat_widget.dart';
+import 'package:outsourcing/view/order_layanan/widget/textfieldlayanan_widget.dart';
 
 class CleanerPage extends StatefulWidget {
   const CleanerPage({Key? key}) : super(key: key);
@@ -21,6 +21,9 @@ class _CleanerPageState extends State<CleanerPage> {
   //text editing controllers
   final alamatController = TextEditingController();
   String? _alamatError;
+  final hariController = TextEditingController();
+  String? _hariError;
+  // int? jumlahCleaner = 1;
   var animate = false;
   var opacity = 0.0;
   bool position = false;
@@ -95,10 +98,10 @@ class _CleanerPageState extends State<CleanerPage> {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            TextFieldAlamat(
+                            TextFieldLayanan(
                               controller: alamatController,
                               upText: 'Alamat',
-                              hintText: 'Alamat',
+                              hintText: 'ex: Jl Udayana...',
                               obscureText: false,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -127,6 +130,63 @@ class _CleanerPageState extends State<CleanerPage> {
                                     ),
                                   )
                                 : SizedBox(),
+                            const SizedBox(height: 10),
+                            TextFieldLayanan(
+                              controller: hariController,
+                              upText: 'Jumlah Hari',
+                              hintText: 'ex: 9',
+                              obscureText: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Masukkan jumlah hari';
+                                }
+                                return null;
+                              },
+                              onChanged: (_) {
+                                setState(() {
+                                  _hariError = null;
+                                });
+                              },
+                            ),
+                            _hariError != null
+                                ? Container(
+                                    alignment: Alignment.bottomLeft,
+                                    padding: const EdgeInsets.only(left: 30.0),
+                                    child: Text(
+                                      _hariError!,
+                                      style: const TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  )
+                                : SizedBox(),
+                            const SizedBox(height: 10),
+                            const CustomDropdown(
+                              items: [
+                                'Item 1',
+                                'Item 2',
+                                'Item 3'
+                              ], // Sesuaikan dengan list item yang sesuai di sini
+                            ),
+                            const SizedBox(height: 10),
+                            const CustomDropdown(
+                              items: [
+                                'Item 1',
+                                'Item 2',
+                                'Item 3'
+                              ], // Sesuaikan dengan list item yang sesuai di sini
+                            ),
+                            const SizedBox(height: 10),
+                            const CustomDropdown(
+                              items: [
+                                'Item 1',
+                                'Item 2',
+                                'Item 3'
+                              ], // Sesuaikan dengan list item yang sesuai di sini
+                            ),
                             const SizedBox(height: 10),
                             const CustomDropdown(
                               items: [
@@ -185,6 +245,9 @@ class _CleanerPageState extends State<CleanerPage> {
                                 textAlign: TextAlign.center,
                               );
                             } else {
+                              // setState(() {
+                              //   jumlahCleaner = value as int?;
+                              // });
                               return Text("Jumlah : $value",
                                   textAlign: TextAlign.center);
                             }
@@ -195,20 +258,26 @@ class _CleanerPageState extends State<CleanerPage> {
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
                             String alamat = alamatController.text;
+                            String hari = hariController.text;
                             if (alamat.isEmpty) {
                               setState(() {
                                 _alamatError = 'Masukkan alamat';
+                                _hariError = null;
                               });
-                              // } else if (password.isEmpty) {
-                              //   setState(() {
-                              //     _passwordError = 'Masukkan password';
-                              //     _usernameError = null;
-                              //   });
+                            } else if (hari.isEmpty) {
+                              setState(() {
+                                _hariError = 'Masukkan jumlah hari';
+                                _alamatError = null;
+                              });
                             } else {
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const CleanerDetail(),
+                                  builder: (context) => CleanerDetail(
+                                    alamat: alamat,
+                                    hari: hari,
+                                    // jumlahCleaner: jumlahCleaner,
+                                  ),
                                 ),
                               );
                             }
@@ -216,6 +285,9 @@ class _CleanerPageState extends State<CleanerPage> {
                             setState(() {
                               _alamatError = alamatController.text.isEmpty
                                   ? 'Masukkan alamat'
+                                  : null;
+                              _hariError = hariController.text.isEmpty
+                                  ? 'Masukkan jumlah hari'
                                   : null;
                             });
                           }

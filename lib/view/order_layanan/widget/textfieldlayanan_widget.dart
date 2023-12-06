@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
 
-class TextFieldAlamat extends StatelessWidget {
+class TextFieldLayanan extends StatelessWidget {
   final controller;
   final String upText;
   final String hintText;
   final bool obscureText;
 
-  const TextFieldAlamat({
+  const TextFieldLayanan({
     super.key,
     required this.controller,
     required this.upText,
