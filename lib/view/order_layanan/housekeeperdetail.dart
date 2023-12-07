@@ -1,32 +1,30 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/view/order_paketlayanan/widget/backbutton_widget.dart';
+import 'package:outsourcing/view/order_layanan/widget/backbutton_widget.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/view/order_paketlayanan/widget/buttonpesanan_widget.dart';
 import 'package:outsourcing/view/order_paketlayanan/widget/buttontanggal_widget.dart';
 
-class PaketLayanan extends StatefulWidget {
-  final String alamat;
-  final AssetImage image;
-  final String name;
-  final String desc;
-  final String harga;
+class HousekeeperDetail extends StatefulWidget {
   final Function()? onTap;
-  const PaketLayanan(
-      {super.key,
+  // const HousekeeperDetail({super.key, this.onTap});
+  final String alamat;
+  final String hari;
+  // final int? jumlahCleaner;
+  const HousekeeperDetail(
+      {Key? key,
       required this.alamat,
-      required this.image,
-      required this.name,
-      required this.desc,
-      required this.harga,
-      this.onTap});
+      required this.hari,
+      // required this.jumlahCleaner,
+      this.onTap})
+      : super(key: key);
 
   @override
-  State<PaketLayanan> createState() => _PaketLayananState();
+  State<HousekeeperDetail> createState() => _HousekeeperDetailState();
 }
 
-class _PaketLayananState extends State<PaketLayanan> {
+class _HousekeeperDetailState extends State<HousekeeperDetail> {
   var animate = false;
   var opacity = 0.0;
   bool position = false;
@@ -56,8 +54,10 @@ class _PaketLayananState extends State<PaketLayanan> {
 
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
     String alamat = widget.alamat;
+    String hari = widget.hari;
+    // int? jumlahCleaner = widget.jumlahCleaner;
+    size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -77,12 +77,13 @@ class _PaketLayananState extends State<PaketLayanan> {
                 child: BackButtonWidget(
                   animator: animator,
                   context: context,
+                  labelText: 'Pesan Housekeeper',
                 ),
               ),
             ),
             AnimatedPositioned(
                 top: 60,
-                right: animate ? -90 : -190,
+                right: animate ? -120 : -220,
                 duration: const Duration(milliseconds: 400),
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 400),
@@ -90,9 +91,11 @@ class _PaketLayananState extends State<PaketLayanan> {
                   child: Container(
                     height: size.height / 4,
                     width: size.width,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: widget.image, fit: BoxFit.cover)),
+                            image: AssetImage(
+                                'lib/images/icon/ic_housekeeper.png'),
+                            fit: BoxFit.cover)),
                   ),
                 )),
             AnimatedPositioned(
@@ -108,10 +111,10 @@ class _PaketLayananState extends State<PaketLayanan> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextWidget(
-                          widget.name,
+                        const TextWidget(
+                          "Custom Housekeeper",
                           20,
-                          const Color.fromRGBO(45, 3, 59, 1),
+                          Color.fromRGBO(45, 3, 59, 1),
                           FontWeight.bold,
                           letterSpace: 0,
                         ),
@@ -119,7 +122,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                           height: 5,
                         ),
                         TextWidget(
-                          widget.desc,
+                          "Harga Telah Disesuaikan\nDengan Customisasi Anda",
                           15,
                           Colors.black.withOpacity(.6),
                           FontWeight.bold,
@@ -165,10 +168,10 @@ class _PaketLayananState extends State<PaketLayanan> {
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    TextWidget(
-                                      widget.harga,
+                                    const TextWidget(
+                                      "Rp.1.XXX.XXX",
                                       18,
-                                      const Color.fromRGBO(45, 3, 59, 1),
+                                      Color.fromRGBO(45, 3, 59, 1),
                                       FontWeight.bold,
                                       letterSpace: 0,
                                     ),
@@ -203,7 +206,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                                 TextWidget(
                                   "Unduh MOU",
                                   18,
-                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  Color.fromRGBO(45, 3, 59, 1),
                                   FontWeight.bold,
                                   letterSpace: 0,
                                 ),
@@ -246,7 +249,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 70,
+                    height: 170,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -275,6 +278,50 @@ class _PaketLayananState extends State<PaketLayanan> {
                             letterSpace: 0,
                             textAlign: TextAlign.left,
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextWidget(
+                            "Jumlah Hari",
+                            15,
+                            Color.fromRGBO(129, 12, 168, 1),
+                            FontWeight.normal,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          TextWidget(
+                            hari,
+                            18,
+                            const Color.fromRGBO(45, 3, 59, 1),
+                            FontWeight.bold,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextWidget(
+                            "Jumlah Cleaner",
+                            15,
+                            Color.fromRGBO(129, 12, 168, 1),
+                            FontWeight.normal,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          TextWidget(
+                            hari,
+                            18,
+                            const Color.fromRGBO(45, 3, 59, 1),
+                            FontWeight.bold,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
                         ],
                       ),
                     ),
@@ -283,7 +330,7 @@ class _PaketLayananState extends State<PaketLayanan> {
               ),
             ),
             AnimatedPositioned(
-              top: position ? 370 : 320,
+              top: position ? 470 : 330,
               right: 30,
               left: 30,
               duration: const Duration(milliseconds: 400),
