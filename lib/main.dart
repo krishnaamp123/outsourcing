@@ -4,7 +4,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/view/dashboard.dart';
 import 'package:outsourcing/view/history.dart';
-import 'package:outsourcing/view/order.dart';
+import 'package:outsourcing/view/order/order.dart';
 import 'package:outsourcing/view/profile/profile_user.dart';
 import 'package:outsourcing/view/splash.dart';
 
@@ -93,7 +93,7 @@ class _StartState extends State<Start> {
         widget = Home(username: username);
         break;
       case 1:
-        widget = const Order();
+        widget = Order(username: username);
         break;
       case 2:
         widget = const History();

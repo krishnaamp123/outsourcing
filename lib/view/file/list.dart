@@ -62,3 +62,31 @@ var harga = [
   "Rp.5.000.000",
   "Rp.6.000.000",
 ];
+
+var status = [
+  "Menunggu Verifikasi MOU",
+  "Lakukan Pembayaran",
+  "Menunggu Verifikasi Pembayaran",
+  "Sedang Berjalan",
+];
+
+var colors = [
+  Colors.blue,
+  Colors.green,
+  Colors.orange,
+  Colors.red,
+];
+
+var tanggal = [
+  "01-01-2024",
+  "02-02-2024",
+  "03-03-2024",
+  "04-04-2024",
+];
+
+var alamat = [
+  "Jl.Mawar",
+  "Jl.Melati",
+  "Jl.Jempiring",
+  "Jl.Tukad Pancoran IID no 14",
+];
