@@ -1,30 +1,35 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
+import 'package:outsourcing/view/order/widget/buttonpembayaran_widget.dart';
 import 'package:outsourcing/view/order_layanan/widget/backbutton_widget.dart';
 import 'package:outsourcing/core.dart';
-import 'package:outsourcing/view/order_paketlayanan/widget/buttonpesanan_widget.dart';
-import 'package:outsourcing/view/order_paketlayanan/widget/buttontanggal_widget.dart';
 
-class HousekeeperDetail extends StatefulWidget {
+class OrderDetail extends StatefulWidget {
   final Function()? onTap;
-  // const HousekeeperDetail({super.key, this.onTap});
+  final String name;
+  final String harga;
   final String alamat;
-  final String hari;
-  // final int? jumlahCleaner;
-  const HousekeeperDetail(
-      {Key? key,
-      required this.alamat,
-      required this.hari,
-      // required this.jumlahCleaner,
-      this.onTap})
-      : super(key: key);
+  final String tanggal;
+  final String status;
+  final Color colors;
+
+  const OrderDetail({
+    Key? key,
+    required this.name,
+    required this.tanggal,
+    required this.alamat,
+    required this.status,
+    required this.harga,
+    required this.colors,
+    this.onTap,
+  }) : super(key: key);
 
   @override
-  State<HousekeeperDetail> createState() => _HousekeeperDetailState();
+  State<OrderDetail> createState() => _OrderDetailState();
 }
 
-class _HousekeeperDetailState extends State<HousekeeperDetail> {
+class _OrderDetailState extends State<OrderDetail> {
   var animate = false;
   var opacity = 0.0;
   bool position = false;
@@ -54,10 +59,13 @@ class _HousekeeperDetailState extends State<HousekeeperDetail> {
 
   @override
   Widget build(BuildContext context) {
-    String alamat = widget.alamat;
-    String hari = widget.hari;
-    // int? jumlahCleaner = widget.jumlahCleaner;
     size = MediaQuery.of(context).size;
+    String harga = widget.harga;
+    String alamat = widget.alamat;
+    String name = widget.name;
+    String tanggal = widget.tanggal;
+    String status = widget.status;
+    Color colors = widget.colors;
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -77,42 +85,25 @@ class _HousekeeperDetailState extends State<HousekeeperDetail> {
                 child: BackButtonWidget(
                   animator: animator,
                   context: context,
-                  labelText: 'Pesan Housekeeper',
+                  labelText: 'Detail Order',
                 ),
               ),
             ),
             AnimatedPositioned(
-                top: 60,
-                right: animate ? -120 : -220,
+                top: position ? 60 : 100,
                 duration: const Duration(milliseconds: 400),
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 400),
                   opacity: opacity,
                   child: Container(
-                    height: size.height / 4,
-                    width: size.width,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(
-                                'lib/images/icon/ic_housekeeper.png'),
-                            fit: BoxFit.cover)),
-                  ),
-                )),
-            AnimatedPositioned(
-                left: animate ? 60 : 10,
-                duration: const Duration(milliseconds: 400),
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 60, left: 20),
+                    padding: const EdgeInsets.only(left: 20, right: 20),
                     height: size.height,
                     width: size.width,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const TextWidget(
-                          "Custom Housekeeper",
+                        TextWidget(
+                          name,
                           20,
                           Color.fromRGBO(45, 3, 59, 1),
                           FontWeight.bold,
@@ -168,10 +159,10 @@ class _HousekeeperDetailState extends State<HousekeeperDetail> {
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    const TextWidget(
-                                      "Rp.1.XXX.XXX",
+                                    TextWidget(
+                                      harga,
                                       18,
-                                      Color.fromRGBO(45, 3, 59, 1),
+                                      const Color.fromRGBO(45, 3, 59, 1),
                                       FontWeight.bold,
                                       letterSpace: 0,
                                     ),
@@ -184,60 +175,13 @@ class _HousekeeperDetailState extends State<HousekeeperDetail> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Card(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: const SizedBox(
-                            height: 50,
-                            width: 180,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Icon(
-                                  Icons.download,
-                                  color: Colors.blue,
-                                  size: 30,
-                                ),
-                                SizedBox(
-                                  height: 0,
-                                ),
-                                TextWidget(
-                                  "Unduh MOU",
-                                  18,
-                                  Color.fromRGBO(45, 3, 59, 1),
-                                  FontWeight.bold,
-                                  letterSpace: 0,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
                 )),
             AnimatedPositioned(
-                top: 200,
-                right: animate ? 80 : -30,
-                duration: const Duration(milliseconds: 400),
-                child: Container(
-                  height: 150,
-                  width: size.width / 2,
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                        Colors.white.withOpacity(.1),
-                        Colors.white,
-                        Colors.white
-                      ])),
-                )),
-            AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 280 : 330,
+              top: position ? 200 : 250,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
@@ -282,7 +226,7 @@ class _HousekeeperDetailState extends State<HousekeeperDetail> {
                             height: 10,
                           ),
                           const TextWidget(
-                            "Jumlah Hari",
+                            "Hari Pemesanan",
                             15,
                             Color.fromRGBO(129, 12, 168, 1),
                             FontWeight.normal,
@@ -293,7 +237,7 @@ class _HousekeeperDetailState extends State<HousekeeperDetail> {
                             height: 5,
                           ),
                           TextWidget(
-                            hari,
+                            tanggal,
                             18,
                             const Color.fromRGBO(45, 3, 59, 1),
                             FontWeight.bold,
@@ -304,7 +248,7 @@ class _HousekeeperDetailState extends State<HousekeeperDetail> {
                             height: 10,
                           ),
                           const TextWidget(
-                            "Jumlah Cleaner",
+                            "Status",
                             15,
                             Color.fromRGBO(129, 12, 168, 1),
                             FontWeight.normal,
@@ -315,9 +259,9 @@ class _HousekeeperDetailState extends State<HousekeeperDetail> {
                             height: 5,
                           ),
                           TextWidget(
-                            hari,
+                            status,
                             18,
-                            const Color.fromRGBO(45, 3, 59, 1),
+                            colors,
                             FontWeight.bold,
                             letterSpace: 0,
                             textAlign: TextAlign.left,
@@ -325,38 +269,6 @@ class _HousekeeperDetailState extends State<HousekeeperDetail> {
                         ],
                       ),
                     ),
-                  ),
-                ),
-              ),
-            ),
-            AnimatedPositioned(
-              top: position ? 470 : 330,
-              right: 30,
-              left: 30,
-              duration: const Duration(milliseconds: 400),
-              child: AnimatedOpacity(
-                opacity: opacity,
-                duration: const Duration(milliseconds: 400),
-                child: SizedBox(
-                  width: size.width,
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TextWidget(
-                        "Tanggal Pemesanan",
-                        18,
-                        Color.fromRGBO(45, 3, 59, 1),
-                        FontWeight.bold,
-                        letterSpace: 0,
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      ButtonTanggal(),
-                      SizedBox(
-                        height: 15,
-                      ),
-                    ],
                   ),
                 ),
               ),
@@ -374,7 +286,7 @@ class _HousekeeperDetailState extends State<HousekeeperDetail> {
                   child: const Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ButtonPesanan(),
+                      ButtonPembayaran(),
                     ],
                   ),
                 ),

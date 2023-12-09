@@ -355,6 +355,24 @@ class _DriverDetailState extends State<DriverDetail> {
                       SizedBox(
                         height: 15,
                       ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            AnimatedPositioned(
+              top: position ? 660 : 330,
+              right: 30,
+              left: 30,
+              duration: const Duration(milliseconds: 400),
+              child: AnimatedOpacity(
+                opacity: opacity,
+                duration: const Duration(milliseconds: 400),
+                child: SizedBox(
+                  width: size.width,
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
                       ButtonPesanan(),
                     ],
                   ),
