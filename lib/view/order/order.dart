@@ -46,8 +46,7 @@ class _OrderState extends State<Order> {
       body: SafeArea(
         child: Container(
           color: Colors.white,
-          padding:
-              const EdgeInsets.only(top: 30, left: 0, right: 0, bottom: 30),
+          padding: const EdgeInsets.only(top: 30, left: 0, right: 0),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Stack(children: [

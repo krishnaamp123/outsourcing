@@ -2,38 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:outsourcing/components/text_widget.dart';
 
-class CustomDropdown extends StatefulWidget {
-  final List<String> items;
+class StatusDropdown extends StatefulWidget {
+  final List<String> statusList;
+  final Function(String) onFilterChanged;
 
-  const CustomDropdown({
+  const StatusDropdown({
     Key? key,
-    required this.items,
+    required this.statusList,
+    required this.onFilterChanged,
   }) : super(key: key);
 
   @override
-  _CustomDropdownState createState() => _CustomDropdownState();
+  _StatusDropdownState createState() => _StatusDropdownState();
 }
 
-class _CustomDropdownState extends State<CustomDropdown> {
-  late String? selectedValue;
+class _StatusDropdownState extends State<StatusDropdown> {
+  late String _selectedStatus;
   late TextEditingController textEditingController;
 
   @override
   void initState() {
     super.initState();
-    selectedValue = null;
+    _selectedStatus = widget.statusList.first;
     textEditingController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(children: [
         Container(
           alignment: Alignment.centerLeft,
           child: const TextWidget(
-            'Item Tambahan',
+            'Filter Status',
             15,
             Color.fromRGBO(129, 12, 168, 1),
             FontWeight.normal,
@@ -43,41 +45,41 @@ class _CustomDropdownState extends State<CustomDropdown> {
         ),
         const SizedBox(height: 5),
         Card(
-          elevation: 5, // Atur elevation di sini
+          elevation: 5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton2<String>(
               isExpanded: true,
-              hint: Text(
-                'Select Item',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Theme.of(context).hintColor,
-                ),
-              ),
-              items: widget.items
-                  .map((item) => DropdownMenuItem(
-                        value: item,
-                        child: Text(
-                          item,
-                          style: const TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                      ))
-                  .toList(),
-              value: selectedValue,
-              onChanged: (value) {
+              value: _selectedStatus,
+              onChanged: (newValue) {
                 setState(() {
-                  selectedValue = value!;
+                  _selectedStatus = newValue!;
+                  widget.onFilterChanged(newValue);
                 });
               },
+              items: widget.statusList
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(
+                    value,
+                    style: TextStyle(
+                      color: value == _selectedStatus
+                          ? const Color.fromRGBO(45, 3, 59, 1)
+                          : const Color.fromRGBO(45, 3, 59, 1),
+                      fontWeight: value == _selectedStatus
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                    ),
+                  ),
+                );
+              }).toList(),
               buttonStyleData: const ButtonStyleData(
                 // padding: EdgeInsets.symmetric(horizontal: 5),
                 padding: EdgeInsets.only(left: 0, right: 14),
-                height: 55,
+                height: 50,
                 // width: 200,
               ),
               iconStyleData: const IconStyleData(
@@ -91,7 +93,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
                 maxHeight: 200,
               ),
               menuItemStyleData: const MenuItemStyleData(
-                height: 55,
+                height: 50,
               ),
               dropdownSearchData: DropdownSearchData(
                 searchController: textEditingController,
@@ -114,7 +116,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
                         horizontal: 10,
                         vertical: 8,
                       ),
-                      hintText: 'Search for an Item...',
+                      hintText: 'Search for an Status...',
                       hintStyle: const TextStyle(fontSize: 15),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -126,12 +128,6 @@ class _CustomDropdownState extends State<CustomDropdown> {
                   return item.value.toString().contains(searchValue);
                 },
               ),
-              //This to clear the search value when you close the menu
-              onMenuStateChange: (isOpen) {
-                if (!isOpen) {
-                  textEditingController.clear();
-                }
-              },
             ),
           ),
         ),

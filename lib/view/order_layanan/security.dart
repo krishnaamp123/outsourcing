@@ -133,8 +133,8 @@ class _SecurityPageState extends State<SecurityPage> {
                             const SizedBox(height: 10),
                             TextFieldLayanan(
                               controller: hariController,
-                              upText: 'Jumlah Hari',
-                              hintText: 'ex: 9',
+                              upText: 'Lama Kontrak',
+                              hintText: 'ex: 9 Hari',
                               obscureText: false,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
