@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/login_page.dart';
+import 'package:outsourcing/autentikasi/view/login_page.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});

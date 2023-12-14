@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:outsourcing/autentikasi/view/controller/login_controller.dart';
 
 class MyTextField extends StatelessWidget {
-  final controller;
+  final TextEditingController controller;
   final String hintText;
   final bool obscureText;
+  final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
 
   const MyTextField({
     super.key,
     required this.controller,
     required this.hintText,
     required this.obscureText,
-    required String? Function(dynamic value) validator,
-    required Null Function(dynamic _) onChanged,
+    required this.validator,
+    required this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: TextField(
+      child: TextFormField(
         controller: controller,
         obscureText: obscureText,
+        onChanged: onChanged,
+        validator: validator,
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white),

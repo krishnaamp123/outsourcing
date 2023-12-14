@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:outsourcing/components/my_button.dart';
-import 'package:outsourcing/components/my_textfield.dart';
-import 'package:outsourcing/components/square_tile.dart';
+import 'package:outsourcing/autentikasi/view/widget/my_button.dart';
+import 'package:outsourcing/autentikasi/view/widget/my_textfield.dart';
+import 'package:outsourcing/autentikasi/view/widget/square_tile.dart';
 import 'package:outsourcing/main.dart';
-import 'package:outsourcing/regis_page.dart';
+import 'package:outsourcing/autentikasi/view/regis_page.dart';
 import 'package:http/http.dart' as http;
+import 'controller/login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -16,13 +17,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  //text editing controllers
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
-  String? _usernameError;
-  String? _passwordError;
-
-  void signUserIn() {}
+  final LoginController loginController = LoginController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,27 +53,23 @@ class _LoginPageState extends State<LoginPage> {
 
                 //username textfield
                 MyTextField(
-                  controller: usernameController,
+                  controller: loginController.usernameController,
                   hintText: 'Username',
                   obscureText: false,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Masukkan username';
-                    }
-                    return null;
-                  },
+                  validator: loginController
+                      .validateUsername, // Set validator dari controller
                   onChanged: (_) {
                     setState(() {
-                      _usernameError = null;
+                      loginController.usernameError = null;
                     });
                   },
                 ),
-                _usernameError != null
+                loginController.usernameError != null
                     ? Container(
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.only(left: 30.0),
                         child: Text(
-                          _usernameError!,
+                          loginController.usernameError!,
                           style: const TextStyle(
                             color: Colors.red,
                             fontSize: 16,
@@ -93,27 +84,23 @@ class _LoginPageState extends State<LoginPage> {
 
                 //password textfield
                 MyTextField(
-                  controller: passwordController,
+                  controller: loginController.passwordController,
                   hintText: 'Password',
                   obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Masukkan password';
-                    }
-                    return null;
-                  },
+                  validator: loginController
+                      .validatePassword, // Set validator dari controller
                   onChanged: (_) {
                     setState(() {
-                      _passwordError = null;
+                      loginController.passwordError = null;
                     });
                   },
                 ),
-                _passwordError != null
+                loginController.passwordError != null
                     ? Container(
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.only(left: 30.0),
                         child: Text(
-                          _passwordError!,
+                          loginController.passwordError!,
                           style: const TextStyle(
                             color: Colors.red,
                             fontSize: 16,
@@ -147,36 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                   text: "Masuk",
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      String username = usernameController.text;
-                      String password = passwordController.text;
-                      // Cek kembali apakah bidang input kosong sebelum navigasi
-                      if (username.isEmpty) {
-                        setState(() {
-                          _usernameError = 'Masukkan username';
-                          _passwordError = null;
-                        });
-                      } else if (password.isEmpty) {
-                        setState(() {
-                          _passwordError = 'Masukkan password';
-                          _usernameError = null;
-                        });
-                      } else {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Start(username: username),
-                          ),
-                        );
-                      }
-                    } else {
-                      setState(() {
-                        _usernameError = usernameController.text.isEmpty
-                            ? 'Masukkan username'
-                            : null;
-                        _passwordError = passwordController.text.isEmpty
-                            ? 'Masukkan password'
-                            : null;
-                      });
+                      loginController.handleLogin(context);
                     }
                   },
                 ),
@@ -235,11 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(width: 4),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterPage()),
-                        );
+                        loginController.navigateToRegister(context);
                       },
                       child: const Text(
                         'Daftar Sekarang',
