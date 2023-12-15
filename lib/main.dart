@@ -2,11 +2,6 @@ import 'package:outsourcing/core.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:outsourcing/dashboard.dart';
-import 'package:outsourcing/feedback_complaint/view/fcpage.dart';
-import 'package:outsourcing/order/order.dart';
-import 'package:outsourcing/profile/profile_user.dart';
-import 'package:outsourcing/splash.dart';
 
 void main() {
   runApp(const MyApp());
