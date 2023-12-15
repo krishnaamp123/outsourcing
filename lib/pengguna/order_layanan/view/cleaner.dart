@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/pengguna/order_layanan/view/cleanerdetail.dart';
+import 'package:outsourcing/pengguna/order_layanan/controller/cleaner_controller.dart';
 import 'package:outsourcing/pengguna/order_layanan/widget/backbutton_widget.dart';
 import 'package:outsourcing/pengguna/order_layanan/widget/buttonlanjut.dart';
 import 'package:outsourcing/pengguna/order_layanan/widget/dropdown_widget.dart';
@@ -19,10 +19,7 @@ class CleanerPage extends StatefulWidget {
 class _CleanerPageState extends State<CleanerPage> {
   final _formKey = GlobalKey<FormState>();
   //text editing controllers
-  final alamatController = TextEditingController();
-  String? _alamatError;
-  final hariController = TextEditingController();
-  String? _hariError;
+  final CleanerController cleanerController = CleanerController();
   // int? jumlahCleaner = 1;
   var animate = false;
   var opacity = 0.0;
@@ -99,28 +96,23 @@ class _CleanerPageState extends State<CleanerPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             TextFieldLayanan(
-                              controller: alamatController,
+                              controller: cleanerController.alamatController,
                               upText: 'Alamat',
                               hintText: 'ex: Jl Udayana...',
                               obscureText: false,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Masukkan alamat';
-                                }
-                                return null;
-                              },
+                              validator: cleanerController.validateAlamat,
                               onChanged: (_) {
                                 setState(() {
-                                  _alamatError = null;
+                                  cleanerController.alamatError = null;
                                 });
                               },
                             ),
-                            _alamatError != null
+                            cleanerController.alamatError != null
                                 ? Container(
                                     alignment: Alignment.bottomLeft,
                                     padding: const EdgeInsets.only(left: 30.0),
                                     child: Text(
-                                      _alamatError!,
+                                      cleanerController.alamatError!,
                                       style: const TextStyle(
                                         color: Colors.red,
                                         fontSize: 16,
@@ -132,28 +124,23 @@ class _CleanerPageState extends State<CleanerPage> {
                                 : const SizedBox(),
                             const SizedBox(height: 10),
                             TextFieldLayanan(
-                              controller: hariController,
+                              controller: cleanerController.hariController,
                               upText: 'Lama Kontrak',
                               hintText: 'ex: 9 Hari',
                               obscureText: false,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Masukkan jumlah hari';
-                                }
-                                return null;
-                              },
+                              validator: cleanerController.validateHari,
                               onChanged: (_) {
                                 setState(() {
-                                  _hariError = null;
+                                  cleanerController.hariError = null;
                                 });
                               },
                             ),
-                            _hariError != null
+                            cleanerController.hariError != null
                                 ? Container(
                                     alignment: Alignment.bottomLeft,
                                     padding: const EdgeInsets.only(left: 30.0),
                                     child: Text(
-                                      _hariError!,
+                                      cleanerController.hariError!,
                                       style: const TextStyle(
                                         color: Colors.red,
                                         fontSize: 16,
@@ -257,39 +244,7 @@ class _CleanerPageState extends State<CleanerPage> {
                       ButtonLanjut(
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            String alamat = alamatController.text;
-                            String hari = hariController.text;
-                            if (alamat.isEmpty) {
-                              setState(() {
-                                _alamatError = 'Masukkan alamat';
-                                _hariError = null;
-                              });
-                            } else if (hari.isEmpty) {
-                              setState(() {
-                                _hariError = 'Masukkan jumlah hari';
-                                _alamatError = null;
-                              });
-                            } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CleanerDetail(
-                                    alamat: alamat,
-                                    hari: hari,
-                                    // jumlahCleaner: jumlahCleaner,
-                                  ),
-                                ),
-                              );
-                            }
-                          } else {
-                            setState(() {
-                              _alamatError = alamatController.text.isEmpty
-                                  ? 'Masukkan alamat'
-                                  : null;
-                              _hariError = hariController.text.isEmpty
-                                  ? 'Masukkan jumlah hari'
-                                  : null;
-                            });
+                            cleanerController.handleCleaner(context);
                           }
                         },
                       )

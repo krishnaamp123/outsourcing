@@ -57,7 +57,7 @@ class _StartState extends State<Start> {
     ),
   ];
 
-  int index = 0;
+  int index = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,7 @@ class _StartState extends State<Start> {
         widget = const ProfileUser();
         break;
       default:
-        widget = Home(username: username);
+        widget = Order(username: username);
         break;
     }
     return widget;

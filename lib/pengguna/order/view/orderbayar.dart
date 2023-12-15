@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
 
-class OrderDetail extends StatefulWidget {
+class OrderBayar extends StatefulWidget {
   final Function()? onTap;
   final String name;
   final String harga;
@@ -11,7 +11,7 @@ class OrderDetail extends StatefulWidget {
   final String status;
   final Color colors;
 
-  const OrderDetail({
+  const OrderBayar({
     Key? key,
     required this.name,
     required this.tanggal,
@@ -23,10 +23,10 @@ class OrderDetail extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<OrderDetail> createState() => _OrderDetailState();
+  State<OrderBayar> createState() => _OrderBayarState();
 }
 
-class _OrderDetailState extends State<OrderDetail> {
+class _OrderBayarState extends State<OrderBayar> {
   var animate = false;
   var opacity = 0.0;
   bool position = false;

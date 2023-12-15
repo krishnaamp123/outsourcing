@@ -17,7 +17,7 @@ export 'package:outsourcing/file/user.dart';
 export 'package:outsourcing/file/user_data.dart';
 export 'package:outsourcing/pengguna/autentikasi/view/login_page.dart';
 export 'package:outsourcing/pengguna/order/view/order.dart';
-export 'package:outsourcing/pengguna/order/view/orderdetail.dart';
+export 'package:outsourcing/pengguna/order/view/orderbayar.dart';
 export 'package:outsourcing/pengguna/order/widget/buttonpembayaran_widget.dart';
 export 'package:outsourcing/pengguna/order/widget/orderholder_widget.dart';
 export 'package:outsourcing/pengguna/order/widget/statusdropdown_widget.dart';
