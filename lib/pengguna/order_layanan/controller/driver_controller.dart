@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:outsourcing/pengguna/order_layanan/view/cleanerdetail.dart';
+import 'package:outsourcing/core.dart';
 
-class CleanerController {
+class DriverController {
   final TextEditingController alamatController = TextEditingController();
   final TextEditingController hariController = TextEditingController();
 
@@ -40,20 +40,20 @@ class CleanerController {
     return true;
   }
 
-  void handleCleaner(BuildContext context) {
+  void handleDriver(BuildContext context) {
     if (validateForm()) {
-      navigateToCleanerDetail(context);
+      navigateToDriverDetail(context);
     }
   }
 
-  void navigateToCleanerDetail(BuildContext context) {
+  void navigateToDriverDetail(BuildContext context) {
     String alamat = alamatController.text;
     String hari = hariController.text;
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CleanerDetail(
+        builder: (context) => DriverDetail(
           alamat: alamat,
           hari: hari,
         ),

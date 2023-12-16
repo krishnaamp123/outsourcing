@@ -2,27 +2,31 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
 
-class PaketLayanan extends StatefulWidget {
-  final String alamat;
-  final AssetImage image;
-  final String name;
-  final String desc;
-  final String harga;
+class DetailPenempatanS extends StatefulWidget {
   final Function()? onTap;
-  const PaketLayanan(
-      {super.key,
-      required this.alamat,
-      required this.image,
-      required this.name,
-      required this.desc,
-      required this.harga,
-      this.onTap});
+  final String name;
+  final String harga;
+  final String alamat;
+  final String tanggal;
+  final String status;
+  final Color colors;
+
+  const DetailPenempatanS({
+    Key? key,
+    required this.name,
+    required this.tanggal,
+    required this.alamat,
+    required this.status,
+    required this.harga,
+    required this.colors,
+    this.onTap,
+  }) : super(key: key);
 
   @override
-  State<PaketLayanan> createState() => _PaketLayananState();
+  State<DetailPenempatanS> createState() => _DetailPenempatanSState();
 }
 
-class _PaketLayananState extends State<PaketLayanan> {
+class _DetailPenempatanSState extends State<DetailPenempatanS> {
   var animate = false;
   var opacity = 0.0;
   bool position = false;
@@ -53,7 +57,12 @@ class _PaketLayananState extends State<PaketLayanan> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
+    String harga = widget.harga;
     String alamat = widget.alamat;
+    String name = widget.name;
+    String tanggal = widget.tanggal;
+    String status = widget.status;
+    Color colors = widget.colors;
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -70,42 +79,28 @@ class _PaketLayananState extends State<PaketLayanan> {
               child: AnimatedOpacity(
                 duration: const Duration(milliseconds: 400),
                 opacity: opacity,
-                child: BackButtonWidget2(
+                child: BackButtonWidget(
                   animator: animator,
                   context: context,
+                  labelText: 'Detail Penempatan',
                 ),
               ),
             ),
             AnimatedPositioned(
-                top: 60,
-                right: animate ? -90 : -190,
+                top: position ? 60 : 100,
                 duration: const Duration(milliseconds: 400),
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 400),
                   opacity: opacity,
                   child: Container(
-                    height: size.height / 4,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: widget.image, fit: BoxFit.cover)),
-                  ),
-                )),
-            AnimatedPositioned(
-                left: animate ? 60 : 10,
-                duration: const Duration(milliseconds: 400),
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 60, left: 20),
+                    padding: const EdgeInsets.only(left: 20, right: 20),
                     height: size.height,
                     width: size.width,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextWidget(
-                          widget.name,
+                          name,
                           20,
                           const Color.fromRGBO(45, 3, 59, 1),
                           FontWeight.bold,
@@ -115,7 +110,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                           height: 5,
                         ),
                         TextWidget(
-                          widget.desc,
+                          "Harga Telah Disesuaikan\nDengan Customisasi Anda",
                           15,
                           Colors.black.withOpacity(.6),
                           FontWeight.bold,
@@ -162,7 +157,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                                       height: 5,
                                     ),
                                     TextWidget(
-                                      widget.harga,
+                                      harga,
                                       18,
                                       const Color.fromRGBO(45, 3, 59, 1),
                                       FontWeight.bold,
@@ -177,60 +172,13 @@ class _PaketLayananState extends State<PaketLayanan> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Card(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: const SizedBox(
-                            height: 50,
-                            width: 180,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Icon(
-                                  Icons.download,
-                                  color: Colors.blue,
-                                  size: 30,
-                                ),
-                                SizedBox(
-                                  height: 0,
-                                ),
-                                TextWidget(
-                                  "Unduh MOU",
-                                  18,
-                                  Color.fromRGBO(45, 3, 59, 1),
-                                  FontWeight.bold,
-                                  letterSpace: 0,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
                 )),
             AnimatedPositioned(
-                top: 200,
-                right: animate ? 80 : -30,
-                duration: const Duration(milliseconds: 400),
-                child: Container(
-                  height: 150,
-                  width: size.width / 2,
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                        Colors.white.withOpacity(.1),
-                        Colors.white,
-                        Colors.white
-                      ])),
-                )),
-            AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 280 : 330,
+              top: position ? 200 : 250,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
@@ -242,7 +190,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 70,
+                    height: 170,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -271,42 +219,53 @@ class _PaketLayananState extends State<PaketLayanan> {
                             letterSpace: 0,
                             textAlign: TextAlign.left,
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextWidget(
+                            "Hari Pemesanan",
+                            15,
+                            Color.fromRGBO(129, 12, 168, 1),
+                            FontWeight.normal,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          TextWidget(
+                            tanggal,
+                            18,
+                            const Color.fromRGBO(45, 3, 59, 1),
+                            FontWeight.bold,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const TextWidget(
+                            "Status",
+                            15,
+                            Color.fromRGBO(129, 12, 168, 1),
+                            FontWeight.normal,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          TextWidget(
+                            status,
+                            18,
+                            colors,
+                            FontWeight.bold,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
                         ],
                       ),
                     ),
-                  ),
-                ),
-              ),
-            ),
-            AnimatedPositioned(
-              top: position ? 370 : 320,
-              right: 30,
-              left: 30,
-              duration: const Duration(milliseconds: 400),
-              child: AnimatedOpacity(
-                opacity: opacity,
-                duration: const Duration(milliseconds: 400),
-                child: SizedBox(
-                  width: size.width,
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TextWidget(
-                        "Tanggal Pemesanan",
-                        18,
-                        Color.fromRGBO(45, 3, 59, 1),
-                        FontWeight.bold,
-                        letterSpace: 0,
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      ButtonTanggal(),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      ButtonPesanan(),
-                    ],
                   ),
                 ),
               ),

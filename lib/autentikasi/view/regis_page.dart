@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:outsourcing/pengguna/autentikasi/view/controller/regis_controller.dart';
-import 'package:outsourcing/pengguna/autentikasi/view/widget/my_button.dart';
-import 'package:outsourcing/pengguna/autentikasi/view/widget/my_textfield.dart';
-import 'package:outsourcing/pengguna/autentikasi/view/widget/square_tile.dart';
+import 'package:outsourcing/autentikasi/view/controller/regis_controller.dart';
+import 'package:outsourcing/autentikasi/view/widget/my_button.dart';
+import 'package:outsourcing/autentikasi/view/widget/my_textfield.dart';
+import 'package:outsourcing/autentikasi/view/widget/square_tile.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;

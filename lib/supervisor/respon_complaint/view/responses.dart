@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:outsourcing/pengguna/feedback_complaint/controller/feedback_controller.dart';
-import 'package:outsourcing/pengguna/feedback_complaint/widget/buttonkirimfc.dart';
-import 'package:outsourcing/pengguna/feedback_complaint/widget/dropdownfc_widget.dart';
-import 'package:outsourcing/pengguna/feedback_complaint/widget/textfieldfc_widget.dart';
+import 'package:outsourcing/supervisor/respon_complaint/controller/responses_controller.dart';
+import 'package:outsourcing/supervisor/respon_complaint/widget/buttonkirimrc.dart';
+import 'package:outsourcing/supervisor/respon_complaint/widget/dropdowncrc.dart';
+import 'package:outsourcing/supervisor/respon_complaint/widget/dropdownrc_widget.dart';
+import 'package:outsourcing/supervisor/respon_complaint/widget/textfieldrc_widget.dart';
 
-class FeedbackWidget extends StatefulWidget {
-  const FeedbackWidget({super.key});
+class ResponseSWidget extends StatefulWidget {
+  const ResponseSWidget({super.key});
 
   @override
-  State<FeedbackWidget> createState() => _FeedbackWidgetState();
+  State<ResponseSWidget> createState() => _ResponseSWidgetState();
 }
 
-class _FeedbackWidgetState extends State<FeedbackWidget> {
+class _ResponseSWidgetState extends State<ResponseSWidget> {
   final _formKey = GlobalKey<FormState>();
   //text editing controllers
-  final feedbackController = FeedbackController();
+  final responsesController = ResponseSController();
   // int? jumlahCleaner = 1;
   var animate = false;
   var opacity = 0.0;
@@ -65,7 +66,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const DropdownFC(
+                      const DropdownRC(
                         items: [
                           'Order 1',
                           'Order 2',
@@ -73,28 +74,36 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                         ], // Sesuaikan dengan list item yang sesuai di sini
                       ),
                       const SizedBox(height: 10),
-                      TextFieldFC(
-                        controller: feedbackController.feedbacktextController,
-                        upText: 'Complaint',
-                        hintText: 'ex: Karyawan menghilang...',
+                      const DropdownCRC(
+                        items: [
+                          'Complaint 1',
+                          'Complaint 2',
+                          'Complaint 3'
+                        ], // Sesuaikan dengan list item yang sesuai di sini
+                      ),
+                      const SizedBox(height: 10),
+                      TextFieldRC(
+                        controller: responsesController.responsetextController,
+                        upText: 'Response',
+                        hintText: 'ex: Mohon Maaf...',
                         obscureText: false,
-                        validator: feedbackController.validateFeedback,
+                        validator: responsesController.validateResponse,
                         onChanged: (_) {
                           setState(() {
-                            feedbackController.feedbackError = null;
+                            responsesController.responsesError = null;
                           });
                         },
                       ),
                       const SizedBox(height: 20),
-                      ButtonKirim(onTap: () {
+                      ButtonKirimRC(onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          feedbackController.onKirimPressed(context);
+                          responsesController.onKirimPressed(context);
                         } else {
                           setState(() {
-                            feedbackController.feedbackError =
-                                feedbackController
-                                        .feedbacktextController.text.isEmpty
-                                    ? 'Masukkan feedback'
+                            responsesController.responsesError =
+                                responsesController
+                                        .responsetextController.text.isEmpty
+                                    ? 'Masukkan complaint'
                                     : null;
                           });
                         }

@@ -177,9 +177,7 @@ class _HomeState extends State<Home> {
                               // ignore: use_build_context_synchronously
                               await Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
-                                  return SeeAll(
-                                    username: username,
-                                  );
+                                  return const SeeAll();
                                 },
                               ));
 

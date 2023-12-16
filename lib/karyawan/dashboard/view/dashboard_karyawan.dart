@@ -1,24 +1,25 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
-import 'package:outsourcing/pengguna/order_paketlayanan/controller/see_all_controller.dart';
-import 'package:outsourcing/pengguna/order_paketlayanan/widget/info_widget.dart';
-import 'package:outsourcing/pengguna/order_paketlayanan/widget/paketlist_widget.dart';
-import 'package:outsourcing/pengguna/order_paketlayanan/widget/upperrow_widget.dart';
+import 'package:outsourcing/karyawan/dashboard/controller/penempatank_controller.dart';
+import 'package:outsourcing/karyawan/dashboard/widget/infopenempatank.dart';
+import 'package:outsourcing/karyawan/dashboard/widget/listpenempatank.dart';
+import 'package:outsourcing/karyawan/dashboard/widget/titlepenempatank.dart';
 
-class SeeAll extends StatefulWidget {
-  const SeeAll({super.key});
+class HomeKaryawan extends StatefulWidget {
+  final String username;
+  const HomeKaryawan({Key? key, required this.username}) : super(key: key);
 
   @override
-  State<SeeAll> createState() => _SeeAllState();
+  State<HomeKaryawan> createState() => _HomeKaryawanState();
 }
 
-class _SeeAllState extends State<SeeAll> {
+class _HomeKaryawanState extends State<HomeKaryawan> {
   var opacity = 0.0;
   bool position = false;
   final _formKey = GlobalKey<FormState>();
   //text editing controllers
-  final SeeAllController seeallController = SeeAllController();
+  final PenempatanKController penempatankController = PenempatanKController();
   @override
   void initState() {
     super.initState();
@@ -41,6 +42,7 @@ class _SeeAllState extends State<SeeAll> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    String username = widget.username;
     return Scaffold(
       body: Form(
         key: _formKey,
@@ -53,70 +55,65 @@ class _SeeAllState extends State<SeeAll> {
             children: [
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 400),
-                top: position ? 1 : 50,
+                top: position ? 1 : 1,
                 left: 20,
                 right: 20,
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 400),
                   opacity: opacity,
-                  child: UpperRowWidget(
-                    context: context,
+                  child: TitlePenempatanKWidget(
                     animator: animator,
+                    context: context,
+                    labelText: 'Penempatan',
                   ),
                 ),
               ),
               AnimatedPositioned(
-                top: position ? 60 : 120,
+                duration: const Duration(milliseconds: 400),
+                top: position ? 50 : 50,
+                right: 20,
+                left: 20,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 400),
+                  opacity: opacity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'lib/images/logotok.png',
+                        height: 40,
+                        width: 40,
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextWidget("Halo", 15, Colors.black.withOpacity(.7),
+                              FontWeight.bold),
+                          TextWidget(
+                              username, 20, Colors.black, FontWeight.bold),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              AnimatedPositioned(
+                top: position ? 110 : 110,
                 right: 20,
                 left: 20,
                 duration: const Duration(milliseconds: 300),
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 400),
                   opacity: opacity,
-                  child: InfoWidget(
+                  child: InfoPenempatanKWidget(
                     animator: animator,
                     context: context,
                   ),
                 ),
               ),
               AnimatedPositioned(
-                duration: const Duration(milliseconds: 400),
-                top: position ? 180 : 230,
-                left: 20,
-                right: 20,
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: SizedBox(
-                      height: 110,
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            TextFieldAlamat(
-                              controller: seeallController.alamatController,
-                              upText: 'Alamat',
-                              hintText: 'ex: Jl Udayana...',
-                              obscureText: false,
-                              validator: seeallController.validateAlamat,
-                              onChanged: (_) {
-                                setState(() {
-                                  seeallController.alamatError = null;
-                                });
-                              },
-                            ),
-                          ]),
-                    ),
-                  ),
-                ),
-              ),
-              AnimatedPositioned(
-                  top: position ? 310 : 360,
+                  top: position ? 230 : 230,
                   right: 20,
                   left: 20,
                   duration: const Duration(milliseconds: 400),
@@ -129,7 +126,7 @@ class _SeeAllState extends State<SeeAll> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           TextWidget(
-                            "Semua Paket Layanan",
+                            "Penempatan Karyawan",
                             20,
                             Color.fromRGBO(45, 3, 59, 1),
                             FontWeight.bold,
@@ -140,21 +137,14 @@ class _SeeAllState extends State<SeeAll> {
                     ),
                   )),
               AnimatedPositioned(
-                top: position ? 340 : 370,
+                top: position ? 255 : 305,
                 left: 20,
                 right: 20,
                 duration: const Duration(milliseconds: 500),
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 500),
                   opacity: opacity,
-                  child: PackageList(
-                    images: images,
-                    names: names,
-                    desc: desc,
-                    harga: harga,
-                    alamatController: seeallController.alamatController,
-                    formKey: _formKey,
-                  ),
+                  child: const ListPenempatanKWidget(),
                 ),
               ),
             ],

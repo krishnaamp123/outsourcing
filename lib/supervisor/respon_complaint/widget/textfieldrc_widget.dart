@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
 
-class TextFieldFC extends StatelessWidget {
+class TextFieldRC extends StatelessWidget {
   final TextEditingController controller;
   final String upText;
   final String hintText;
@@ -9,7 +9,7 @@ class TextFieldFC extends StatelessWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
 
-  const TextFieldFC({
+  const TextFieldRC({
     Key? key,
     required this.controller,
     required this.upText,

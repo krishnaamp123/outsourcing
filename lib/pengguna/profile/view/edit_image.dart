@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:outsourcing/pengguna/autentikasi/view/widget/my_button.dart';
+import 'package:outsourcing/autentikasi/view/widget/my_button.dart';
 import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/file/user_data.dart';
 import 'package:outsourcing/pengguna/profile/widget/appbar_widget.dart';

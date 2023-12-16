@@ -1,13 +1,7 @@
-// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
-
 import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
-import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/pengguna/order_layanan/view/driverdetail.dart';
-import 'package:outsourcing/pengguna/order_layanan/widget/backbutton_widget.dart';
-import 'package:outsourcing/pengguna/order_layanan/widget/buttonlanjut.dart';
-import 'package:outsourcing/pengguna/order_layanan/widget/dropdown_widget.dart';
-import 'package:outsourcing/pengguna/order_layanan/widget/textfieldlayanan_widget.dart';
+import 'package:outsourcing/pengguna/order_layanan/controller/driver_controller.dart';
+import 'package:outsourcing/core.dart';
 
 class DriverPage extends StatefulWidget {
   const DriverPage({Key? key}) : super(key: key);
@@ -19,10 +13,7 @@ class DriverPage extends StatefulWidget {
 class _DriverPageState extends State<DriverPage> {
   final _formKey = GlobalKey<FormState>();
   //text editing controllers
-  final alamatController = TextEditingController();
-  String? _alamatError;
-  final hariController = TextEditingController();
-  String? _hariError;
+  final DriverController driverController = DriverController();
   // int? jumlahCleaner = 1;
   var animate = false;
   var opacity = 0.0;
@@ -31,7 +22,6 @@ class _DriverPageState extends State<DriverPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
@@ -99,70 +89,30 @@ class _DriverPageState extends State<DriverPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             TextFieldLayanan(
-                              controller: alamatController,
+                              controller: driverController.alamatController,
                               upText: 'Alamat',
                               hintText: 'ex: Jl Udayana...',
                               obscureText: false,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Masukkan alamat';
-                                }
-                                return null;
-                              },
+                              validator: driverController.validateAlamat,
                               onChanged: (_) {
                                 setState(() {
-                                  _alamatError = null;
+                                  driverController.alamatError = null;
                                 });
                               },
                             ),
-                            _alamatError != null
-                                ? Container(
-                                    alignment: Alignment.bottomLeft,
-                                    padding: const EdgeInsets.only(left: 30.0),
-                                    child: Text(
-                                      _alamatError!,
-                                      style: const TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  )
-                                : const SizedBox(),
                             const SizedBox(height: 10),
                             TextFieldLayanan(
-                              controller: hariController,
+                              controller: driverController.hariController,
                               upText: 'Lama Kontrak',
                               hintText: 'ex: 9 Hari',
                               obscureText: false,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Masukkan jumlah hari';
-                                }
-                                return null;
-                              },
+                              validator: driverController.validateHari,
                               onChanged: (_) {
                                 setState(() {
-                                  _hariError = null;
+                                  driverController.hariError = null;
                                 });
                               },
                             ),
-                            _hariError != null
-                                ? Container(
-                                    alignment: Alignment.bottomLeft,
-                                    padding: const EdgeInsets.only(left: 30.0),
-                                    child: Text(
-                                      _hariError!,
-                                      style: const TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  )
-                                : const SizedBox(),
                             const SizedBox(height: 10),
                             const CustomDropdown(
                               items: [
@@ -257,39 +207,7 @@ class _DriverPageState extends State<DriverPage> {
                       ButtonLanjut(
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            String alamat = alamatController.text;
-                            String hari = hariController.text;
-                            if (alamat.isEmpty) {
-                              setState(() {
-                                _alamatError = 'Masukkan alamat';
-                                _hariError = null;
-                              });
-                            } else if (hari.isEmpty) {
-                              setState(() {
-                                _hariError = 'Masukkan jumlah hari';
-                                _alamatError = null;
-                              });
-                            } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => DriverDetail(
-                                    alamat: alamat,
-                                    hari: hari,
-                                    // jumlahCleaner: jumlahCleaner,
-                                  ),
-                                ),
-                              );
-                            }
-                          } else {
-                            setState(() {
-                              _alamatError = alamatController.text.isEmpty
-                                  ? 'Masukkan alamat'
-                                  : null;
-                              _hariError = hariController.text.isEmpty
-                                  ? 'Masukkan jumlah hari'
-                                  : null;
-                            });
+                            driverController.handleDriver(context);
                           }
                         },
                       )

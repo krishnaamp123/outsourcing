@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
 
 class TextFieldAlamat extends StatelessWidget {
-  final controller;
+  final TextEditingController controller;
   final String upText;
   final String hintText;
   final bool obscureText;
+  final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
 
   const TextFieldAlamat({
-    super.key,
+    Key? key,
     required this.controller,
     required this.upText,
     required this.hintText,
     required this.obscureText,
-    required String? Function(dynamic value) validator,
-    required Null Function(dynamic _) onChanged,
-  });
+    required this.validator,
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,29 +36,24 @@ class TextFieldAlamat extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
-        Card(
-          elevation: 5, // Atur elevation di sini
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0), // Atur radius di sini
-          ),
-          child: TextField(
-            controller: controller,
-            obscureText: obscureText,
-            decoration: InputDecoration(
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-              ),
-              fillColor: Colors.white,
-              filled: true,
-              hintText: hintText,
+        TextFormField(
+          controller: controller,
+          obscureText: obscureText,
+          validator: validator,
+          decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
             ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey.shade400),
+              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+            ),
+            fillColor: Colors.grey.shade100,
+            filled: true,
+            hintText: hintText,
           ),
-        )
+        ),
       ]),
     );
   }

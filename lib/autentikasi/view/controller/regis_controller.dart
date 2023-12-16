@@ -1,6 +1,6 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:outsourcing/pengguna/autentikasi/view/login_page.dart';
+import 'package:outsourcing/autentikasi/view/login_page.dart';
 
 class RegisController {
   final usernameController = TextEditingController();

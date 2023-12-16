@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:outsourcing/pengguna/autentikasi/view/regis_page.dart';
-import 'package:outsourcing/main.dart';
+import 'package:outsourcing/autentikasi/view/regis_page.dart';
+import 'package:outsourcing/autentikasi/view/start.dart';
+import 'package:outsourcing/autentikasi/view/startkaryawan.dart';
+import 'package:outsourcing/autentikasi/view/startsupervisor.dart';
 
 class LoginController {
   final emailController = TextEditingController();
@@ -49,7 +51,7 @@ class LoginController {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => Start(username: usernameWithoutDomain),
+        builder: (context) => StartSupervisor(username: usernameWithoutDomain),
       ),
     );
   }

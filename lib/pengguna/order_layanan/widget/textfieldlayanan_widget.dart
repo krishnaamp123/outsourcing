@@ -36,30 +36,24 @@ class TextFieldLayanan extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
-        Card(
-          elevation: 5, // Atur elevation di sini
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0), // Atur radius di sini
-          ),
-          child: TextFormField(
-            controller: controller,
-            obscureText: obscureText,
-            validator: validator,
-            decoration: InputDecoration(
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400),
-                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-              ),
-              fillColor: Colors.white,
-              filled: true,
-              hintText: hintText,
+        TextFormField(
+          controller: controller,
+          obscureText: obscureText,
+          validator: validator,
+          decoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
             ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey.shade400),
+              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+            ),
+            fillColor: Colors.grey.shade100,
+            filled: true,
+            hintText: hintText,
           ),
-        )
+        ),
       ]),
     );
   }

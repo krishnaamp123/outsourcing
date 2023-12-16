@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:outsourcing/pengguna/order_layanan/view/cleanerdetail.dart';
+import 'package:outsourcing/core.dart';
 
-class CleanerController {
+class HousekeeperController {
   final TextEditingController alamatController = TextEditingController();
   final TextEditingController hariController = TextEditingController();
 
@@ -40,20 +40,20 @@ class CleanerController {
     return true;
   }
 
-  void handleCleaner(BuildContext context) {
+  void handleHousekeeper(BuildContext context) {
     if (validateForm()) {
-      navigateToCleanerDetail(context);
+      navigateToHousekeeperDetail(context);
     }
   }
 
-  void navigateToCleanerDetail(BuildContext context) {
+  void navigateToHousekeeperDetail(BuildContext context) {
     String alamat = alamatController.text;
     String hari = hariController.text;
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CleanerDetail(
+        builder: (context) => HousekeeperDetail(
           alamat: alamat,
           hari: hari,
         ),

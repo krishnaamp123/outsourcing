@@ -4,9 +4,9 @@ If there is a conflicting class name in this file,
 it means you have to rename it to something more unique.
 */
 export 'package:outsourcing/components/inttext_widget.dart';
-export 'package:outsourcing/pengguna/autentikasi/view/widget/my_button.dart';
-export 'package:outsourcing/pengguna/autentikasi/view/widget/my_textfield.dart';
-export 'package:outsourcing/pengguna/autentikasi/view/widget/square_tile.dart';
+export 'package:outsourcing/autentikasi/view/widget/my_button.dart';
+export 'package:outsourcing/autentikasi/view/widget/my_textfield.dart';
+export 'package:outsourcing/autentikasi/view/widget/square_tile.dart';
 export 'package:outsourcing/components/text_widget.dart';
 export 'package:outsourcing/state_util.dart';
 export 'package:outsourcing/pengguna/dashboard/view/dashboard.dart';
@@ -15,7 +15,7 @@ export 'package:outsourcing/pengguna/feedback_complaint/widget/titlefc_widget.da
 export 'package:outsourcing/file/list.dart';
 export 'package:outsourcing/file/user.dart';
 export 'package:outsourcing/file/user_data.dart';
-export 'package:outsourcing/pengguna/autentikasi/view/login_page.dart';
+export 'package:outsourcing/autentikasi/view/login_page.dart';
 export 'package:outsourcing/pengguna/order/view/order.dart';
 export 'package:outsourcing/pengguna/order/view/orderbayar.dart';
 export 'package:outsourcing/pengguna/order/widget/buttonpembayaran_widget.dart';
@@ -47,6 +47,6 @@ export 'package:outsourcing/pengguna/profile/view/edit_image.dart';
 export 'package:outsourcing/pengguna/profile/view/edit_name.dart';
 export 'package:outsourcing/pengguna/profile/view/edit_phone.dart';
 export 'package:outsourcing/pengguna/profile/view/profile_user.dart';
-export 'package:outsourcing/pengguna/autentikasi/view/regis_page.dart';
+export 'package:outsourcing/autentikasi/view/regis_page.dart';
 export 'package:outsourcing/pengguna/order_paketlayanan/view/see_all.dart';
 export 'package:outsourcing/splash.dart';

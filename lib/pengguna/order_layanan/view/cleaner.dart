@@ -1,13 +1,7 @@
-// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
-
 import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
-import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/pengguna/order_layanan/controller/cleaner_controller.dart';
-import 'package:outsourcing/pengguna/order_layanan/widget/backbutton_widget.dart';
-import 'package:outsourcing/pengguna/order_layanan/widget/buttonlanjut.dart';
-import 'package:outsourcing/pengguna/order_layanan/widget/dropdown_widget.dart';
-import 'package:outsourcing/pengguna/order_layanan/widget/textfieldlayanan_widget.dart';
+import 'package:outsourcing/core.dart';
 
 class CleanerPage extends StatefulWidget {
   const CleanerPage({Key? key}) : super(key: key);
@@ -28,7 +22,6 @@ class _CleanerPageState extends State<CleanerPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
@@ -107,21 +100,6 @@ class _CleanerPageState extends State<CleanerPage> {
                                 });
                               },
                             ),
-                            cleanerController.alamatError != null
-                                ? Container(
-                                    alignment: Alignment.bottomLeft,
-                                    padding: const EdgeInsets.only(left: 30.0),
-                                    child: Text(
-                                      cleanerController.alamatError!,
-                                      style: const TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  )
-                                : const SizedBox(),
                             const SizedBox(height: 10),
                             TextFieldLayanan(
                               controller: cleanerController.hariController,
@@ -135,21 +113,6 @@ class _CleanerPageState extends State<CleanerPage> {
                                 });
                               },
                             ),
-                            cleanerController.hariError != null
-                                ? Container(
-                                    alignment: Alignment.bottomLeft,
-                                    padding: const EdgeInsets.only(left: 30.0),
-                                    child: Text(
-                                      cleanerController.hariError!,
-                                      style: const TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  )
-                                : const SizedBox(),
                             const SizedBox(height: 10),
                             const CustomDropdown(
                               items: [

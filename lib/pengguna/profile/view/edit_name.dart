@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:outsourcing/pengguna/autentikasi/view/widget/my_button.dart';
+import 'package:outsourcing/autentikasi/view/widget/my_button.dart';
 import 'package:outsourcing/file/user_data.dart';
 import 'package:outsourcing/pengguna/profile/widget/appbar_widget.dart';
 import 'package:string_validator/string_validator.dart';
