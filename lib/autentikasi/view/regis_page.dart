@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:outsourcing/autentikasi/view/controller/regis_controller.dart';
-import 'package:outsourcing/autentikasi/view/widget/my_button.dart';
-import 'package:outsourcing/autentikasi/view/widget/my_textfield.dart';
-import 'package:outsourcing/autentikasi/view/widget/square_tile.dart';
+import 'package:outsourcing/autentikasi/controller/regis_controller.dart';
+import 'package:outsourcing/autentikasi/widget/my_button.dart';
+import 'package:outsourcing/autentikasi/widget/my_textfield.dart';
+import 'package:outsourcing/autentikasi/widget/square_tile.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
@@ -65,21 +65,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     });
                   },
                 ),
-                regisController.usernameError != null
-                    ? Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: Text(
-                          regisController.usernameError!,
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      )
-                    : const SizedBox(),
 
                 const SizedBox(height: 5),
 
@@ -96,22 +81,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     });
                   },
                 ),
-                regisController.emailError != null
-                    ? Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: Text(
-                          regisController.emailError!,
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      )
-                    : const SizedBox(),
-
                 const SizedBox(height: 5),
 
                 //password textfield
@@ -127,53 +96,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     });
                   },
                 ),
-                regisController.passwordError != null
-                    ? Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: Text(
-                          regisController.passwordError!,
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      )
-                    : const SizedBox(),
-
-                const SizedBox(height: 5),
-
-                //confirm password textfield
-                //password textfield
-                MyTextField(
-                  controller: regisController.cpasswordController,
-                  hintText: 'Password',
-                  obscureText: true,
-                  validator: regisController
-                      .validatecPassword, // Set validator dari controller
-                  onChanged: (_) {
-                    setState(() {
-                      regisController.cpasswordError = null;
-                    });
-                  },
-                ),
-                regisController.cpasswordError != null
-                    ? Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: Text(
-                          regisController.cpasswordError!,
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      )
-                    : const SizedBox(),
 
                 const SizedBox(height: 10),
 

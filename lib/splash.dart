@@ -11,12 +11,19 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
+  bool _showLogo = true;
   bool position = false;
   var opacity = 0.0;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _showLogo = false;
+      });
+    });
 
     Future.delayed(Duration.zero, () {
       animator();
@@ -44,6 +51,14 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
         decoration: const BoxDecoration(color: Colors.white),
         child: Stack(
           children: [
+            if (_showLogo)
+              Center(
+                child: Image.asset(
+                  'lib/images/logotok.png',
+                  height: 200,
+                  width: 200,
+                ),
+              ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
               top: position ? 60 : 150,

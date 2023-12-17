@@ -1,20 +1,25 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:outsourcing/autentikasi/model/api_login.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/karyawan/dashboard/controller/penempatank_controller.dart';
 import 'package:outsourcing/karyawan/dashboard/widget/infopenempatank.dart';
 import 'package:outsourcing/karyawan/dashboard/widget/listpenempatank.dart';
 import 'package:outsourcing/karyawan/dashboard/widget/titlepenempatank.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeKaryawan extends StatefulWidget {
-  final String username;
-  const HomeKaryawan({Key? key, required this.username}) : super(key: key);
+  // final String username;
+  const HomeKaryawan({Key? key}) : super(key: key);
 
   @override
   State<HomeKaryawan> createState() => _HomeKaryawanState();
 }
 
 class _HomeKaryawanState extends State<HomeKaryawan> {
+  String name = '';
+
   var opacity = 0.0;
   bool position = false;
   final _formKey = GlobalKey<FormState>();
@@ -26,6 +31,7 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
     Future.delayed(Duration.zero, () {
       animator();
     });
+    _loadUserData();
   }
 
   animator() {
@@ -39,10 +45,24 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
     setState(() {});
   }
 
+  _loadUserData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var userData = localStorage.getString('user');
+
+    if (userData != null) {
+      var user = jsonDecode(userData);
+      if (user != null && user['name'] != null) {
+        setState(() {
+          name = user['name'];
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    String username = widget.username;
+    // String username = widget.username;
     return Scaffold(
       body: Form(
         key: _formKey,
@@ -91,7 +111,7 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
                           TextWidget("Halo", 15, Colors.black.withOpacity(.7),
                               FontWeight.bold),
                           TextWidget(
-                              username, 20, Colors.black, FontWeight.bold),
+                              '${name}', 20, Colors.black, FontWeight.bold),
                         ],
                       ),
                     ],

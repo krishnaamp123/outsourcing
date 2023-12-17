@@ -4,9 +4,9 @@ If there is a conflicting class name in this file,
 it means you have to rename it to something more unique.
 */
 export 'package:outsourcing/components/inttext_widget.dart';
-export 'package:outsourcing/autentikasi/view/widget/my_button.dart';
-export 'package:outsourcing/autentikasi/view/widget/my_textfield.dart';
-export 'package:outsourcing/autentikasi/view/widget/square_tile.dart';
+export 'package:outsourcing/autentikasi/widget/my_button.dart';
+export 'package:outsourcing/autentikasi/widget/my_textfield.dart';
+export 'package:outsourcing/autentikasi/widget/square_tile.dart';
 export 'package:outsourcing/components/text_widget.dart';
 export 'package:outsourcing/state_util.dart';
 export 'package:outsourcing/pengguna/dashboard/view/dashboard.dart';

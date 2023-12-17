@@ -4,8 +4,8 @@ import 'package:outsourcing/karyawan/dashboard/view/dashboard_karyawan.dart';
 import 'package:outsourcing/karyawan/profile/view/profile_karyawan.dart';
 
 class StartKaryawan extends StatefulWidget {
-  final String username;
-  const StartKaryawan({Key? key, required this.username}) : super(key: key);
+  // final String username;
+  const StartKaryawan({Key? key}) : super(key: key);
 
   @override
   State<StartKaryawan> createState() => _StartKaryawanState();
@@ -44,22 +44,22 @@ class _StartKaryawanState extends State<StartKaryawan> {
         height: 60,
       ),
       body: Container(
-        child: getSelectedWidget(index: index, username: widget.username),
+        child: getSelectedWidget(index: index),
       ),
     );
   }
 
-  Widget getSelectedWidget({required int index, required String username}) {
+  Widget getSelectedWidget({required int index}) {
     Widget widget;
     switch (index) {
       case 0:
-        widget = HomeKaryawan(username: username);
+        widget = const HomeKaryawan();
         break;
       case 1:
         widget = const ProfileKaryawan();
         break;
       default:
-        widget = HomeKaryawan(username: username);
+        widget = const HomeKaryawan();
         break;
     }
     return widget;

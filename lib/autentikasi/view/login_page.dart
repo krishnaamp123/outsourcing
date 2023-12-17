@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:outsourcing/autentikasi/view/widget/my_button.dart';
-import 'package:outsourcing/autentikasi/view/widget/my_textfield.dart';
-import 'package:outsourcing/autentikasi/view/widget/square_tile.dart';
-import 'controller/login_controller.dart';
+import 'package:outsourcing/autentikasi/widget/my_button.dart';
+import 'package:outsourcing/autentikasi/widget/my_textfield.dart';
+import 'package:outsourcing/autentikasi/widget/square_tile.dart';
+import '../controller/login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -61,21 +61,6 @@ class _LoginPageState extends State<LoginPage> {
                     });
                   },
                 ),
-                loginController.emailError != null
-                    ? Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: Text(
-                          loginController.emailError!,
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      )
-                    : const SizedBox(),
 
                 const SizedBox(height: 5),
 
@@ -92,21 +77,6 @@ class _LoginPageState extends State<LoginPage> {
                     });
                   },
                 ),
-                loginController.passwordError != null
-                    ? Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: Text(
-                          loginController.passwordError!,
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      )
-                    : const SizedBox(),
 
                 const SizedBox(height: 10),
 
