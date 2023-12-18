@@ -32,6 +32,7 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
       animator();
     });
     _loadUserData();
+    _printToken();
   }
 
   animator() {
@@ -57,6 +58,12 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
         });
       }
     }
+  }
+
+  void _printToken() async {
+    Network network = Network();
+    String token = await network.getToken();
+    print('Token: $token'); // Cetak token ke debug console
   }
 
   @override

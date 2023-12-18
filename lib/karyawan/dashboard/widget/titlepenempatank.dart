@@ -35,7 +35,7 @@ class _TitlePenempatanKState extends State<TitlePenempatanKWidget> {
         children: [
           InkWell(
             onTap: () {
-              logout();
+              logout(widget.context);
             },
             child: const Icon(
               Icons.arrow_back_ios_rounded,
@@ -55,15 +55,38 @@ class _TitlePenempatanKState extends State<TitlePenempatanKWidget> {
     );
   }
 
-  void logout() async {
-    var res = await Network().getData('/logout');
-    var body = json.decode(res.body);
-    if (res.statusCode == 200) {
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      localStorage.remove('user');
-      localStorage.remove('token');
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginPage()));
-    }
+  Future<void> logout(BuildContext context) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.remove('token');
+    localStorage.remove('user');
+
+    // Navigasi ke halaman login atau halaman awal aplikasi setelah logout
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoginPage(),
+      ),
+    );
   }
 }
+//   void logout() async {
+//     SharedPreferences localStorage = await SharedPreferences.getInstance();
+//     var token = localStorage.getString('access_token');
+//     localStorage.remove('token');
+//     Navigator.pushReplacement(
+//         context, MaterialPageRoute(builder: (context) => LoginPage()));
+//   }
+// }
+
+// void logout() async {
+//     var res = await Network().getData('/logout');
+//     var body = json.decode(res.body);
+//     if (res.statusCode == 200) {
+//       SharedPreferences localStorage = await SharedPreferences.getInstance();
+//       localStorage.remove('user');
+//       localStorage.remove('token');
+//       Navigator.pushReplacement(
+//           context, MaterialPageRoute(builder: (context) => LoginPage()));
+//     }
+//   }
+// }
