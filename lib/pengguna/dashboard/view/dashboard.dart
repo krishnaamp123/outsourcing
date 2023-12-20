@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:outsourcing/autentikasi/view/login_page.dart';
 import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/file/list.dart';
 import 'package:outsourcing/pengguna/order_layanan/view/cleaner.dart';
@@ -8,16 +10,18 @@ import 'package:outsourcing/pengguna/order_layanan/view/driver.dart';
 import 'package:outsourcing/pengguna/order_layanan/view/housekeeper.dart';
 import 'package:outsourcing/pengguna/order_layanan/view/security.dart';
 import 'package:outsourcing/pengguna/order_paketlayanan/view/see_all.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
-  final String username;
-  const Home({Key? key, required this.username}) : super(key: key);
+  // final String username;
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  String name = '';
   var opacity = 0.0;
   bool position = false;
 
@@ -26,9 +30,8 @@ class _HomeState extends State<Home> {
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
-
-      setState(() {});
     });
+    _loadUserData();
   }
 
   animator() {
@@ -42,9 +45,35 @@ class _HomeState extends State<Home> {
     setState(() {});
   }
 
+  _loadUserData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var userData = localStorage.getString('user');
+    if (userData != null) {
+      var user = jsonDecode(userData);
+      if (user != null && user['Fullname'] != null) {
+        String fullName = user['Fullname'];
+        List<String> nameParts =
+            fullName.split(' '); // Memisahkan berdasarkan spasi
+        String firstName = '';
+
+        if (nameParts.length >= 2) {
+          // Pastikan ada minimal 2 kata dalam nama
+          firstName =
+              '${nameParts[0]} ${nameParts[1]}'; // Mengambil dua kata pertama
+        } else {
+          firstName =
+              fullName; // Jika hanya ada satu kata, gunakan seluruh nama
+        }
+
+        setState(() {
+          name = firstName;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    String username = widget.username;
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -64,22 +93,40 @@ class _HomeState extends State<Home> {
                   duration: const Duration(milliseconds: 400),
                   opacity: opacity,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        'lib/images/logotok.png',
-                        height: 40,
-                        width: 40,
-                      ),
-                      const SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          TextWidget("Halo", 15, Colors.black.withOpacity(.7),
-                              FontWeight.bold),
-                          TextWidget(
-                              username, 20, Colors.black, FontWeight.bold),
+                          Image.asset(
+                            'lib/images/logotok.png',
+                            height: 40,
+                            width: 40,
+                          ),
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextWidget(
+                                  "Halo",
+                                  15,
+                                  Colors.black.withOpacity(.7),
+                                  FontWeight.bold),
+                              TextWidget(
+                                  '${name}', 20, Colors.black, FontWeight.bold),
+                            ],
+                          ),
                         ],
+                      ),
+                      InkWell(
+                        onTap: () {
+                          logout(context);
+                        },
+                        child: const Icon(
+                          Icons.logout_outlined,
+                          color: Color.fromRGBO(45, 3, 59, 1),
+                          size: 30,
+                        ),
                       ),
                     ],
                   ),
@@ -418,4 +465,18 @@ class _HomeState extends State<Home> {
       ],
     );
   }
+}
+
+Future<void> logout(BuildContext context) async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  localStorage.remove('token');
+  localStorage.remove('karyawan');
+
+  // Navigasi ke halaman login atau halaman awal aplikasi setelah logout
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (context) => LoginPage(),
+    ),
+  );
 }

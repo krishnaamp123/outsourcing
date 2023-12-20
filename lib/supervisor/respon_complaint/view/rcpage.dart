@@ -4,8 +4,8 @@ import 'package:outsourcing/supervisor/respon_complaint/view/responses.dart';
 import 'package:outsourcing/supervisor/respon_complaint/widget/titlerc_widget.dart';
 
 class ResponseComplaint extends StatefulWidget {
-  final String username;
-  const ResponseComplaint({Key? key, required this.username}) : super(key: key);
+  // final String username;
+  const ResponseComplaint({Key? key}) : super(key: key);
 
   @override
   State<ResponseComplaint> createState() => _ResponseComplaintState();

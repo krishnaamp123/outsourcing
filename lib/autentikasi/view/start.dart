@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
 
 class Start extends StatefulWidget {
-  final String username;
-  const Start({Key? key, required this.username}) : super(key: key);
+  // final String service_user;
+  const Start({Key? key}) : super(key: key);
 
   @override
   State<Start> createState() => _StartState();
@@ -53,28 +53,28 @@ class _StartState extends State<Start> {
         height: 60,
       ),
       body: Container(
-        child: getSelectedWidget(index: index, username: widget.username),
+        child: getSelectedWidget(index: index),
       ),
     );
   }
 
-  Widget getSelectedWidget({required int index, required String username}) {
+  Widget getSelectedWidget({required int index}) {
     Widget widget;
     switch (index) {
       case 0:
-        widget = Home(username: username);
+        widget = Home();
         break;
       case 1:
-        widget = Order(username: username);
+        widget = Order();
         break;
       case 2:
-        widget = FeedbackComplaint(username: username);
+        widget = FeedbackComplaint();
         break;
       case 3:
         widget = const ProfileUser();
         break;
       default:
-        widget = Order(username: username);
+        widget = Order();
         break;
     }
     return widget;

@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:outsourcing/autentikasi/model/api_login.dart';
 import 'package:outsourcing/autentikasi/view/login_page.dart';
 import 'package:outsourcing/components/text_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,24 +28,24 @@ class _TitlePenempatanKState extends State<TitlePenempatanKWidget> {
       opacity: opacity,
       duration: const Duration(milliseconds: 300),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          InkWell(
-            onTap: () {
-              logout(widget.context);
-            },
-            child: const Icon(
-              Icons.arrow_back_ios_rounded,
-              color: Color.fromRGBO(45, 3, 59, 1),
-              size: 30,
-            ),
-          ),
           TextWidget(
             widget.labelText,
             25,
             const Color.fromRGBO(45, 3, 59, 1),
             FontWeight.bold,
             letterSpace: 0,
+          ),
+          InkWell(
+            onTap: () {
+              logout(widget.context);
+            },
+            child: const Icon(
+              Icons.logout_outlined,
+              color: Color.fromRGBO(45, 3, 59, 1),
+              size: 30,
+            ),
           ),
         ],
       ),
@@ -58,7 +55,7 @@ class _TitlePenempatanKState extends State<TitlePenempatanKWidget> {
   Future<void> logout(BuildContext context) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     localStorage.remove('token');
-    localStorage.remove('user');
+    localStorage.remove('karyawan');
 
     // Navigasi ke halaman login atau halaman awal aplikasi setelah logout
     Navigator.pushReplacement(

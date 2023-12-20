@@ -5,8 +5,8 @@ import 'package:outsourcing/supervisor/profile/view/profile_supervisor.dart';
 import 'package:outsourcing/supervisor/respon_complaint/view/rcpage.dart';
 
 class StartSupervisor extends StatefulWidget {
-  final String username;
-  const StartSupervisor({Key? key, required this.username}) : super(key: key);
+  // final String supervisor;
+  const StartSupervisor({Key? key}) : super(key: key);
 
   @override
   State<StartSupervisor> createState() => _StartSupervisorState();
@@ -50,25 +50,25 @@ class _StartSupervisorState extends State<StartSupervisor> {
         height: 60,
       ),
       body: Container(
-        child: getSelectedWidget(index: index, username: widget.username),
+        child: getSelectedWidget(index: index),
       ),
     );
   }
 
-  Widget getSelectedWidget({required int index, required String username}) {
+  Widget getSelectedWidget({required int index}) {
     Widget widget;
     switch (index) {
       case 0:
-        widget = HomeSupervisor(username: username);
+        widget = HomeSupervisor();
         break;
       case 1:
-        widget = ResponseComplaint(username: username);
+        widget = ResponseComplaint();
         break;
       case 2:
         widget = const ProfileSupervisor();
         break;
       default:
-        widget = HomeSupervisor(username: username);
+        widget = HomeSupervisor();
         break;
     }
     return widget;

@@ -5,8 +5,8 @@ import 'package:outsourcing/pengguna/feedback_complaint/view/response.dart';
 import 'package:outsourcing/pengguna/feedback_complaint/widget/titlefc_widget.dart';
 
 class FeedbackComplaint extends StatefulWidget {
-  final String username;
-  const FeedbackComplaint({Key? key, required this.username}) : super(key: key);
+  // final String username;
+  const FeedbackComplaint({Key? key}) : super(key: key);
 
   @override
   State<FeedbackComplaint> createState() => _FeedbackComplaintState();

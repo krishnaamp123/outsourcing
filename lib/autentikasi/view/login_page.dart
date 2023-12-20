@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:outsourcing/autentikasi/widget/my_button.dart';
 import 'package:outsourcing/autentikasi/widget/my_textfield.dart';
-import 'package:outsourcing/autentikasi/widget/square_tile.dart';
 import '../controller/login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -30,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 10),
                 Image.asset(
                   'lib/images/logo.png',
                   height: 200,
@@ -106,48 +104,18 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 10),
 
                 // or continue with
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          'Atau Lanjut Dengan',
-                          style: TextStyle(color: Colors.grey[700]),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                    ],
+                  child: Divider(
+                    thickness: 0.5,
+                    color: Colors.grey[400],
                   ),
                 ),
 
-                const SizedBox(height: 20),
-
-                //google + facebook sign in buttons
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    //google button
-                    SquareTile(imagePath: 'lib/images/google icon.png'),
-                  ],
-                ),
-
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
 
                 // not a member? register now
                 Row(

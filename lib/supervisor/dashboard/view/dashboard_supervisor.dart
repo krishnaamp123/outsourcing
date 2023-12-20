@@ -1,20 +1,24 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/supervisor/dashboard/controller/penempatans_controller.dart';
 import 'package:outsourcing/supervisor/dashboard/widget/infopenempatans.dart';
 import 'package:outsourcing/supervisor/dashboard/widget/listpenempatans.dart';
 import 'package:outsourcing/supervisor/dashboard/widget/titlepenempatans.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeSupervisor extends StatefulWidget {
-  final String username;
-  const HomeSupervisor({Key? key, required this.username}) : super(key: key);
+  // final String username;
+  const HomeSupervisor({Key? key}) : super(key: key);
 
   @override
   State<HomeSupervisor> createState() => _HomeSupervisorState();
 }
 
 class _HomeSupervisorState extends State<HomeSupervisor> {
+  String name = '';
+
   var opacity = 0.0;
   bool position = false;
   final _formKey = GlobalKey<FormState>();
@@ -26,6 +30,7 @@ class _HomeSupervisorState extends State<HomeSupervisor> {
     Future.delayed(Duration.zero, () {
       animator();
     });
+    _loadUserData();
   }
 
   animator() {
@@ -39,10 +44,36 @@ class _HomeSupervisorState extends State<HomeSupervisor> {
     setState(() {});
   }
 
+  _loadUserData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var userData = localStorage.getString('supervisor');
+    if (userData != null) {
+      var user = jsonDecode(userData);
+      if (user != null && user['Fullname'] != null) {
+        String fullName = user['Fullname'];
+        List<String> nameParts =
+            fullName.split(' '); // Memisahkan berdasarkan spasi
+        String firstName = '';
+
+        if (nameParts.length >= 2) {
+          // Pastikan ada minimal 2 kata dalam nama
+          firstName =
+              '${nameParts[0]} ${nameParts[1]}'; // Mengambil dua kata pertama
+        } else {
+          firstName =
+              fullName; // Jika hanya ada satu kata, gunakan seluruh nama
+        }
+
+        setState(() {
+          name = firstName;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    String username = widget.username;
     return Scaffold(
       body: Form(
         key: _formKey,
@@ -91,7 +122,7 @@ class _HomeSupervisorState extends State<HomeSupervisor> {
                           TextWidget("Halo", 15, Colors.black.withOpacity(.7),
                               FontWeight.bold),
                           TextWidget(
-                              username, 20, Colors.black, FontWeight.bold),
+                              '${name}', 20, Colors.black, FontWeight.bold),
                         ],
                       ),
                     ],

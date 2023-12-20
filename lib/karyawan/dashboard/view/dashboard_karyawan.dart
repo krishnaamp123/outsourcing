@@ -48,13 +48,26 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
 
   _loadUserData() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var userData = localStorage.getString('user');
-
+    var userData = localStorage.getString('karyawan');
     if (userData != null) {
       var user = jsonDecode(userData);
-      if (user != null && user['name'] != null) {
+      if (user != null && user['fullname'] != null) {
+        String fullName = user['fullname'];
+        List<String> nameParts =
+            fullName.split(' '); // Memisahkan berdasarkan spasi
+        String firstName = '';
+
+        if (nameParts.length >= 2) {
+          // Pastikan ada minimal 2 kata dalam nama
+          firstName =
+              '${nameParts[0]} ${nameParts[1]}'; // Mengambil dua kata pertama
+        } else {
+          firstName =
+              fullName; // Jika hanya ada satu kata, gunakan seluruh nama
+        }
+
         setState(() {
-          name = user['name'];
+          name = firstName;
         });
       }
     }

@@ -3,8 +3,8 @@ import 'package:outsourcing/pengguna/order/widget/orderholder_widget.dart';
 import 'package:outsourcing/pengguna/order/widget/titleorder.dart';
 
 class Order extends StatefulWidget {
-  final String username;
-  const Order({Key? key, required this.username}) : super(key: key);
+  // final String username;
+  const Order({Key? key}) : super(key: key);
 
   @override
   State<Order> createState() => _OrderState();

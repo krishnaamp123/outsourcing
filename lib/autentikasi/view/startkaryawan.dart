@@ -4,7 +4,7 @@ import 'package:outsourcing/karyawan/dashboard/view/dashboard_karyawan.dart';
 import 'package:outsourcing/karyawan/profile/view/profile_karyawan.dart';
 
 class StartKaryawan extends StatefulWidget {
-  // final String username;
+  // final String employee;
   const StartKaryawan({Key? key}) : super(key: key);
 
   @override

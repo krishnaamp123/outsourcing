@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/autentikasi/model/api_login.dart';
+import 'package:outsourcing/autentikasi/view/start.dart';
 import 'package:outsourcing/autentikasi/view/startkaryawan.dart';
+import 'package:outsourcing/autentikasi/view/startsupervisor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core.dart';
 
@@ -29,6 +31,8 @@ class LoginController {
   String? validatePassword(String? passwordValue) {
     if (passwordValue == null || passwordValue.isEmpty) {
       return 'Masukkan password';
+    } else if (passwordValue.length < 6) {
+      return 'Password harus memiliki minimal 6 karakter';
     }
     return null;
   }
@@ -46,21 +50,58 @@ class LoginController {
     return emailValidation == null && passwordValidation == null;
   }
 
-  void navigateToStart(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => StartKaryawan(),
-      ),
-    );
+  void navigateBasedOnRole(BuildContext context, String roles) {
+    if (roles == '"service_user"') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Start(),
+        ),
+      );
+    } else if (roles == '"employee"') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const StartKaryawan(),
+        ),
+      );
+    } else if (roles == '"supervisor"') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const StartSupervisor(),
+        ),
+      );
+    }
   }
 
   Future<void> handleLogin(BuildContext context) async {
     if (validateForm()) {
       bool loggedIn = await login(); // Tunggu sampai proses login selesai
       if (loggedIn) {
-        navigateToStart(
-            context); // Navigasi ke halaman StartKaryawan setelah login berhasil
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        var roles = localStorage.getString('roles');
+        print('roles: $roles');
+        if (roles != null && roles.isNotEmpty) {
+          navigateBasedOnRole(
+              context, roles); // Langsung gunakan role sebagai string
+        } else {
+          final snackBar = SnackBar(
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'Info',
+              message:
+                  'Harap periksa kembali akun yang anda masukan, akun yang anda masukan tidak memiliki role',
+              contentType: ContentType.failure,
+            ),
+          );
+
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(snackBar);
+        }
       } else {
         final snackBar = SnackBar(
           elevation: 0,
@@ -91,9 +132,22 @@ class LoginController {
     var body = json.decode(res.body);
     if (res.statusCode == 200) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
+      localStorage.setString('token',
+          json.encode(body['payload']['data']['tokens']['access_token']));
       localStorage.setString(
-          'token', json.encode(body['payload']['data']['access_token']));
-      localStorage.setString('user', json.encode(body['user']));
+          'user',
+          json.encode(
+              body['payload']['data']['user_profile']['service_user_profile']));
+      localStorage.setString(
+          'karyawan',
+          json.encode(
+              body['payload']['data']['user_profile']['employee_profile']));
+      localStorage.setString(
+          'supervisor',
+          json.encode(
+              body['payload']['data']['user_profile']['supervisor_profile']));
+      localStorage.setString('roles',
+          json.encode(body['payload']['data']['user_profile']['role']));
       return true; // Jika login berhasil
     } else {
       return false; // Jika login gagal
