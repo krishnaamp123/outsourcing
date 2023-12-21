@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:outsourcing/autentikasi/model/api_login.dart';
+import 'package:outsourcing/service/auth_service.dart';
 import 'package:outsourcing/autentikasi/view/start.dart';
 import 'package:outsourcing/autentikasi/view/startkaryawan.dart';
 import 'package:outsourcing/autentikasi/view/startsupervisor.dart';

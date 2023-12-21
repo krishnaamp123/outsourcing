@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:outsourcing/autentikasi/model/api_login.dart';
+import 'package:outsourcing/service/auth_service.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/karyawan/dashboard/controller/penempatank_controller.dart';
 import 'package:outsourcing/karyawan/dashboard/widget/infopenempatank.dart';

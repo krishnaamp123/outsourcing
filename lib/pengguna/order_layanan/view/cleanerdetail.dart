@@ -7,11 +7,15 @@ class CleanerDetail extends StatefulWidget {
   // const CleanerDetail({super.key, this.onTap});
   final String alamat;
   final String hari;
+  final List<String> selectedItems;
+  final int jumlahCleaner;
   // final int? jumlahCleaner;
   const CleanerDetail(
       {Key? key,
       required this.alamat,
       required this.hari,
+      required this.selectedItems,
+      required this.jumlahCleaner,
       // required this.jumlahCleaner,
       this.onTap})
       : super(key: key);
@@ -52,6 +56,8 @@ class _CleanerDetailState extends State<CleanerDetail> {
   Widget build(BuildContext context) {
     String alamat = widget.alamat;
     String hari = widget.hari;
+    List<String> selectedItems = widget.selectedItems;
+    int jumlahCleaner = widget.jumlahCleaner;
     // int? jumlahCleaner = widget.jumlahCleaner;
     size = MediaQuery.of(context).size;
     return Scaffold(
@@ -244,7 +250,7 @@ class _CleanerDetailState extends State<CleanerDetail> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 170,
+                    height: 120,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -276,46 +282,53 @@ class _CleanerDetailState extends State<CleanerDetail> {
                           const SizedBox(
                             height: 10,
                           ),
-                          const TextWidget(
-                            "Jumlah Hari",
-                            15,
-                            Color.fromRGBO(129, 12, 168, 1),
-                            FontWeight.normal,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextWidget(
-                            hari,
-                            18,
-                            const Color.fromRGBO(45, 3, 59, 1),
-                            FontWeight.bold,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const TextWidget(
+                                "Lama Kontrak : ",
+                                15,
+                                Color.fromRGBO(129, 12, 168, 1),
+                                FontWeight.normal,
+                                letterSpace: 0,
+                                textAlign: TextAlign.left,
+                              ),
+                              TextWidget(
+                                '$hari Hari',
+                                15,
+                                const Color.fromRGBO(45, 3, 59, 1),
+                                FontWeight.bold,
+                                letterSpace: 0,
+                                textAlign: TextAlign.left,
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          const TextWidget(
-                            "Jumlah Cleaner",
-                            15,
-                            Color.fromRGBO(129, 12, 168, 1),
-                            FontWeight.normal,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextWidget(
-                            hari,
-                            18,
-                            const Color.fromRGBO(45, 3, 59, 1),
-                            FontWeight.bold,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const TextWidget(
+                                "Jumlah Cleaner : ",
+                                15,
+                                Color.fromRGBO(129, 12, 168, 1),
+                                FontWeight.normal,
+                                letterSpace: 0,
+                                textAlign: TextAlign.left,
+                              ),
+                              TextWidget(
+                                '$jumlahCleaner Orang',
+                                15,
+                                const Color.fromRGBO(45, 3, 59, 1),
+                                FontWeight.bold,
+                                letterSpace: 0,
+                                textAlign: TextAlign.left,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -325,7 +338,59 @@ class _CleanerDetailState extends State<CleanerDetail> {
               ),
             ),
             AnimatedPositioned(
-              top: position ? 470 : 330,
+              duration: const Duration(milliseconds: 400),
+              top: position ? 410 : 460,
+              left: 20,
+              right: 20,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 400),
+                opacity: opacity,
+                child: Card(
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: SizedBox(
+                    height: 140,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TextWidget(
+                            'Item Tambahan',
+                            15,
+                            Color.fromRGBO(129, 12, 168, 1),
+                            FontWeight.normal,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: selectedItems.length,
+                              padding: const EdgeInsets.only(bottom: 10),
+                              itemExtent: 50,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  title: Text(selectedItems[index]),
+                                  titleTextStyle: const TextStyle(
+                                      color: Color.fromRGBO(45, 3, 59, 1),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            AnimatedPositioned(
+              top: position ? 570 : 620,
               right: 30,
               left: 30,
               duration: const Duration(milliseconds: 400),
@@ -357,7 +422,7 @@ class _CleanerDetailState extends State<CleanerDetail> {
               ),
             ),
             AnimatedPositioned(
-              top: position ? 660 : 330,
+              top: position ? 660 : 710,
               right: 30,
               left: 30,
               duration: const Duration(milliseconds: 400),

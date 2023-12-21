@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outsourcing/core.dart';
 import 'package:outsourcing/pengguna/order_layanan/view/cleanerdetail.dart';
 
 class CleanerController {
@@ -40,13 +41,15 @@ class CleanerController {
     return true;
   }
 
-  void handleCleaner(BuildContext context) {
+  void handleCleaner(
+      BuildContext context, List<String>? selectedItems, int jumlahCleaner) {
     if (validateForm()) {
-      navigateToCleanerDetail(context);
+      navigateToCleanerDetail(context, selectedItems, jumlahCleaner);
     }
   }
 
-  void navigateToCleanerDetail(BuildContext context) {
+  void navigateToCleanerDetail(
+      BuildContext context, List<String>? selectedItems, int jumlahCleaner) {
     String alamat = alamatController.text;
     String hari = hariController.text;
 
@@ -56,6 +59,8 @@ class CleanerController {
         builder: (context) => CleanerDetail(
           alamat: alamat,
           hari: hari,
+          selectedItems: selectedItems ?? [],
+          jumlahCleaner: jumlahCleaner,
         ),
       ),
     );

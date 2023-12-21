@@ -40,13 +40,15 @@ class SecurityController {
     return true;
   }
 
-  void handleSecurity(BuildContext context) {
+  void handleSecurity(
+      BuildContext context, List<String>? selectedItems, int jumlahSecurity) {
     if (validateForm()) {
-      navigateToSecurityDetail(context);
+      navigateToSecurityDetail(context, selectedItems, jumlahSecurity);
     }
   }
 
-  void navigateToSecurityDetail(BuildContext context) {
+  void navigateToSecurityDetail(
+      BuildContext context, List<String>? selectedItems, int jumlahSecurity) {
     String alamat = alamatController.text;
     String hari = hariController.text;
 
@@ -56,6 +58,8 @@ class SecurityController {
         builder: (context) => SecurityDetail(
           alamat: alamat,
           hari: hari,
+          selectedItems: selectedItems ?? [],
+          jumlahSecurity: jumlahSecurity,
         ),
       ),
     );

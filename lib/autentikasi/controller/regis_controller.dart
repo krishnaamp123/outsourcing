@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:outsourcing/autentikasi/model/api_login.dart';
+import 'package:outsourcing/service/auth_service.dart';
 import 'package:outsourcing/autentikasi/view/login_page.dart';
+import 'package:outsourcing/autentikasi/view/start.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisController {
@@ -146,7 +147,10 @@ class RegisController {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString(
           'token', json.encode(body['payload']['data']['access_token']));
-      localStorage.setString('user', json.encode(body['user']));
+      localStorage.setString(
+          'user',
+          json.encode(
+              body['payload']['data']['user_profile']['service_user_profile']));
       return true; // Jika login berhasil
     } else {
       return false; // Jika login gagal
@@ -176,7 +180,7 @@ class RegisController {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const LoginPage(),
+        builder: (context) => const Start(),
       ),
     );
   }

@@ -40,13 +40,15 @@ class HousekeeperController {
     return true;
   }
 
-  void handleHousekeeper(BuildContext context) {
+  void handleHousekeeper(BuildContext context, List<String>? selectedItems,
+      int jumlahHousekeeper) {
     if (validateForm()) {
-      navigateToHousekeeperDetail(context);
+      navigateToHousekeeperDetail(context, selectedItems, jumlahHousekeeper);
     }
   }
 
-  void navigateToHousekeeperDetail(BuildContext context) {
+  void navigateToHousekeeperDetail(BuildContext context,
+      List<String>? selectedItems, int jumlahHousekeeper) {
     String alamat = alamatController.text;
     String hari = hariController.text;
 
@@ -56,6 +58,8 @@ class HousekeeperController {
         builder: (context) => HousekeeperDetail(
           alamat: alamat,
           hari: hari,
+          selectedItems: selectedItems ?? [],
+          jumlahHousekeeper: jumlahHousekeeper,
         ),
       ),
     );

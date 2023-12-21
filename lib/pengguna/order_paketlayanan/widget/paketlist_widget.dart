@@ -37,7 +37,9 @@ class _PackageListState extends State<PackageList> {
         height: 380,
         width: MediaQuery.of(context).size.width,
         child: ListView.builder(
-          itemCount: 6,
+          itemCount: images.length,
+          padding: const EdgeInsets.only(bottom: 10),
+          itemExtent: 100,
           itemBuilder: (context, index) => InkWell(
             onTap: () {
               if (widget.formKey.currentState!.validate()) {

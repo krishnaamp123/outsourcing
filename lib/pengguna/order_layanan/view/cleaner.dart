@@ -19,12 +19,23 @@ class _CleanerPageState extends State<CleanerPage> {
   var opacity = 0.0;
   bool position = false;
   late Size size;
+  int jumlahCleaner = 1;
+  List<String> items = [
+    "Sabun Cuci Tangan",
+    "Sapu Ruangan",
+    "Sapu Luar Ruangan",
+    "Pengepelan",
+    "Tisu Toilet",
+  ];
+
+  List<bool> checkedItems = [];
 
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
+      checkedItems = List<bool>.filled(items.length, false);
     });
   }
 
@@ -82,7 +93,7 @@ class _CleanerPageState extends State<CleanerPage> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 550,
+                    height: 200,
                     width: MediaQuery.of(context).size.width,
                     child: SingleChildScrollView(
                       child: Column(
@@ -114,37 +125,6 @@ class _CleanerPageState extends State<CleanerPage> {
                               },
                             ),
                             const SizedBox(height: 10),
-                            const CustomDropdown(
-                              items: [
-                                'Item 1',
-                                'Item 2',
-                                'Item 3'
-                              ], // Sesuaikan dengan list item yang sesuai di sini
-                            ),
-                            const SizedBox(height: 10),
-                            const CustomDropdown(
-                              items: [
-                                'Item 1',
-                                'Item 2',
-                                'Item 3'
-                              ], // Sesuaikan dengan list item yang sesuai di sini
-                            ),
-                            const SizedBox(height: 10),
-                            const CustomDropdown(
-                              items: [
-                                'Item 1',
-                                'Item 2',
-                                'Item 3'
-                              ], // Sesuaikan dengan list item yang sesuai di sini
-                            ),
-                            const SizedBox(height: 10),
-                            const CustomDropdown(
-                              items: [
-                                'Item 1',
-                                'Item 2',
-                                'Item 3'
-                              ], // Sesuaikan dengan list item yang sesuai di sini
-                            ),
                           ]),
                     ),
                   ),
@@ -153,7 +133,68 @@ class _CleanerPageState extends State<CleanerPage> {
             ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 630 : 450,
+              top: position ? 270 : 320,
+              left: 20,
+              right: 20,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 400),
+                opacity: opacity,
+                child: Card(
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: SizedBox(
+                    height: 330,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TextWidget(
+                            'Item Tambahan',
+                            15,
+                            Color.fromRGBO(129, 12, 168, 1),
+                            FontWeight.normal,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: items.length,
+                              padding: const EdgeInsets.only(bottom: 10),
+                              itemExtent: 50,
+                              itemBuilder: (context, index) {
+                                return CheckboxListTile(
+                                  title: Text(
+                                    items[index],
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(45, 3, 59, 1),
+                                    ),
+                                  ),
+                                  value: checkedItems[index],
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      checkedItems[index] = newValue!;
+                                    });
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 400),
+              top: position ? 630 : 680,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
@@ -177,20 +218,25 @@ class _CleanerPageState extends State<CleanerPage> {
                         ),
                         const SizedBox(height: 5),
                         InputQty.int(
-                          initVal: 1,
+                          initVal: jumlahCleaner,
                           minVal: 1,
                           maxVal: 50,
                           steps: 1,
+                          onQtyChanged: (value) {
+                            setState(() {
+                              jumlahCleaner = value ?? 1;
+                            });
+                          },
                           messageBuilder: (minVal, maxVal, value) {
                             if (value == null || value == 0) {
                               return const Text(
-                                "Required field",
+                                "Minimal 1",
                                 style: TextStyle(color: Colors.red),
                                 textAlign: TextAlign.center,
                               );
-                            } else if (value > 20) {
+                            } else if (value > 30) {
                               return const Text(
-                                "Reach limit",
+                                "Maksimal 30",
                                 style: TextStyle(color: Colors.red),
                                 textAlign: TextAlign.center,
                               );
@@ -198,7 +244,7 @@ class _CleanerPageState extends State<CleanerPage> {
                               // setState(() {
                               //   jumlahCleaner = value as int?;
                               // });
-                              return Text("Jumlah : $value",
+                              return Text("Jumlah : ${value ?? 1}",
                                   textAlign: TextAlign.center);
                             }
                           },
@@ -206,8 +252,17 @@ class _CleanerPageState extends State<CleanerPage> {
                       ]),
                       ButtonLanjut(
                         onTap: () {
+                          List<String> selectedItems = [];
                           if (_formKey.currentState!.validate()) {
-                            cleanerController.handleCleaner(context);
+                            for (int i = 0; i < checkedItems.length; i++) {
+                              if (checkedItems[i]) {
+                                selectedItems.add(items[i]);
+                              }
+                            }
+                            cleanerController.handleCleaner(
+                                context,
+                                selectedItems.isNotEmpty ? selectedItems : null,
+                                jumlahCleaner);
                           }
                         },
                       )

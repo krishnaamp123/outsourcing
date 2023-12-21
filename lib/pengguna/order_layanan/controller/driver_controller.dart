@@ -40,13 +40,15 @@ class DriverController {
     return true;
   }
 
-  void handleDriver(BuildContext context) {
+  void handleDriver(
+      BuildContext context, List<String>? selectedItems, int jumlahDriver) {
     if (validateForm()) {
-      navigateToDriverDetail(context);
+      navigateToDriverDetail(context, selectedItems, jumlahDriver);
     }
   }
 
-  void navigateToDriverDetail(BuildContext context) {
+  void navigateToDriverDetail(
+      BuildContext context, List<String>? selectedItems, int jumlahDriver) {
     String alamat = alamatController.text;
     String hari = hariController.text;
 
@@ -56,6 +58,8 @@ class DriverController {
         builder: (context) => DriverDetail(
           alamat: alamat,
           hari: hari,
+          selectedItems: selectedItems ?? [],
+          jumlahDriver: jumlahDriver,
         ),
       ),
     );

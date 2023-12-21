@@ -12,6 +12,7 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   bool _showLogo = true;
+  bool _showContent = false;
   bool position = false;
   var opacity = 0.0;
   @override
@@ -22,11 +23,8 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _showLogo = false;
+        _showContent = true;
       });
-    });
-
-    Future.delayed(Duration.zero, () {
-      animator();
     });
   }
 
@@ -51,21 +49,26 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
         decoration: const BoxDecoration(color: Colors.white),
         child: Stack(
           children: [
-            if (_showLogo)
-              Center(
+            AnimatedOpacity(
+              opacity: _showLogo ? 1.0 : 0.0,
+              curve: Curves.easeInOut,
+              duration: const Duration(milliseconds: 400),
+              child: Center(
                 child: Image.asset(
                   'lib/images/logotok.png',
                   height: 200,
                   width: 200,
                 ),
               ),
+            ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 60 : 150,
+              top: _showContent ? 60 : 150,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
-                opacity: opacity,
+                opacity: _showContent ? 1.0 : 0.0,
+                curve: Curves.easeInOut,
                 duration: const Duration(milliseconds: 400),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,46 +123,42 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
               ),
             ),
             AnimatedPositioned(
-                bottom: 60,
+              bottom: 60,
+              duration: const Duration(milliseconds: 400),
+              left: _showContent ? 20 : -100,
+              child: AnimatedOpacity(
+                opacity: _showContent ? 1.0 : 0.0,
                 duration: const Duration(milliseconds: 400),
-                left: position ? 20 : -100,
                 child: InkWell(
                   onTap: () {
-                    position = false;
-                    opacity = 0;
-                    setState(() {});
-                    Timer(
-                      const Duration(milliseconds: 400),
-                      () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginPage(),
-                            ));
-                      },
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ),
                     );
                   },
-                  child: AnimatedOpacity(
-                    opacity: opacity,
-                    duration: const Duration(milliseconds: 400),
-                    child: Container(
-                      width: 150,
-                      height: 60,
-                      decoration: BoxDecoration(
-                          color: const Color.fromRGBO(45, 3, 59, 1),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Center(
-                        child: TextWidget(
-                          "Mulai",
-                          17,
-                          Colors.white,
-                          FontWeight.bold,
-                          letterSpace: 0,
+                  child: Container(
+                    width: 150,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: const Color.fromRGBO(45, 3, 59, 1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Mulai",
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
-                ))
+                ),
+              ),
+            ),
           ],
         ),
       ),
