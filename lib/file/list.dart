@@ -69,6 +69,7 @@ var status = [
   "Menunggu Verifikasi Pembayaran",
   "Sedang Berjalan",
   "Sudah Berakhir",
+  'Unggah MOU Pesanan',
 ];
 
 var colors = [

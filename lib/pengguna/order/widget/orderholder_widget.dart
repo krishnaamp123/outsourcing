@@ -22,6 +22,7 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
         StatusDropdown(
           statusList: const [
             'Semua',
+            'Unggah MOU Pesanan',
             'Menunggu Verifikasi MOU',
             'Lakukan Pembayaran',
             'Menunggu Verifikasi Pembayaran',

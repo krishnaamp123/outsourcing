@@ -244,7 +244,7 @@ class _SecurityPageState extends State<SecurityPage> {
                               // setState(() {
                               //   jumlahSecurity = value as int?;
                               // });
-                              return Text("Jumlah : ${value ?? 1}",
+                              return Text("Jumlah : $value",
                                   textAlign: TextAlign.center);
                             }
                           },

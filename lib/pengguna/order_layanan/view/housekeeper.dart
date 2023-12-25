@@ -242,7 +242,7 @@ class _HousekeeperPageState extends State<HousekeeperPage> {
                               // setState(() {
                               //   jumlahHousekeeper = value as int?;
                               // });
-                              return Text("Jumlah : ${value ?? 1}",
+                              return Text("Jumlah : $value",
                                   textAlign: TextAlign.center);
                             }
                           },

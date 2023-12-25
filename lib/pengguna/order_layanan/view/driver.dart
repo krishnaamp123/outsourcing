@@ -241,7 +241,7 @@ class _DriverPageState extends State<DriverPage> {
                               // setState(() {
                               //   jumlahDriver = value as int?;
                               // });
-                              return Text("Jumlah : ${value ?? 1}",
+                              return Text("Jumlah : $value",
                                   textAlign: TextAlign.center);
                             }
                           },

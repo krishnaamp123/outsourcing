@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:outsourcing/file/list.dart';
 import 'package:outsourcing/pengguna/order/view/orderbayar.dart';
+import 'package:outsourcing/pengguna/order/view/ordermou.dart';
+import 'package:outsourcing/pengguna/order/view/orderpenilaian.dart';
 
 class OrderController {
   final List<OrderItem> orderList = [
@@ -12,7 +14,7 @@ class OrderController {
     OrderItem(names[4], tanggal[0], alamat[0], status[0], harga[4], colors[2]),
     OrderItem(names[5], tanggal[1], alamat[1], status[1], harga[5], colors[3]),
     OrderItem(names[5], tanggal[1], alamat[1], status[4], harga[5], colors[0]),
-    OrderItem(names[5], tanggal[1], alamat[1], status[1], harga[5], colors[3]),
+    OrderItem(names[5], tanggal[1], alamat[1], status[5], harga[5], colors[3]),
   ];
 
   late List<OrderItem> filteredOrderList;
@@ -48,6 +50,48 @@ class OrderController {
               colors: colors),
         ),
       );
+    } else if (status == "Unggah MOU Pesanan") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OrderMOU(
+              name: name,
+              tanggal: tanggal,
+              alamat: alamat,
+              status: status,
+              harga: harga,
+              colors: colors),
+        ),
+      );
+    } else if (status == "Sedang Berjalan") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OrderPenilaian(
+              name: name,
+              tanggal: tanggal,
+              alamat: alamat,
+              status: status,
+              harga: harga,
+              colors: colors),
+        ),
+      );
+    } else if (status == "Sudah Berakhir") {
+      final snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Info',
+          message:
+              'Terimakasih sudah memesan layanan kami, kontrak pemesanan anda sudah berakhir',
+          contentType: ContentType.help,
+        ),
+      );
+
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
     } else {
       final snackBar = SnackBar(
         elevation: 0,

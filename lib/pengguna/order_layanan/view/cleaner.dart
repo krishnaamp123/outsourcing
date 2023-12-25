@@ -244,7 +244,7 @@ class _CleanerPageState extends State<CleanerPage> {
                               // setState(() {
                               //   jumlahCleaner = value as int?;
                               // });
-                              return Text("Jumlah : ${value ?? 1}",
+                              return Text("Jumlah : $value",
                                   textAlign: TextAlign.center);
                             }
                           },

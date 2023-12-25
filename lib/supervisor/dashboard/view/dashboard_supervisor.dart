@@ -49,8 +49,8 @@ class _HomeSupervisorState extends State<HomeSupervisor> {
     var userData = localStorage.getString('supervisor');
     if (userData != null) {
       var user = jsonDecode(userData);
-      if (user != null && user['Fullname'] != null) {
-        String fullName = user['Fullname'];
+      if (user != null && user['fullname'] != null) {
+        String fullName = user['fullname'];
         List<String> nameParts =
             fullName.split(' '); // Memisahkan berdasarkan spasi
         String firstName = '';

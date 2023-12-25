@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
 
-class ButtonPesanan extends StatefulWidget {
-  const ButtonPesanan({super.key});
+class ButtonPenilaian extends StatefulWidget {
+  const ButtonPenilaian({super.key});
 
   @override
-  State<ButtonPesanan> createState() => _ButtonPesananState();
+  State<ButtonPenilaian> createState() => _ButtonPenilaianState();
 }
 
-class _ButtonPesananState extends State<ButtonPesanan> {
+class _ButtonPenilaianState extends State<ButtonPenilaian> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -23,7 +23,7 @@ class _ButtonPesananState extends State<ButtonPesanan> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const TextWidget(
-                    "Konfirmasi Pesanan",
+                    "Unggah Penilaian",
                     20,
                     Color.fromRGBO(45, 3, 59, 1),
                     FontWeight.bold,
@@ -34,7 +34,7 @@ class _ButtonPesananState extends State<ButtonPesanan> {
                     height: 10,
                   ),
                   TextWidget(
-                    "Cek kembali data pesanan anda\nPastikan sudah mengunduh MOU",
+                    "Unggah file penilaian anda\nPastikan penilaian sudah diisi",
                     15,
                     Colors.black.withOpacity(0.6),
                     FontWeight.bold,
@@ -46,9 +46,9 @@ class _ButtonPesananState extends State<ButtonPesanan> {
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      // Fungsi untuk mengunggah file PDF
                     },
-                    label: const Text('Buat Pesanan',
+                    label: const Text('Unggah Penilaian',
                         style: TextStyle(
                           color: Color.fromRGBO(193, 71, 233, 1),
                         )),
@@ -64,9 +64,6 @@ class _ButtonPesananState extends State<ButtonPesanan> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
                   ),
                 ],
               ),
@@ -89,7 +86,7 @@ class _ButtonPesananState extends State<ButtonPesanan> {
         ),
         child: const Center(
           child: TextWidget(
-            "Buat Pesanan",
+            "Unggah Penilaian",
             16,
             Colors.white,
             FontWeight.bold,

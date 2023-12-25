@@ -107,10 +107,9 @@ class RegisController {
 
   Future<void> handleSignin(BuildContext context) async {
     if (validateForm()) {
-      bool signedIn = await signin(); // Tunggu sampai proses login selesai
+      bool signedIn = await signin();
       if (signedIn) {
-        navigateToLoginPageButton(
-            context); // Navigasi ke halaman StartKaryawan setelah login berhasil
+        navigateToStart(context);
       } else {
         final snackBar = SnackBar(
           elevation: 0,
@@ -133,7 +132,7 @@ class RegisController {
 
   Future<bool> signin() async {
     var data = {
-      'fullname': usernameController.text,
+      'Fullname': usernameController.text,
       'email': emailController.text,
       'password': passwordController.text,
       'address': alamatController.text,
@@ -145,19 +144,19 @@ class RegisController {
     var body = json.decode(res.body);
     if (res.statusCode == 200) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
-      localStorage.setString(
-          'token', json.encode(body['payload']['data']['access_token']));
+      localStorage.setString('token',
+          json.encode(body['payload']['data']['tokens']['access_token']));
       localStorage.setString(
           'user',
-          json.encode(
-              body['payload']['data']['user_profile']['service_user_profile']));
+          json.encode(body['payload']['data']['created_user_profile']
+              ['created_profile']));
       return true; // Jika login berhasil
     } else {
       return false; // Jika login gagal
     }
   }
 
-  void navigateToLoginPageButton(BuildContext context) async {
+  void navigateToStart(BuildContext context) async {
     final snackBar = SnackBar(
       elevation: 0,
       behavior: SnackBarBehavior.floating,
@@ -165,7 +164,7 @@ class RegisController {
       content: AwesomeSnackbarContent(
         title: 'Info',
         message:
-            'Terimakasih telah mendaftarkan akun anda, halaman login akan muncul beberapa saat lagi',
+            'Terimakasih telah mendaftarkan akun anda, halaman dashboard akan muncul beberapa saat lagi',
         contentType: ContentType.success,
       ),
     );
@@ -180,7 +179,7 @@ class RegisController {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const Start(),
+        builder: (context) => Start(),
       ),
     );
   }

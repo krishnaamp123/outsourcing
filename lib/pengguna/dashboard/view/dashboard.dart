@@ -50,8 +50,8 @@ class _HomeState extends State<Home> {
     var userData = localStorage.getString('user');
     if (userData != null) {
       var user = jsonDecode(userData);
-      if (user != null && user['Fullname'] != null) {
-        String fullName = user['Fullname'];
+      if (user != null && user['fullname'] != null) {
+        String fullName = user['fullname'];
         List<String> nameParts =
             fullName.split(' '); // Memisahkan berdasarkan spasi
         String firstName = '';
@@ -470,7 +470,7 @@ class _HomeState extends State<Home> {
 Future<void> logout(BuildContext context) async {
   SharedPreferences localStorage = await SharedPreferences.getInstance();
   localStorage.remove('token');
-  localStorage.remove('karyawan');
+  localStorage.remove('user');
 
   // Navigasi ke halaman login atau halaman awal aplikasi setelah logout
   Navigator.pushReplacement(

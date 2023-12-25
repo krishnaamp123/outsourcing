@@ -83,8 +83,23 @@ class LoginController {
         var roles = localStorage.getString('roles');
         print('roles: $roles');
         if (roles != null && roles.isNotEmpty) {
-          navigateBasedOnRole(
-              context, roles); // Langsung gunakan role sebagai string
+          final snackBar = SnackBar(
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'Info',
+              message: 'Halaman dashboard akan muncul beberapa saat lagi',
+              contentType: ContentType.success,
+            ),
+          );
+
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(snackBar);
+
+          await Future.delayed(Duration(seconds: 3));
+          navigateBasedOnRole(context, roles);
         } else {
           final snackBar = SnackBar(
             elevation: 0,
