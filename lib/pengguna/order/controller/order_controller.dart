@@ -36,18 +36,18 @@ class OrderController {
   }
 
   void navigateToDetails(BuildContext context, String name, String tanggal,
-      String alamat, String status, String harga, Color colors) {
+      String alamat, String status, String harga) {
     if (status == "Lakukan Pembayaran") {
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => OrderBayar(
-              name: name,
-              tanggal: tanggal,
-              alamat: alamat,
-              status: status,
-              harga: harga,
-              colors: colors),
+            name: name,
+            tanggal: tanggal,
+            alamat: alamat,
+            status: status,
+            harga: harga,
+          ),
         ),
       );
     } else if (status == "Unggah MOU Pesanan") {
@@ -55,12 +55,12 @@ class OrderController {
         context,
         MaterialPageRoute(
           builder: (context) => OrderMOU(
-              name: name,
-              tanggal: tanggal,
-              alamat: alamat,
-              status: status,
-              harga: harga,
-              colors: colors),
+            name: name,
+            tanggal: tanggal,
+            alamat: alamat,
+            status: status,
+            harga: harga,
+          ),
         ),
       );
     } else if (status == "Sedang Berjalan") {
@@ -68,12 +68,12 @@ class OrderController {
         context,
         MaterialPageRoute(
           builder: (context) => OrderPenilaian(
-              name: name,
-              tanggal: tanggal,
-              alamat: alamat,
-              status: status,
-              harga: harga,
-              colors: colors),
+            name: name,
+            tanggal: tanggal,
+            alamat: alamat,
+            status: status,
+            harga: harga,
+          ),
         ),
       );
     } else if (status == "Sudah Berakhir") {

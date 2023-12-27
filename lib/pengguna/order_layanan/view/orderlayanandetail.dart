@@ -1,33 +1,36 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
-import 'package:outsourcing/pengguna/order/widget/buttonpenilaian_widget.dart';
 
-class OrderPenilaian extends StatefulWidget {
+class OrderLayananDetail extends StatefulWidget {
   final Function()? onTap;
-  final String name;
-  final String harga;
+  // const OrderLayananDetail({super.key, this.onTap});
   final String alamat;
-  final String tanggal;
-  final String status;
-  // final Color colors;
-
-  const OrderPenilaian({
-    Key? key,
-    required this.name,
-    required this.tanggal,
-    required this.alamat,
-    required this.status,
-    required this.harga,
-    // required this.colors,
-    this.onTap,
-  }) : super(key: key);
+  final String hari;
+  final List<String> selectedItems;
+  final int jumlahCleaner;
+  final String image;
+  final String name;
+  final String baseprice;
+  // final int? jumlahCleaner;
+  const OrderLayananDetail(
+      {Key? key,
+      required this.alamat,
+      required this.hari,
+      required this.selectedItems,
+      required this.jumlahCleaner,
+      required this.image,
+      required this.name,
+      required this.baseprice,
+      // required this.jumlahCleaner,
+      this.onTap})
+      : super(key: key);
 
   @override
-  State<OrderPenilaian> createState() => _OrderPenilaianState();
+  State<OrderLayananDetail> createState() => _OrderLayananDetailState();
 }
 
-class _OrderPenilaianState extends State<OrderPenilaian> {
+class _OrderLayananDetailState extends State<OrderLayananDetail> {
   var animate = false;
   var opacity = 0.0;
   bool position = false;
@@ -57,13 +60,15 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
 
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
-    String harga = widget.harga;
     String alamat = widget.alamat;
+    String hari = widget.hari;
     String name = widget.name;
-    String tanggal = widget.tanggal;
-    String status = widget.status;
-    // Color colors = widget.colors;
+    String image = widget.image;
+    String baseprice = widget.baseprice;
+    List<String> selectedItems = widget.selectedItems;
+    int jumlahCleaner = widget.jumlahCleaner;
+    // int? jumlahCleaner = widget.jumlahCleaner;
+    size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -83,25 +88,41 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                 child: BackButtonWidget(
                   animator: animator,
                   context: context,
-                  labelText: 'Detail Order',
+                  labelText: 'Pesan $name',
                 ),
               ),
             ),
             AnimatedPositioned(
-                top: position ? 60 : 100,
+                top: 60,
+                right: animate ? -120 : -220,
                 duration: const Duration(milliseconds: 400),
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 400),
                   opacity: opacity,
                   child: Container(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    height: size.height / 4,
+                    width: size.width,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('lib/images/icon/ic_cleaner.png'),
+                            fit: BoxFit.cover)),
+                  ),
+                )),
+            AnimatedPositioned(
+                left: animate ? 60 : 10,
+                duration: const Duration(milliseconds: 400),
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 400),
+                  opacity: opacity,
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 60, left: 20),
                     height: size.height,
                     width: size.width,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextWidget(
-                          name,
+                          "Custom $name",
                           20,
                           const Color.fromRGBO(45, 3, 59, 1),
                           FontWeight.bold,
@@ -148,7 +169,7 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     TextWidget(
-                                      "Harga",
+                                      "Harga Dasar",
                                       15,
                                       Colors.black.withOpacity(.6),
                                       FontWeight.bold,
@@ -158,7 +179,7 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                                       height: 5,
                                     ),
                                     TextWidget(
-                                      harga,
+                                      "Rp.$baseprice",
                                       18,
                                       const Color.fromRGBO(45, 3, 59, 1),
                                       FontWeight.bold,
@@ -180,7 +201,7 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                           ),
                           child: const SizedBox(
                             height: 50,
-                            width: 240,
+                            width: 180,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -193,7 +214,7 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                                   height: 0,
                                 ),
                                 TextWidget(
-                                  "Unduh File Penilaian",
+                                  "Unduh MOU",
                                   18,
                                   Color.fromRGBO(45, 3, 59, 1),
                                   FontWeight.bold,
@@ -203,12 +224,26 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
                       ],
                     ),
                   ),
+                )),
+            AnimatedPositioned(
+                top: 200,
+                right: animate ? 80 : -30,
+                duration: const Duration(milliseconds: 400),
+                child: Container(
+                  height: 150,
+                  width: size.width / 2,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                        Colors.white.withOpacity(.1),
+                        Colors.white,
+                        Colors.white
+                      ])),
                 )),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
@@ -224,7 +259,7 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 170,
+                    height: 120,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -256,46 +291,53 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                           const SizedBox(
                             height: 10,
                           ),
-                          const TextWidget(
-                            "Hari Pemesanan",
-                            15,
-                            Color.fromRGBO(129, 12, 168, 1),
-                            FontWeight.normal,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextWidget(
-                            tanggal,
-                            18,
-                            const Color.fromRGBO(45, 3, 59, 1),
-                            FontWeight.bold,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const TextWidget(
+                                "Lama Kontrak : ",
+                                15,
+                                Color.fromRGBO(129, 12, 168, 1),
+                                FontWeight.normal,
+                                letterSpace: 0,
+                                textAlign: TextAlign.left,
+                              ),
+                              TextWidget(
+                                '$hari Hari',
+                                15,
+                                const Color.fromRGBO(45, 3, 59, 1),
+                                FontWeight.bold,
+                                letterSpace: 0,
+                                textAlign: TextAlign.left,
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          const TextWidget(
-                            "Status",
-                            15,
-                            Color.fromRGBO(129, 12, 168, 1),
-                            FontWeight.normal,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextWidget(
-                            status,
-                            18,
-                            Color.fromRGBO(129, 12, 168, 1),
-                            FontWeight.bold,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              TextWidget(
+                                "Jumlah $name : ",
+                                15,
+                                const Color.fromRGBO(129, 12, 168, 1),
+                                FontWeight.normal,
+                                letterSpace: 0,
+                                textAlign: TextAlign.left,
+                              ),
+                              TextWidget(
+                                '$jumlahCleaner Orang',
+                                15,
+                                const Color.fromRGBO(45, 3, 59, 1),
+                                FontWeight.bold,
+                                letterSpace: 0,
+                                textAlign: TextAlign.left,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -305,7 +347,59 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
               ),
             ),
             AnimatedPositioned(
-              top: position ? 660 : 330,
+              duration: const Duration(milliseconds: 400),
+              top: position ? 410 : 460,
+              left: 20,
+              right: 20,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 400),
+                opacity: opacity,
+                child: Card(
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: SizedBox(
+                    height: 140,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TextWidget(
+                            'Item Tambahan',
+                            15,
+                            Color.fromRGBO(129, 12, 168, 1),
+                            FontWeight.normal,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: selectedItems.length,
+                              padding: const EdgeInsets.only(bottom: 10),
+                              itemExtent: 50,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  title: Text(selectedItems[index]),
+                                  titleTextStyle: const TextStyle(
+                                      color: Color.fromRGBO(45, 3, 59, 1),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            AnimatedPositioned(
+              top: position ? 570 : 620,
               right: 30,
               left: 30,
               duration: const Duration(milliseconds: 400),
@@ -317,7 +411,39 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                   child: const Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ButtonPenilaian(),
+                      TextWidget(
+                        "Tanggal Pemesanan",
+                        18,
+                        Color.fromRGBO(45, 3, 59, 1),
+                        FontWeight.bold,
+                        letterSpace: 0,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      ButtonTanggal(),
+                      SizedBox(
+                        height: 15,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            AnimatedPositioned(
+              top: position ? 660 : 710,
+              right: 30,
+              left: 30,
+              duration: const Duration(milliseconds: 400),
+              child: AnimatedOpacity(
+                opacity: opacity,
+                duration: const Duration(milliseconds: 400),
+                child: SizedBox(
+                  width: size.width,
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ButtonPesanan(),
                     ],
                   ),
                 ),

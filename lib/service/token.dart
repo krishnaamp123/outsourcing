@@ -10,5 +10,10 @@ Future<String> getToken() async {
 setHeaders(String token) => {
       'Content-type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bearer$token',
+      'Authorization': 'Bearer $token',
+    };
+
+setHeadersNoToken() => {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
     };

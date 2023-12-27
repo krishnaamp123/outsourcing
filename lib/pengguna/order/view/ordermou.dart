@@ -10,7 +10,7 @@ class OrderMOU extends StatefulWidget {
   final String alamat;
   final String tanggal;
   final String status;
-  final Color colors;
+  // final Color colors;
 
   const OrderMOU({
     Key? key,
@@ -19,7 +19,7 @@ class OrderMOU extends StatefulWidget {
     required this.alamat,
     required this.status,
     required this.harga,
-    required this.colors,
+    // required this.colors,
     this.onTap,
   }) : super(key: key);
 
@@ -63,7 +63,7 @@ class _OrderMOUState extends State<OrderMOU> {
     String name = widget.name;
     String tanggal = widget.tanggal;
     String status = widget.status;
-    Color colors = widget.colors;
+    // Color colors = widget.colors;
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -292,7 +292,7 @@ class _OrderMOUState extends State<OrderMOU> {
                           TextWidget(
                             status,
                             18,
-                            colors,
+                            Color.fromRGBO(129, 12, 168, 1),
                             FontWeight.bold,
                             letterSpace: 0,
                             textAlign: TextAlign.left,
