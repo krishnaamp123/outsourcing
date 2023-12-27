@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outsourcing/autentikasi/widget/my_button.dart';
 import 'package:outsourcing/file/user_data.dart';
 import 'package:outsourcing/pengguna/profile/widget/appbar_widget.dart';
 import 'package:string_validator/string_validator.dart';
@@ -44,9 +45,9 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 const SizedBox(
-                    width: 320,
+                    width: 330,
                     child: Text(
-                      "What's Your Phone Number?",
+                      "Masukan Nomor Telpon Anda",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     )),
@@ -54,7 +55,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                     padding: const EdgeInsets.only(top: 40),
                     child: SizedBox(
                         height: 100,
-                        width: 320,
+                        width: 330,
                         child: TextFormField(
                           // Handles Form Validation
                           validator: (value) {
@@ -69,7 +70,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                           },
                           controller: phoneController,
                           decoration: const InputDecoration(
-                            labelText: 'Your Phone Number',
+                            labelText: 'Telpon',
                           ),
                         ))),
                 Padding(
@@ -77,10 +78,11 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                     child: Align(
                         alignment: Alignment.bottomCenter,
                         child: SizedBox(
-                          width: 320,
+                          width: 330,
                           height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
+                          child: MyButton(
+                            text: "Ubah",
+                            onTap: () {
                               // Validate returns true if the form is valid, or false otherwise.
                               if (_formKey.currentState!.validate() &&
                                   isNumeric(phoneController.text)) {
@@ -88,10 +90,6 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                                 Navigator.pop(context);
                               }
                             },
-                            child: const Text(
-                              'Update',
-                              style: TextStyle(fontSize: 15),
-                            ),
                           ),
                         )))
               ]),

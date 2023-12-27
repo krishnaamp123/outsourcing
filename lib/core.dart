@@ -41,7 +41,6 @@ export 'package:outsourcing/pengguna/order_paketlayanan/widget/backbutton_widget
 export 'package:outsourcing/pengguna/order_paketlayanan/widget/textfieldalamat.dart';
 export 'package:outsourcing/pengguna/profile/widget/appbar_widget.dart';
 export 'package:outsourcing/pengguna/profile/widget/display_image_widget.dart';
-export 'package:outsourcing/pengguna/profile/view/edit_description.dart';
 export 'package:outsourcing/pengguna/profile/view/edit_email.dart';
 export 'package:outsourcing/pengguna/profile/view/edit_image.dart';
 export 'package:outsourcing/pengguna/profile/view/edit_name.dart';

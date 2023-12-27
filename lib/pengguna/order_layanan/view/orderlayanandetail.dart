@@ -35,6 +35,13 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
   var opacity = 0.0;
   bool position = false;
   late Size size;
+  List<String> harga = [
+    "100000",
+    "80000",
+    "60000",
+    "120000",
+    "30000",
+  ];
 
   @override
   void initState() {
@@ -383,6 +390,7 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                               itemBuilder: (context, index) {
                                 return ListTile(
                                   title: Text(selectedItems[index]),
+                                  subtitle: Text('Rp.${harga[index]}'),
                                   titleTextStyle: const TextStyle(
                                       color: Color.fromRGBO(45, 3, 59, 1),
                                       fontWeight: FontWeight.bold,

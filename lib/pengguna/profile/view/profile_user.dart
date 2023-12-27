@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/file/user.dart';
 import 'package:outsourcing/file/user_data.dart';
+import 'package:outsourcing/pengguna/profile/view/edit_alamat.dart';
 import 'package:outsourcing/pengguna/profile/widget/display_image_widget.dart';
-import 'package:outsourcing/pengguna/profile/view/edit_description.dart';
 import 'package:outsourcing/pengguna/profile/view/edit_email.dart';
 import 'package:outsourcing/pengguna/profile/view/edit_image.dart';
 import 'package:outsourcing/pengguna/profile/view/edit_name.dart';
@@ -102,7 +101,7 @@ class _ProfileUserState extends State<ProfileUser> {
               opacity: opacity,
               child: buildUserInfoDisplay(
                 user.name,
-                'Name',
+                'Nama',
                 const EditNameFormPage(),
               ),
             ),
@@ -111,7 +110,7 @@ class _ProfileUserState extends State<ProfileUser> {
               opacity: opacity,
               child: buildUserInfoDisplay(
                 user.phone,
-                'Phone',
+                'Telpon',
                 const EditPhoneFormPage(),
               ),
             ),
@@ -124,14 +123,15 @@ class _ProfileUserState extends State<ProfileUser> {
                 const EditEmailFormPage(),
               ),
             ),
-            Expanded(
-              flex: 4,
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 400),
-                opacity: opacity,
-                child: buildAbout(user),
+            AnimatedOpacity(
+              duration: const Duration(milliseconds: 400),
+              opacity: opacity,
+              child: buildUserInfoDisplay(
+                user.alamat,
+                'Alamat',
+                const EditAlamatFormPage(),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -180,51 +180,6 @@ class _ProfileUserState extends State<ProfileUser> {
           ));
 
   // Widget builds the About Me Section
-  Widget buildAbout(User user) => Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Tell Us About Yourself',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey,
-            ),
-          ),
-          const SizedBox(height: 1),
-          Container(
-              width: 350,
-              height: 200,
-              decoration: const BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                color: Colors.grey,
-                width: 1,
-              ))),
-              child: Row(children: [
-                Expanded(
-                    child: TextButton(
-                        onPressed: () {
-                          navigateSecondPage(EditDescriptionFormPage());
-                        },
-                        child: Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: TextWidget(
-                                user.aboutMeDescription,
-                                16,
-                                const Color.fromRGBO(193, 71, 233, 1),
-                                FontWeight.normal,
-                                letterSpace: 0,
-                                textAlign: TextAlign.left,
-                              ),
-                            )))),
-              ]))
-        ],
-      ));
 
   // Refrshes the Page after updating user info.
   FutureOr onGoBack(dynamic value) {

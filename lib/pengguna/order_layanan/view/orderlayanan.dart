@@ -35,13 +35,20 @@ class _OrderLayananState extends State<OrderLayanan> {
   int jumlahCleaner = 1;
   List<ServiceItems> serviceItems = [];
   List<bool> checkedItems = [];
+  List<String> items = [
+    "Sabun Cuci Tangan",
+    "Sapu Ruangan",
+    "Sapu Luar Ruangan",
+    "Pengepelan",
+    "Tisu Toilet",
+  ];
 
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
-      checkedItems = List<bool>.filled(serviceItems.length, false);
+      checkedItems = List<bool>.filled(items.length, false);
     });
   }
 
@@ -172,14 +179,14 @@ class _OrderLayananState extends State<OrderLayanan> {
                           ),
                           Expanded(
                             child: ListView.builder(
-                              itemCount: serviceItems.length,
+                              itemCount: items.length,
                               padding: const EdgeInsets.only(bottom: 10),
                               itemExtent: 50,
                               itemBuilder: (context, index) {
-                                var item = serviceItems[index];
+                                // var item = items[index];
                                 return CheckboxListTile(
                                   title: Text(
-                                    item.itemName ?? "",
+                                    items[index],
                                     style: const TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: 16,
@@ -267,7 +274,7 @@ class _OrderLayananState extends State<OrderLayanan> {
                           if (_formKey.currentState!.validate()) {
                             for (int i = 0; i < checkedItems.length; i++) {
                               if (checkedItems[i]) {
-                                selectedItems.add(serviceItems[i] as String);
+                                selectedItems.add(items[i]);
                               }
                             }
                             orderlayananController.handleOrderLayanan(

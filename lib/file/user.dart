@@ -3,7 +3,7 @@ class User {
   String name;
   String email;
   String phone;
-  String aboutMeDescription;
+  String alamat;
 
   // Constructor
   User({
@@ -11,7 +11,7 @@ class User {
     required this.name,
     required this.email,
     required this.phone,
-    required this.aboutMeDescription,
+    required this.alamat,
   });
 
   User copy({
@@ -19,21 +19,21 @@ class User {
     String? name,
     String? phone,
     String? email,
-    String? about,
+    String? alamat,
   }) =>
       User(
         image: imagePath ?? image,
         name: name ?? this.name,
         email: email ?? this.email,
         phone: phone ?? this.phone,
-        aboutMeDescription: about ?? aboutMeDescription,
+        alamat: alamat ?? this.alamat,
       );
 
   static User fromJson(Map<String, dynamic> json) => User(
         image: json['imagePath'],
         name: json['name'],
         email: json['email'],
-        aboutMeDescription: json['about'],
+        alamat: json['alamat'],
         phone: json['phone'],
       );
 
@@ -41,7 +41,7 @@ class User {
         'imagePath': image,
         'name': name,
         'email': email,
-        'about': aboutMeDescription,
+        'alamat': alamat,
         'phone': phone,
       };
 }

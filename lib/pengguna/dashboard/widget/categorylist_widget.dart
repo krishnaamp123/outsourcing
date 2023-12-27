@@ -93,8 +93,7 @@ class _CategoryListState extends State<CategoryList> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image(
-                    image: AssetImage(
-                        'lib/images/icon/ic_policeman.png'), // Gunakan gambar dari service
+                    image: AssetImage('lib/images/icon/ic_user.png'),
                   ),
                 ],
               ),
@@ -102,7 +101,7 @@ class _CategoryListState extends State<CategoryList> {
           ),
           const SizedBox(height: 5),
           Text(
-            name, // Gunakan nama dari service
+            name,
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 12,

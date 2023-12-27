@@ -13,8 +13,7 @@ class UserData {
     name: 'Krishna Mahendra',
     email: 'krishnamahendra1234@gmail.com',
     phone: '0895379245552',
-    aboutMeDescription:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...',
+    alamat: 'Jl.Tukad Pancoran IID 14',
   );
 
   static Future init() async =>

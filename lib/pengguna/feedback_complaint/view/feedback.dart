@@ -75,8 +75,8 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                       const SizedBox(height: 10),
                       TextFieldFC(
                         controller: feedbackController.feedbacktextController,
-                        upText: 'Complaint',
-                        hintText: 'ex: Karyawan menghilang...',
+                        upText: 'Feedback',
+                        hintText: 'ex: Layanan bagus...',
                         obscureText: false,
                         validator: feedbackController.validateFeedback,
                         onChanged: (_) {

@@ -76,11 +76,11 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
   }
 
   Widget orderlist(
-      String name, String tanggal, String alamat, String status, String harga) {
+      String id, String tanggal, String alamat, String status, String harga) {
     return GestureDetector(
         onTap: () {
           orderController.navigateToDetails(
-              context, name, tanggal, alamat, status, harga);
+              context, id, tanggal, alamat, status, harga);
         },
         child: Obx(
           () => orderCon.isLoading.value
@@ -108,7 +108,7 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextWidget(
-                              name,
+                              'Order $id',
                               18,
                               const Color.fromRGBO(45, 3, 59, 1),
                               FontWeight.bold,

@@ -101,7 +101,7 @@ class _OrderMOUState extends State<OrderMOU> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextWidget(
-                          name,
+                          'Order $name',
                           20,
                           const Color.fromRGBO(45, 3, 59, 1),
                           FontWeight.bold,
@@ -158,7 +158,7 @@ class _OrderMOUState extends State<OrderMOU> {
                                       height: 5,
                                     ),
                                     TextWidget(
-                                      harga,
+                                      'Rp.$harga',
                                       18,
                                       const Color.fromRGBO(45, 3, 59, 1),
                                       FontWeight.bold,

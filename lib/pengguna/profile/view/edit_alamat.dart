@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:outsourcing/autentikasi/widget/my_button.dart';
 import 'package:outsourcing/file/user_data.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:outsourcing/pengguna/profile/widget/appbar_widget.dart';
+import 'package:string_validator/string_validator.dart';
 
-// This class handles the Page to edit the Email Section of the User Profile.
-class EditEmailFormPage extends StatefulWidget {
-  const EditEmailFormPage({Key? key}) : super(key: key);
+// This class handles the Page to edit the alamat Section of the User Profile.
+class EditAlamatFormPage extends StatefulWidget {
+  const EditAlamatFormPage({Key? key}) : super(key: key);
 
   @override
-  EditEmailFormPageState createState() {
-    return EditEmailFormPageState();
+  EditAlamatFormPageState createState() {
+    return EditAlamatFormPageState();
   }
 }
 
-class EditEmailFormPageState extends State<EditEmailFormPage> {
+class EditAlamatFormPageState extends State<EditAlamatFormPage> {
   final _formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
+  final alamatController = TextEditingController();
   var user = UserData.myUser;
 
   @override
   void dispose() {
-    emailController.dispose();
+    alamatController.dispose();
     super.dispose();
   }
 
-  void updateUserValue(String email) {
-    user.email = email;
+  void updateUserValue(String alamat) {
+    user.alamat = alamat;
   }
 
   @override
@@ -42,7 +42,7 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                 const SizedBox(
                     width: 330,
                     child: Text(
-                      "Masukkan Email Anda",
+                      "Masukkan Alamat Anda",
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.left,
@@ -56,12 +56,13 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                           // Handles Form Validation
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your email.';
+                              return 'Please enter your address.';
                             }
                             return null;
                           },
-                          decoration: const InputDecoration(labelText: 'Email'),
-                          controller: emailController,
+                          decoration:
+                              const InputDecoration(labelText: 'Alamat'),
+                          controller: alamatController,
                         ))),
                 Padding(
                     padding: const EdgeInsets.only(top: 150),
@@ -75,9 +76,8 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                             onTap: () {
                               // Validate returns true if the form is valid, or false otherwise.
                               if (_formKey.currentState!.validate() &&
-                                  EmailValidator.validate(
-                                      emailController.text)) {
-                                updateUserValue(emailController.text);
+                                  isAlpha(alamatController.text)) {
+                                updateUserValue(alamatController.text);
                                 Navigator.pop(context);
                               }
                             },

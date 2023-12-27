@@ -43,7 +43,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
               const SizedBox(
                   width: 330,
                   child: Text(
-                    "What's Your Name?",
+                    "Ubah Nama Anda",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -69,7 +69,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                               return null;
                             },
                             decoration:
-                                const InputDecoration(labelText: 'First Name'),
+                                const InputDecoration(labelText: 'Nama Depan'),
                             controller: firstNameController,
                           ))),
                   Padding(
@@ -87,8 +87,8 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                               }
                               return null;
                             },
-                            decoration:
-                                const InputDecoration(labelText: 'Last Name'),
+                            decoration: const InputDecoration(
+                                labelText: 'Nama Belakang'),
                             controller: secondNameController,
                           )))
                 ],

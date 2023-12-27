@@ -93,6 +93,45 @@ class OrderController {
         ..hideCurrentSnackBar()
         ..showSnackBar(snackBar);
     } else {
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => OrderPenilaian(
+      //       name: name,
+      //       tanggal: tanggal,
+      //       alamat: alamat,
+      //       status: status,
+      //       harga: harga,
+      //     ),
+      //   ),
+      // );
+
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => OrderMOU(
+      //       name: name,
+      //       tanggal: tanggal,
+      //       alamat: alamat,
+      //       status: status,
+      //       harga: harga,
+      //     ),
+      //   ),
+      // );
+
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => OrderBayar(
+      //       name: name,
+      //       tanggal: tanggal,
+      //       alamat: alamat,
+      //       status: status,
+      //       harga: harga,
+      //     ),
+      //   ),
+      // );
+
       final snackBar = SnackBar(
         elevation: 0,
         behavior: SnackBarBehavior.floating,

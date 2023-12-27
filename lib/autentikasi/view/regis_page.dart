@@ -132,7 +132,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   MyTextField(
                     controller: regisController.telponController,
                     hintText: 'No Telpon',
-                    obscureText: true,
+                    obscureText: false,
                     validator: regisController
                         .validateTelpon, // Set validator dari controller
                     onChanged: (_) {
