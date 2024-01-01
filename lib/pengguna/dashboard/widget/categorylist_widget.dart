@@ -47,7 +47,7 @@ class _CategoryListState extends State<CategoryList> {
                     return serviceCard(
                       service.serviceName.toString(),
                       service.image.toString(),
-                      service.serviceItems ?? [],
+                      service.serviceItems!.toList(),
                       service.basePrice.toString(),
                     );
                   },
@@ -89,7 +89,7 @@ class _CategoryListState extends State<CategoryList> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image(

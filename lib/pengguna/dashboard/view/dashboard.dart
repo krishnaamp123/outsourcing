@@ -6,10 +6,6 @@ import 'package:outsourcing/autentikasi/view/login_page.dart';
 import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/file/list.dart';
 import 'package:outsourcing/pengguna/dashboard/widget/categorylist_widget.dart';
-import 'package:outsourcing/pengguna/order_layanan/view/cleaner.dart';
-import 'package:outsourcing/pengguna/order_layanan/view/driver.dart';
-import 'package:outsourcing/pengguna/order_layanan/view/housekeeper.dart';
-import 'package:outsourcing/pengguna/order_layanan/view/security.dart';
 import 'package:outsourcing/pengguna/order_paketlayanan/view/see_all.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

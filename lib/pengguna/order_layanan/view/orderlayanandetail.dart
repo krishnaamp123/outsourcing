@@ -8,6 +8,7 @@ class OrderLayananDetail extends StatefulWidget {
   final String alamat;
   final String hari;
   final List<String> selectedItems;
+  final List<int> hargaitem;
   final int jumlahCleaner;
   final String image;
   final String name;
@@ -18,6 +19,7 @@ class OrderLayananDetail extends StatefulWidget {
       required this.alamat,
       required this.hari,
       required this.selectedItems,
+      required this.hargaitem,
       required this.jumlahCleaner,
       required this.image,
       required this.name,
@@ -35,13 +37,6 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
   var opacity = 0.0;
   bool position = false;
   late Size size;
-  List<String> harga = [
-    "100000",
-    "80000",
-    "60000",
-    "120000",
-    "30000",
-  ];
 
   @override
   void initState() {
@@ -73,6 +68,7 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
     String image = widget.image;
     String baseprice = widget.baseprice;
     List<String> selectedItems = widget.selectedItems;
+    List<int> hargaitem = widget.hargaitem;
     int jumlahCleaner = widget.jumlahCleaner;
     // int? jumlahCleaner = widget.jumlahCleaner;
     size = MediaQuery.of(context).size;
@@ -111,7 +107,7 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                     width: size.width,
                     decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('lib/images/icon/ic_cleaner.png'),
+                            image: AssetImage('lib/images/icon/ic_user.png'),
                             fit: BoxFit.cover)),
                   ),
                 )),
@@ -139,7 +135,7 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                           height: 5,
                         ),
                         TextWidget(
-                          "Harga Telah Disesuaikan\nDengan Customisasi Anda",
+                          "Pastikan Kembali Pesanan\nSesuai Customisasi Anda",
                           15,
                           Colors.black.withOpacity(.6),
                           FontWeight.bold,
@@ -390,11 +386,15 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                               itemBuilder: (context, index) {
                                 return ListTile(
                                   title: Text(selectedItems[index]),
-                                  subtitle: Text('Rp.${harga[index]}'),
+                                  subtitle: Text('Rp. ${hargaitem[index]}'),
                                   titleTextStyle: const TextStyle(
                                       color: Color.fromRGBO(45, 3, 59, 1),
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
+                                  subtitleTextStyle: const TextStyle(
+                                      color: Color.fromRGBO(45, 3, 59, 1),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
                                 );
                               },
                             ),

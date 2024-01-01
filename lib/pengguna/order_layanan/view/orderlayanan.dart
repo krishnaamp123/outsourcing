@@ -35,20 +35,14 @@ class _OrderLayananState extends State<OrderLayanan> {
   int jumlahCleaner = 1;
   List<ServiceItems> serviceItems = [];
   List<bool> checkedItems = [];
-  List<String> items = [
-    "Sabun Cuci Tangan",
-    "Sapu Ruangan",
-    "Sapu Luar Ruangan",
-    "Pengepelan",
-    "Tisu Toilet",
-  ];
+  List<int> hargaitem = [];
 
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
-      checkedItems = List<bool>.filled(items.length, false);
+      checkedItems = List<bool>.filled(widget.serviceItems.length, false);
     });
   }
 
@@ -179,17 +173,25 @@ class _OrderLayananState extends State<OrderLayanan> {
                           ),
                           Expanded(
                             child: ListView.builder(
-                              itemCount: items.length,
+                              itemCount: widget.serviceItems.length,
                               padding: const EdgeInsets.only(bottom: 10),
                               itemExtent: 50,
                               itemBuilder: (context, index) {
-                                // var item = items[index];
+                                final item = widget.serviceItems[index];
                                 return CheckboxListTile(
                                   title: Text(
-                                    items[index],
+                                    item.itemName!,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: 16,
+                                      color: Color.fromRGBO(45, 3, 59, 1),
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    'Rp. ${item.pricePerItem.toString()}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
                                       color: Color.fromRGBO(45, 3, 59, 1),
                                     ),
                                   ),
@@ -271,15 +273,20 @@ class _OrderLayananState extends State<OrderLayanan> {
                       ButtonLanjut(
                         onTap: () {
                           List<String> selectedItems = [];
+                          hargaitem = [];
                           if (_formKey.currentState!.validate()) {
                             for (int i = 0; i < checkedItems.length; i++) {
                               if (checkedItems[i]) {
-                                selectedItems.add(items[i]);
+                                selectedItems
+                                    .add(widget.serviceItems[i].itemName!);
+                                hargaitem
+                                    .add(widget.serviceItems[i].pricePerItem!);
                               }
                             }
                             orderlayananController.handleOrderLayanan(
                                 context,
                                 selectedItems.isNotEmpty ? selectedItems : null,
+                                hargaitem,
                                 jumlahCleaner,
                                 name,
                                 image,

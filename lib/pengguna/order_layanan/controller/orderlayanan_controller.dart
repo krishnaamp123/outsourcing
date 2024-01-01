@@ -40,17 +40,24 @@ class OrderLayananController {
     return true;
   }
 
-  void handleOrderLayanan(BuildContext context, List<String>? selectedItems,
-      int jumlahCleaner, String name, String image, String baseprice) {
+  void handleOrderLayanan(
+      BuildContext context,
+      List<String>? selectedItems,
+      List<int>? hargaitem,
+      int jumlahCleaner,
+      String name,
+      String image,
+      String baseprice) {
     if (validateForm()) {
-      navigateToOrderLayananDetail(
-          context, selectedItems, jumlahCleaner, name, image, baseprice);
+      navigateToOrderLayananDetail(context, selectedItems, hargaitem,
+          jumlahCleaner, name, image, baseprice);
     }
   }
 
   void navigateToOrderLayananDetail(
       BuildContext context,
       List<String>? selectedItems,
+      List<int>? hargaitem,
       int jumlahCleaner,
       String name,
       String image,
@@ -69,6 +76,7 @@ class OrderLayananController {
           baseprice: baseprice,
           selectedItems: selectedItems ?? [],
           jumlahCleaner: jumlahCleaner,
+          hargaitem: hargaitem ?? [],
         ),
       ),
     );
