@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/pengguna/order/controller/order_controller.dart';
 import 'package:outsourcing/pengguna/order/widget/statusdropdown_widget.dart';
 
 import '../controller/order_controllerAPI.dart';
@@ -16,13 +15,13 @@ class OrderHolderWidget extends StatefulWidget {
 }
 
 class _OrderHolderWidgetState extends State<OrderHolderWidget> {
-  final OrderController orderController = OrderController();
+  // final OrderController orderController = OrderController();
   var orderCon = Get.put(OrderControllerApi());
   @override
   void initState() {
     // TODO: implement initState
-    orderCon.getOrder();
     super.initState();
+    orderCon.getOrder();
   }
 
   @override
@@ -32,8 +31,8 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
         StatusDropdown(
           statusList: const [
             'Semua',
-            'Unggah MOU Pesanan',
-            'Menunggu Verifikasi MOU',
+            'waiting_for_confirmation',
+            'waiting_mou',
             'Lakukan Pembayaran',
             'Menunggu Verifikasi Pembayaran',
             'Sedang Berjalan',
@@ -41,7 +40,7 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
           ],
           onFilterChanged: (selected) {
             setState(() {
-              orderController.filterOrdersByStatus(selected);
+              orderCon.filterOrdersByStatus(selected);
             });
           },
         ),
@@ -55,10 +54,10 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
           width: MediaQuery.of(context).size.width,
           child: ListView.builder(
             shrinkWrap: true,
-            itemCount: orderCon.listOrder.length,
+            itemCount: orderCon.filteredOrderList.length,
             itemBuilder: (BuildContext context, int index) {
               // final order = orderController.filteredOrderList[index];
-              var order = orderCon.listOrder[index];
+              var order = orderCon.filteredOrderList[index];
               return orderlist(
                 order.id.toString(),
                 // order.serviceUser!.fullname.toString(),
@@ -79,7 +78,7 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
       String id, String tanggal, String alamat, String status, String harga) {
     return GestureDetector(
         onTap: () {
-          orderController.navigateToDetails(
+          orderCon.navigateToDetails(
               context, id, tanggal, alamat, status, harga);
         },
         child: Obx(
