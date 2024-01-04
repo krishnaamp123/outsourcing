@@ -1,6 +1,6 @@
-import 'package:outsourcing/autentikasi/view/start.dart';
-import 'package:outsourcing/autentikasi/view/startkaryawan.dart';
-import 'package:outsourcing/autentikasi/view/startsupervisor.dart';
+import 'package:outsourcing/z_autentikasi/view/start.dart';
+import 'package:outsourcing/z_autentikasi/view/startkaryawan.dart';
+import 'package:outsourcing/z_autentikasi/view/startsupervisor.dart';
 import 'package:outsourcing/core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
