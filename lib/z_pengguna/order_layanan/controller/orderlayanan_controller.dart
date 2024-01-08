@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:outsourcing/core.dart';
 import 'package:outsourcing/model/order_model.dart';
 import 'package:outsourcing/z_pengguna/order_layanan/view/orderlayanandetail.dart';
 import 'package:outsourcing/service/order_service.dart';

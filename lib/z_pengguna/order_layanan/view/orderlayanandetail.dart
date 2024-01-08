@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:outsourcing/core.dart';
-import 'package:outsourcing/z_pengguna/order_layanan/controller/orderlayanan_controller.dart';
+import 'package:outsourcing/z_pengguna/order_layanan/controller/orderlayanandetail_controller.dart';
+import 'package:outsourcing/z_pengguna/order_layanan/widget/buttonpesan.dart';
 
 class OrderLayananDetail extends StatefulWidget {
   final Function()? onTap;
@@ -39,8 +40,11 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
   var opacity = 0.0;
   bool position = false;
   late Size size;
-  final OrderLayananController orderlayananController =
-      OrderLayananController();
+  // final OrderLayananController orderlayananController =
+  //     OrderLayananController();
+  late String
+      selectedPayment; // variabel untuk menyimpan opsi pembayaran yang dipilih
+  List<String> paymentOptions = ['full', 'dp', '3_termin'];
 
   @override
   void initState() {
@@ -48,6 +52,7 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
+      selectedPayment = paymentOptions.first;
     });
   }
 
@@ -66,6 +71,9 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
 
   @override
   Widget build(BuildContext context) {
+    final OrderLayananDetailController orderlayanandetailController =
+        OrderLayananDetailController();
+    DateTime selectedDate = DateTime.now();
     String alamat = widget.alamat;
     String hari = widget.hari;
     String name = widget.name;
@@ -354,8 +362,136 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
               ),
             ),
             AnimatedPositioned(
+              top: position ? 420 : 470,
+              right: 30,
+              left: 30,
               duration: const Duration(milliseconds: 400),
-              top: position ? 410 : 460,
+              child: AnimatedOpacity(
+                opacity: opacity,
+                duration: const Duration(milliseconds: 400),
+                child: SizedBox(
+                  width: size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const TextWidget(
+                            "Tanggal Pemesanan",
+                            16,
+                            Color.fromRGBO(129, 12, 168, 1),
+                            FontWeight.normal,
+                            letterSpace: 0,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              final DateTime? dateTime = await showDatePicker(
+                                context: context,
+                                initialDate: selectedDate,
+                                firstDate: DateTime(2020),
+                                lastDate: DateTime(2030),
+                              );
+                              if (dateTime != null) {
+                                setState(() {
+                                  selectedDate = dateTime;
+                                });
+                              }
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.only(
+                                  left: 32, right: 32, top: 12, bottom: 12),
+                              decoration: BoxDecoration(
+                                color: const Color.fromRGBO(45, 3, 59, 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "${selectedDate.year} - ${selectedDate.month} - ${selectedDate.day}",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const TextWidget(
+                              "Tipe Pembayaran",
+                              16,
+                              Color.fromRGBO(129, 12, 168, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Card(
+                              elevation: 5, // Atur elevation di sini
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton2<String>(
+                                  value: selectedPayment,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      selectedPayment = newValue!;
+                                    });
+                                  },
+                                  items: paymentOptions.map((String option) {
+                                    return DropdownMenuItem<String>(
+                                      value: option,
+                                      child: Text(
+                                        option,
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Color.fromRGBO(45, 3, 59, 1),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  buttonStyleData: const ButtonStyleData(
+                                    // padding: EdgeInsets.symmetric(horizontal: 5),
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    height: 40,
+                                    // width: 200,
+                                  ),
+                                  iconStyleData: const IconStyleData(
+                                    icon: Icon(
+                                      Icons.arrow_drop_down_outlined,
+                                    ),
+                                    iconSize: 25,
+                                    iconEnabledColor: Colors.grey,
+                                  ),
+                                  dropdownStyleData: const DropdownStyleData(
+                                    maxHeight: 200,
+                                  ),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    height: 50,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ]),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 400),
+              top: position ? 500 : 550,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
@@ -411,38 +547,6 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
               ),
             ),
             AnimatedPositioned(
-              top: position ? 570 : 620,
-              right: 30,
-              left: 30,
-              duration: const Duration(milliseconds: 400),
-              child: AnimatedOpacity(
-                opacity: opacity,
-                duration: const Duration(milliseconds: 400),
-                child: SizedBox(
-                  width: size.width,
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TextWidget(
-                        "Tanggal Pemesanan",
-                        18,
-                        Color.fromRGBO(45, 3, 59, 1),
-                        FontWeight.bold,
-                        letterSpace: 0,
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      ButtonTanggal(),
-                      SizedBox(
-                        height: 15,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            AnimatedPositioned(
               top: position ? 660 : 710,
               right: 30,
               left: 30,
@@ -452,10 +556,19 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                 duration: const Duration(milliseconds: 400),
                 child: SizedBox(
                   width: size.width,
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ButtonPesanan(),
+                      ButtonPesan(
+                        onTap: () {
+                          orderlayanandetailController.PostOrder(
+                            hari: widget.hari,
+                            alamat: widget.alamat,
+                            selectedDate: selectedDate,
+                            selectedPayment: selectedPayment,
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
