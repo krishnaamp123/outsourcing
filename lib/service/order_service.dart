@@ -22,7 +22,7 @@ class OrderService {
     // SharedPreferences localStorage = await SharedPreferences.getInstance();
     // var token = localStorage.getString('token')?.replaceAll('"', "");
     var token = await getToken();
-    var url = Uri.parse(baseURL + 'pemeriksaan-balita/byPetugas');
+    var url = Uri.parse(baseURL + '/service-orders/');
     http.Response response = await http.post(url,
         headers: setHeaders(token), body: jsonEncode(orderModel.toJson()));
     print(response.body);

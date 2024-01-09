@@ -16,35 +16,39 @@ class OrderLayananDetailController extends GetxController
     required String hari,
     required DateTime selectedDate,
     required String selectedPayment,
+    required List<int> idservice,
   }) async {
     isLoading.value = true;
 
     postOrder.value.address = alamat;
-    postOrder.value.contractDuration = hari as int?;
-    postOrder.value.startDate = selectedDate.toIso8601String();
+    postOrder.value.contractDuration = int.tryParse(hari);
+    postOrder.value.startDate = selectedDate.toUtc().toIso8601String();
     postOrder.value.paymentType = selectedPayment;
 
     List<OrderDetails> details = [];
 
-    OrderDetails orderDetail1 = OrderDetails(
-      partialServiceId: 1,
-      orderDetailItems: [
-        OrderDetailItems(partialServiceItemId: 1, value: 1),
-      ],
-    );
+    // OrderDetails orderDetail1 = OrderDetails(
+    //   partialServiceId: postOrder.value.serviceUserId,
+    //   orderDetailItems: [
+    //     OrderDetailItems(partialServiceItemId: 1, value: 1),
+    //   ],
+    // );
+    for (int id in idservice) {
+      OrderDetails orderDetail2 = OrderDetails(
+        partialServiceId: id,
+      );
+      details.add(orderDetail2);
+    }
 
-    OrderDetails orderDetail2 = OrderDetails(partialServiceId: 2);
-
-    details.add(orderDetail1);
-    details.add(orderDetail2);
+    // details.add(orderDetail1);
 
     postOrder.value.orderDetails = details;
 
     var response = await service.postOrder(postOrder.value);
     var responsedecode = jsonDecode(response.body);
 
-    if (response.statusCode == 200) {
-      Get.back();
+    if (response != null && response.statusCode == 201) {
+      // Get.back();
       Get.snackbar(
         'Create Berhasil',
         "Data berhasil ditambah",

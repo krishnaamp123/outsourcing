@@ -12,9 +12,9 @@ class OrderLayananController extends GetxController implements GetxService {
   var postOrder = OrderModel().obs;
   final service = OrderService();
   var isLoading = false.obs;
-  String? alamatCon, hariCon, nameCon, bestpriceCon;
-  int? jumlahCleanerCon;
-  List<String> selectedItemsCon = [];
+  // String? alamatCon, hariCon, nameCon, bestpriceCon;
+  // int? jumlahCleanerCon;
+  // List<String> selectedItemsCon = [];
 
   String? alamatError;
   String? hariError;
@@ -55,12 +55,13 @@ class OrderLayananController extends GetxController implements GetxService {
       BuildContext context,
       List<String>? selectedItems,
       List<int>? hargaitem,
+      List<int>? idservice,
       int jumlahCleaner,
       String name,
       String image,
       String baseprice) {
     if (validateForm()) {
-      navigateToOrderLayananDetail(context, selectedItems, hargaitem,
+      navigateToOrderLayananDetail(context, selectedItems, hargaitem, idservice,
           jumlahCleaner, name, image, baseprice);
     }
   }
@@ -69,6 +70,7 @@ class OrderLayananController extends GetxController implements GetxService {
       BuildContext context,
       List<String>? selectedItems,
       List<int>? hargaitem,
+      List<int>? idservice,
       int jumlahCleaner,
       String name,
       String image,
@@ -88,36 +90,37 @@ class OrderLayananController extends GetxController implements GetxService {
           selectedItems: selectedItems ?? [],
           jumlahCleaner: jumlahCleaner,
           hargaitem: hargaitem ?? [],
+          idservice: idservice ?? [],
         ),
       ),
     );
   }
 
-  Future<void> PostOrder({required int user_id}) async {
-    isLoading.value = true;
+  // Future<void> PostOrder({required int user_id}) async {
+  //   isLoading.value = true;
 
-    var response = await service.postOrder(postOrder.value);
-    var responsedecode = jsonDecode(response.body);
+  //   var response = await service.postOrder(postOrder.value);
+  //   var responsedecode = jsonDecode(response.body);
 
-    if (response.statusCode == 200) {
-      Get.back();
-      Get.snackbar(
-        'Create Berhasil',
-        "Data berhasil ditambah",
-        colorText: Colors.white,
-        backgroundColor: Colors.lightBlue,
-      );
-      // resetForm();
-    } else {
-      Get.snackbar(
-        'Create Gagal',
-        "Data gagal ditambah, mohon periksa kembali",
-        colorText: Colors.white,
-        backgroundColor: Colors.red,
-      );
-    }
-    isLoading.value = false;
+  //   if (response.statusCode == 200) {
+  //     Get.back();
+  //     Get.snackbar(
+  //       'Create Berhasil',
+  //       "Data berhasil ditambah",
+  //       colorText: Colors.white,
+  //       backgroundColor: Colors.lightBlue,
+  //     );
+  //     // resetForm();
+  //   } else {
+  //     Get.snackbar(
+  //       'Create Gagal',
+  //       "Data gagal ditambah, mohon periksa kembali",
+  //       colorText: Colors.white,
+  //       backgroundColor: Colors.red,
+  //     );
+  //   }
+  //   isLoading.value = false;
 
-    // Get.back();
-  }
+  //   // Get.back();
+  // }
 }

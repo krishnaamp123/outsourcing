@@ -36,6 +36,7 @@ class _OrderLayananState extends State<OrderLayanan> {
   List<ServiceItems> serviceItems = [];
   List<bool> checkedItems = [];
   List<int> hargaitem = [];
+  List<int> idservice = [];
 
   @override
   void initState() {
@@ -179,13 +180,27 @@ class _OrderLayananState extends State<OrderLayanan> {
                               itemBuilder: (context, index) {
                                 final item = widget.serviceItems[index];
                                 return CheckboxListTile(
-                                  title: Text(
-                                    item.itemName!,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 16,
-                                      color: Color.fromRGBO(45, 3, 59, 1),
-                                    ),
+                                  title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        item.itemName!,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 16,
+                                          color: Color.fromRGBO(45, 3, 59, 1),
+                                        ),
+                                      ),
+                                      Text(
+                                        '${item.partialServiceId}',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   subtitle: Text(
                                     'Rp. ${item.pricePerItem.toString()}',
@@ -274,6 +289,7 @@ class _OrderLayananState extends State<OrderLayanan> {
                         onTap: () {
                           List<String> selectedItems = [];
                           hargaitem = [];
+                          idservice = [];
                           if (_formKey.currentState!.validate()) {
                             for (int i = 0; i < checkedItems.length; i++) {
                               if (checkedItems[i]) {
@@ -281,12 +297,15 @@ class _OrderLayananState extends State<OrderLayanan> {
                                     .add(widget.serviceItems[i].itemName!);
                                 hargaitem
                                     .add(widget.serviceItems[i].pricePerItem!);
+                                idservice.add(
+                                    widget.serviceItems[i].partialServiceId!);
                               }
                             }
                             orderlayananController.handleOrderLayanan(
                                 context,
                                 selectedItems.isNotEmpty ? selectedItems : null,
                                 hargaitem,
+                                idservice,
                                 jumlahCleaner,
                                 name,
                                 image,

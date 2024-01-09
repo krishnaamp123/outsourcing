@@ -3,7 +3,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/z_pengguna/order_layanan/controller/orderlayanandetail_controller.dart';
-import 'package:outsourcing/z_pengguna/order_layanan/widget/buttonpesan.dart';
 
 class OrderLayananDetail extends StatefulWidget {
   final Function()? onTap;
@@ -12,22 +11,23 @@ class OrderLayananDetail extends StatefulWidget {
   final String hari;
   final List<String> selectedItems;
   final List<int> hargaitem;
+  final List<int> idservice;
   final int jumlahCleaner;
   final String image;
   final String name;
   final String baseprice;
-  // final int? jumlahCleaner;
+
   const OrderLayananDetail(
       {Key? key,
       required this.alamat,
       required this.hari,
       required this.selectedItems,
       required this.hargaitem,
+      required this.idservice,
       required this.jumlahCleaner,
       required this.image,
       required this.name,
       required this.baseprice,
-      // required this.jumlahCleaner,
       this.onTap})
       : super(key: key);
 
@@ -42,8 +42,7 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
   late Size size;
   // final OrderLayananController orderlayananController =
   //     OrderLayananController();
-  late String
-      selectedPayment; // variabel untuk menyimpan opsi pembayaran yang dipilih
+  late String selectedPayment;
   List<String> paymentOptions = ['full', 'dp', '3_termin'];
 
   @override
@@ -81,6 +80,7 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
     String baseprice = widget.baseprice;
     List<String> selectedItems = widget.selectedItems;
     List<int> hargaitem = widget.hargaitem;
+    List<int> idservice = widget.idservice;
     int jumlahCleaner = widget.jumlahCleaner;
     // int? jumlahCleaner = widget.jumlahCleaner;
     size = MediaQuery.of(context).size;
@@ -559,16 +559,114 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ButtonPesan(
-                        onTap: () {
-                          orderlayanandetailController.PostOrder(
-                            hari: widget.hari,
-                            alamat: widget.alamat,
-                            selectedDate: selectedDate,
-                            selectedPayment: selectedPayment,
+                      ElevatedButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const TextWidget(
+                                      "Konfirmasi Pesanan",
+                                      20,
+                                      Color.fromRGBO(45, 3, 59, 1),
+                                      FontWeight.bold,
+                                      letterSpace: 0,
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextWidget(
+                                      "Cek kembali data pesanan anda\nPastikan sudah mengunduh MOU",
+                                      15,
+                                      Colors.black.withOpacity(0.6),
+                                      FontWeight.bold,
+                                      letterSpace: 0,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        orderlayanandetailController.PostOrder(
+                                          hari: widget.hari,
+                                          alamat: widget.alamat,
+                                          selectedDate: selectedDate,
+                                          selectedPayment: selectedPayment,
+                                          idservice: widget.idservice,
+                                        );
+                                      },
+                                      label: const Text('Buat Pesanan',
+                                          style: TextStyle(
+                                            color:
+                                                Color.fromRGBO(193, 71, 233, 1),
+                                          )),
+                                      icon: const Icon(
+                                        Icons.upload_file,
+                                        color: Color.fromRGBO(193, 71, 233, 1),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        shadowColor:
+                                            Colors.purple, // Warna teks
+                                        minimumSize: const Size(240, 40),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                           );
                         },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(240, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          backgroundColor:
+                              const Color.fromRGBO(193, 71, 233, 1),
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.symmetric(horizontal: 70),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Center(
+                            child: TextWidget(
+                              "Buat Pesanan",
+                              16,
+                              Colors.white,
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
                       ),
+                      // ButtonPesan(
+                      //   onTap: () {
+                      //     orderlayanandetailController.PostOrder(
+                      //       hari: widget.hari,
+                      //       alamat: widget.alamat,
+                      //       selectedDate: selectedDate,
+                      //       selectedPayment: selectedPayment,
+                      //       idservice: widget.idservice,
+                      //     );
+                      //   },
+                      // ),
                     ],
                   ),
                 ),
