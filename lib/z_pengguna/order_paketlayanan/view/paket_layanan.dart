@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
 
@@ -27,6 +28,9 @@ class _PaketLayananState extends State<PaketLayanan> {
   var opacity = 0.0;
   bool position = false;
   late Size size;
+  late String selectedPayment;
+  List<String> paymentOptions = ['full', 'dp', '3_termin'];
+  DateTime selectedDate = DateTime.now();
 
   @override
   void initState() {
@@ -34,6 +38,7 @@ class _PaketLayananState extends State<PaketLayanan> {
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
+      selectedPayment = paymentOptions.first;
     });
   }
 
@@ -279,7 +284,185 @@ class _PaketLayananState extends State<PaketLayanan> {
               ),
             ),
             AnimatedPositioned(
-              top: position ? 370 : 320,
+              top: position ? 370 : 420,
+              right: 30,
+              left: 30,
+              duration: const Duration(milliseconds: 400),
+              child: AnimatedOpacity(
+                opacity: opacity,
+                duration: const Duration(milliseconds: 400),
+                child: SizedBox(
+                  width: size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const TextWidget(
+                            "Tanggal Pemesanan",
+                            16,
+                            Color.fromRGBO(129, 12, 168, 1),
+                            FontWeight.normal,
+                            letterSpace: 0,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              final DateTime? dateTime = await showDatePicker(
+                                context: context,
+                                initialDate: selectedDate,
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2025),
+                              );
+                              if (dateTime != null) {
+                                setState(() {
+                                  selectedDate = dateTime;
+                                });
+                              }
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.only(
+                                  left: 32, right: 32, top: 12, bottom: 12),
+                              decoration: BoxDecoration(
+                                color: const Color.fromRGBO(45, 3, 59, 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "${selectedDate.year} - ${selectedDate.month} - ${selectedDate.day}",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const TextWidget(
+                              "Tipe Pembayaran",
+                              16,
+                              Color.fromRGBO(129, 12, 168, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Card(
+                              elevation: 5, // Atur elevation di sini
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton2<String>(
+                                  value: selectedPayment,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      selectedPayment = newValue!;
+                                    });
+                                  },
+                                  items: paymentOptions.map((String option) {
+                                    return DropdownMenuItem<String>(
+                                      value: option,
+                                      child: Text(
+                                        option,
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Color.fromRGBO(45, 3, 59, 1),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  buttonStyleData: const ButtonStyleData(
+                                    // padding: EdgeInsets.symmetric(horizontal: 5),
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    height: 40,
+                                    // width: 200,
+                                  ),
+                                  iconStyleData: const IconStyleData(
+                                    icon: Icon(
+                                      Icons.arrow_drop_down_outlined,
+                                    ),
+                                    iconSize: 25,
+                                    iconEnabledColor: Colors.grey,
+                                  ),
+                                  dropdownStyleData: const DropdownStyleData(
+                                    maxHeight: 200,
+                                  ),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    height: 50,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ]),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 400),
+              top: position ? 460 : 510,
+              left: 20,
+              right: 20,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 400),
+                opacity: opacity,
+                child: Card(
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: SizedBox(
+                    height: 170,
+                    width: MediaQuery.of(context).size.width,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 5,
+                          ),
+                          TextWidget(
+                            "Deskripsi Paket Layanan",
+                            15,
+                            Color.fromRGBO(129, 12, 168, 1),
+                            FontWeight.normal,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          TextWidget(
+                            "Security yang memiliki pengalaman \nTentunya dalam penjagaan event\nWaktu kerja: 6 jam/hari\nHari kerja: setiap hari",
+                            15,
+                            Color.fromRGBO(45, 3, 59, 1),
+                            FontWeight.normal,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            AnimatedPositioned(
+              top: position ? 660 : 710,
               right: 30,
               left: 30,
               duration: const Duration(milliseconds: 400),
@@ -291,20 +474,6 @@ class _PaketLayananState extends State<PaketLayanan> {
                   child: const Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      TextWidget(
-                        "Tanggal Pemesanan",
-                        18,
-                        Color.fromRGBO(45, 3, 59, 1),
-                        FontWeight.bold,
-                        letterSpace: 0,
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      ButtonTanggal(),
-                      SizedBox(
-                        height: 15,
-                      ),
                       ButtonPesanan(),
                     ],
                   ),

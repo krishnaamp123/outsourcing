@@ -45,23 +45,63 @@ class OrderLayananDetailController extends GetxController
     postOrder.value.orderDetails = details;
 
     var response = await service.postOrder(postOrder.value);
-    var responsedecode = jsonDecode(response.body);
 
-    if (response != null && response.statusCode == 201) {
-      // Get.back();
-      Get.snackbar(
-        'Create Berhasil',
-        "Data berhasil ditambah",
-        colorText: Colors.white,
-        backgroundColor: Colors.lightBlue,
-      );
-      // resetForm();
+    if (response != null) {
+      var responsedecode = jsonDecode(response.body);
+      if (response.statusCode == 201) {
+        Get.snackbar(
+          'Info',
+          'Mohon maaf pemesanan gagal, cek kembali data yang belum Anda inputkan!',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.transparent,
+          colorText: Colors.black,
+          duration: const Duration(seconds: 3),
+          borderRadius: 0,
+          margin: EdgeInsets.zero,
+          padding: EdgeInsets.zero,
+          messageText: const Text(
+            'Mohon maaf pemesanan gagal, cek kembali data yang belum Anda inputkan!',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+        );
+      } else {
+        Get.snackbar(
+          'Info',
+          'Mohon maaf pemesanan gagal, cek kembali data yang belum Anda inputkan!',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.transparent,
+          colorText: Colors.black,
+          duration: const Duration(seconds: 3),
+          borderRadius: 0,
+          margin: EdgeInsets.zero,
+          padding: EdgeInsets.zero,
+          messageText: const Text(
+            'Mohon maaf pemesanan gagal, cek kembali data yang belum Anda inputkan!',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+        );
+      }
     } else {
       Get.snackbar(
-        'Create Gagal',
-        "Data gagal ditambah, mohon periksa kembali",
-        colorText: Colors.white,
-        backgroundColor: Colors.red,
+        'Info',
+        'Mohon maaf pemesanan gagal, cek kembali data yang belum Anda inputkan!',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.transparent,
+        colorText: Colors.black,
+        duration: Duration(seconds: 3),
+        borderRadius: 0,
+        margin: EdgeInsets.zero,
+        padding: EdgeInsets.zero,
+        messageText: Text(
+          'Mohon maaf pemesanan gagal, cek kembali data yang belum Anda inputkan!',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
       );
     }
     isLoading.value = false;

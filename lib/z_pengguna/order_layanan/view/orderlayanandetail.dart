@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
+import 'package:outsourcing/z_autentikasi/view/start.dart';
 import 'package:outsourcing/z_pengguna/order_layanan/controller/orderlayanandetail_controller.dart';
 
 class OrderLayananDetail extends StatefulWidget {
@@ -44,6 +46,7 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
   //     OrderLayananController();
   late String selectedPayment;
   List<String> paymentOptions = ['full', 'dp', '3_termin'];
+  DateTime selectedDate = DateTime.now();
 
   @override
   void initState() {
@@ -72,7 +75,6 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
   Widget build(BuildContext context) {
     final OrderLayananDetailController orderlayanandetailController =
         OrderLayananDetailController();
-    DateTime selectedDate = DateTime.now();
     String alamat = widget.alamat;
     String hari = widget.hari;
     String name = widget.name;
@@ -392,8 +394,8 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                               final DateTime? dateTime = await showDatePicker(
                                 context: context,
                                 initialDate: selectedDate,
-                                firstDate: DateTime(2020),
-                                lastDate: DateTime(2030),
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2025),
                               );
                               if (dateTime != null) {
                                 setState(() {
@@ -593,12 +595,37 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                                     ),
                                     ElevatedButton.icon(
                                       onPressed: () {
+                                        final snackBar = SnackBar(
+                                          elevation: 0,
+                                          behavior: SnackBarBehavior.floating,
+                                          backgroundColor: Colors.transparent,
+                                          content: AwesomeSnackbarContent(
+                                            title: 'Info',
+                                            message:
+                                                'Terimakasih telah membuat pesanan, harap mengumpulkan berkas yang diperlukan',
+                                            contentType: ContentType.success,
+                                          ),
+                                        );
+
+                                        ScaffoldMessenger.of(context)
+                                          ..hideCurrentSnackBar()
+                                          ..showSnackBar(snackBar);
+
+                                        Navigator.pop(context);
+
                                         orderlayanandetailController.PostOrder(
                                           hari: widget.hari,
                                           alamat: widget.alamat,
                                           selectedDate: selectedDate,
                                           selectedPayment: selectedPayment,
                                           idservice: widget.idservice,
+                                        );
+
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => const Start(),
+                                          ),
                                         );
                                       },
                                       label: const Text('Buat Pesanan',
@@ -656,17 +683,6 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                           ),
                         ),
                       ),
-                      // ButtonPesan(
-                      //   onTap: () {
-                      //     orderlayanandetailController.PostOrder(
-                      //       hari: widget.hari,
-                      //       alamat: widget.alamat,
-                      //       selectedDate: selectedDate,
-                      //       selectedPayment: selectedPayment,
-                      //       idservice: widget.idservice,
-                      //     );
-                      //   },
-                      // ),
                     ],
                   ),
                 ),
