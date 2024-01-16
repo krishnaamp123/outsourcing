@@ -4,7 +4,7 @@ import 'package:outsourcing/core.dart';
 
 class DetailPenempatanK extends StatefulWidget {
   final Function()? onTap;
-  final String name;
+  final String karsuv;
   final String harga;
   final String alamat;
   final String tanggal;
@@ -13,7 +13,7 @@ class DetailPenempatanK extends StatefulWidget {
 
   const DetailPenempatanK({
     Key? key,
-    required this.name,
+    required this.karsuv,
     required this.tanggal,
     required this.alamat,
     required this.status,
@@ -59,7 +59,7 @@ class _DetailPenempatanKState extends State<DetailPenempatanK> {
     size = MediaQuery.of(context).size;
     String harga = widget.harga;
     String alamat = widget.alamat;
-    String name = widget.name;
+    String karsuv = widget.karsuv;
     String tanggal = widget.tanggal;
     String status = widget.status;
     Color colors = widget.colors;
@@ -100,7 +100,7 @@ class _DetailPenempatanKState extends State<DetailPenempatanK> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextWidget(
-                          name,
+                          karsuv,
                           20,
                           const Color.fromRGBO(45, 3, 59, 1),
                           FontWeight.bold,

@@ -25,7 +25,7 @@ class _ListPenempatanSWidgetState extends State<ListPenempatanSWidget> {
         itemBuilder: (BuildContext context, int index) {
           final order = penempatansController.orderList[index];
           return orderlist(
-            order.name,
+            order.karsuv,
             order.tanggal,
             order.alamat,
             order.status,
@@ -37,12 +37,12 @@ class _ListPenempatanSWidgetState extends State<ListPenempatanSWidget> {
     );
   }
 
-  Widget orderlist(String name, String tanggal, String alamat, String status,
+  Widget orderlist(String karsuv, String tanggal, String alamat, String status,
       String harga, Color colors) {
     return GestureDetector(
       onTap: () {
         penempatansController.navigateToDetails(
-            context, name, tanggal, alamat, status, harga, colors);
+            context, karsuv, tanggal, alamat, status, harga, colors);
       },
       child: Card(
         elevation: 2,
@@ -62,7 +62,7 @@ class _ListPenempatanSWidgetState extends State<ListPenempatanSWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWidget(
-                    name,
+                    karsuv,
                     18,
                     const Color.fromRGBO(45, 3, 59, 1),
                     FontWeight.bold,
@@ -90,7 +90,7 @@ class _ListPenempatanSWidgetState extends State<ListPenempatanSWidget> {
                   ),
                   TextWidget(
                     status,
-                    15,
+                    0,
                     colors,
                     FontWeight.bold,
                     letterSpace: 0,

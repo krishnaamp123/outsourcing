@@ -92,3 +92,12 @@ var alamat = [
   "Jl.Jempiring",
   "Jl.Tukad Pancoran IID no 14",
 ];
+
+var karsuv = [
+  "Order 1",
+  "Order 2",
+  "Order 3",
+  "Order 4",
+  "Order 5",
+  "Order 6",
+];

@@ -25,7 +25,7 @@ class _ListPenempatanKWidgetState extends State<ListPenempatanKWidget> {
         itemBuilder: (BuildContext context, int index) {
           final order = penempatankController.orderList[index];
           return orderlist(
-            order.name,
+            order.karsuv,
             order.tanggal,
             order.alamat,
             order.status,
@@ -90,7 +90,7 @@ class _ListPenempatanKWidgetState extends State<ListPenempatanKWidget> {
                   ),
                   TextWidget(
                     status,
-                    15,
+                    0,
                     colors,
                     FontWeight.bold,
                     letterSpace: 0,
