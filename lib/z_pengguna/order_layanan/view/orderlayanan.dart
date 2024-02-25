@@ -3,6 +3,7 @@ import 'package:input_quantity/input_quantity.dart';
 import 'package:outsourcing/model/service_model.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/z_pengguna/order_layanan/controller/orderlayanan_controller.dart';
+import 'package:intl/intl.dart';
 
 class OrderLayanan extends StatefulWidget {
   final String image;
@@ -202,8 +203,16 @@ class _OrderLayananState extends State<OrderLayanan> {
                                       ),
                                     ],
                                   ),
+                                  // subtitle: Text(
+                                  //   'Rp. ${item.pricePerItem.toString()}',
+                                  //   style: const TextStyle(
+                                  //     fontWeight: FontWeight.normal,
+                                  //     fontSize: 14,
+                                  //     color: Color.fromRGBO(45, 3, 59, 1),
+                                  //   ),
+                                  // ),
                                   subtitle: Text(
-                                    'Rp. ${item.pricePerItem.toString()}',
+                                    'Rp. ${NumberFormat.currency(locale: 'id', symbol: '', decimalDigits: 0).format(item.pricePerItem)}',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: 14,

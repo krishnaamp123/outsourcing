@@ -143,7 +143,7 @@ class LoginController {
       'password': passwordController.text,
     };
 
-    var res = await Network().auth(data, '/login');
+    var res = await Network().auth(data, '/login/');
     var body = json.decode(res.body);
     if (res.statusCode == 200) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();

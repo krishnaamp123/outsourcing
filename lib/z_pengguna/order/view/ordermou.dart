@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/z_pengguna/order/widget/buttonmou_widget.dart';
+import 'package:intl/intl.dart';
 
 class OrderMOU extends StatefulWidget {
   final Function()? onTap;
@@ -59,6 +60,10 @@ class _OrderMOUState extends State<OrderMOU> {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     String harga = widget.harga;
+    int hargaInt = int.parse(harga);
+    String formattedHarga =
+        NumberFormat.currency(locale: 'id', symbol: 'Rp', decimalDigits: 0)
+            .format(hargaInt);
     String alamat = widget.alamat;
     String name = widget.name;
     String tanggal = widget.tanggal;
@@ -158,7 +163,7 @@ class _OrderMOUState extends State<OrderMOU> {
                                       height: 5,
                                     ),
                                     TextWidget(
-                                      'Rp.$harga',
+                                      formattedHarga,
                                       18,
                                       const Color.fromRGBO(45, 3, 59, 1),
                                       FontWeight.bold,

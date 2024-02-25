@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/z_autentikasi/view/start.dart';
 import 'package:outsourcing/z_pengguna/order_layanan/controller/orderlayanandetail_controller.dart';
+import 'package:intl/intl.dart';
 
 class OrderLayananDetail extends StatefulWidget {
   final Function()? onTap;
@@ -80,6 +81,10 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
     String name = widget.name;
     // String image = widget.image;
     String baseprice = widget.baseprice;
+    int hargaInt = int.parse(baseprice);
+    String formattedBaseprice =
+        NumberFormat.currency(locale: 'id', symbol: 'Rp', decimalDigits: 0)
+            .format(hargaInt);
     List<String> selectedItems = widget.selectedItems;
     List<int> hargaitem = widget.hargaitem;
     List<int> idservice = widget.idservice;
@@ -196,7 +201,7 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                                       height: 5,
                                     ),
                                     TextWidget(
-                                      "Rp.$baseprice",
+                                      formattedBaseprice,
                                       18,
                                       const Color.fromRGBO(45, 3, 59, 1),
                                       FontWeight.bold,
@@ -528,7 +533,9 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                               itemBuilder: (context, index) {
                                 return ListTile(
                                   title: Text(selectedItems[index]),
-                                  subtitle: Text('Rp. ${hargaitem[index]}'),
+                                  subtitle: Text
+                                      // ('Rp. ${hargaitem[index]}')
+                                      ('Rp. ${NumberFormat.currency(locale: 'id', symbol: '', decimalDigits: 0).format(hargaitem[index])}'),
                                   titleTextStyle: const TextStyle(
                                       color: Color.fromRGBO(45, 3, 59, 1),
                                       fontWeight: FontWeight.bold,
