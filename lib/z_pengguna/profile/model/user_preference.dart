@@ -9,9 +9,9 @@ class UserPreferences {
         "https://upload.wikimedia.org/wikipedia/en/0/0b/Darth_Vader_in_The_Empire_Strikes_Back.jpg",
     name: 'Krishna Mahendra',
     email: 'krishnamahendra1234@gmail.com',
-    alamat: 'krishnamahendra1234@gmail.com',
+    alamat: 'Jl.Tukad Pancoran',
     telpon: '0895379245552',
-    nik: 'Jl.Tukad Pancoran IID 14',
+    nik: '5178261827369173',
   );
 }
 // class UserData {

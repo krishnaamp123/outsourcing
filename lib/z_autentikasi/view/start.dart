@@ -71,7 +71,7 @@ class _StartState extends State<Start> {
         widget = FeedbackComplaint();
         break;
       case 3:
-        widget = const ProfileUser();
+        widget = const EditNameFormPage();
         break;
       default:
         widget = Order();
