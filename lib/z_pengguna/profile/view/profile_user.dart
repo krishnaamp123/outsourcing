@@ -1,17 +1,15 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/core.dart';
 
 // This class handles the Page to dispaly the user's info on the "Edit Profile" Screen
 class ProfileUser extends StatefulWidget {
   final String imagePath;
+  final bool isEdit;
   final VoidCallback onClicked;
 
   const ProfileUser({
     Key? key,
     required this.imagePath,
+    this.isEdit = false,
     required this.onClicked,
   }) : super(key: key);
 
@@ -61,8 +59,8 @@ class _ProfileUserState extends State<ProfileUser> {
         child: buildCircle(
           color: color,
           all: 8,
-          child: const Icon(
-            Icons.edit,
+          child: Icon(
+            widget.isEdit ? Icons.add_a_photo : Icons.edit,
             color: Colors.white,
             size: 20,
           ),

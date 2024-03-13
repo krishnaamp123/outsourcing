@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:outsourcing/z_pengguna/profile/model/user.dart';
 import 'package:outsourcing/z_pengguna/profile/model/user_preference.dart';
+import 'package:outsourcing/z_pengguna/profile/view/edit_profile.dart';
 import 'package:outsourcing/z_pengguna/profile/view/profile_user.dart';
 import 'package:outsourcing/z_pengguna/profile/widget/appbar_widget.dart';
 
 // This class handles the Page to edit the Name Section of the User Profile.
-class EditNameFormPage extends StatefulWidget {
-  const EditNameFormPage({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
-  EditNameFormPageState createState() {
-    return EditNameFormPageState();
+  ProfilePageState createState() {
+    return ProfilePageState();
   }
 }
 
-class EditNameFormPageState extends State<EditNameFormPage> {
+class ProfilePageState extends State<ProfilePage> {
   // final _formKey = GlobalKey<FormState>();
   // final firstNameController = TextEditingController();
   // final secondNameController = TextEditingController();
@@ -76,7 +77,12 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                 children: [
                   ProfileUser(
                     imagePath: user.imagePath,
-                    onClicked: () async {},
+                    onClicked: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const EditProfilePage()),
+                      );
+                    },
                   ),
                   const SizedBox(height: 24),
                   buildName(user),
