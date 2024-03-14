@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:outsourcing/z_pengguna/profile/model/user.dart';
 import 'package:outsourcing/z_pengguna/profile/model/user_preference.dart';
 import 'package:outsourcing/z_pengguna/profile/view/profile_user.dart';
+import 'package:outsourcing/z_pengguna/profile/widget/buttonsimpan_widget.dart';
 import 'package:outsourcing/z_pengguna/profile/widget/editappbar_widget.dart';
 import 'package:outsourcing/z_pengguna/profile/widget/textfieldedit_widget.dart';
 
@@ -15,7 +17,7 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class EditProfilePageState extends State<EditProfilePage> {
-  final user = UserPreferences.myUser;
+  User user = UserPreferences.myUser;
   var animate = false;
   var opacity = 0.0;
   bool position = false;
@@ -58,46 +60,77 @@ class EditProfilePageState extends State<EditProfilePage> {
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 400),
               opacity: opacity,
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
                 children: [
                   ProfileUser(
                     imagePath: user.imagePath,
                     isEdit: true,
                     onClicked: () async {},
                   ),
-                  const SizedBox(height: 24),
-                  TextFieldEditWidget(
-                    label: 'Nama Lengkap',
-                    text: user.name,
-                    onChanged: (name) {},
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: SizedBox(
+                        height: 400,
+                        width: MediaQuery.of(context).size.width,
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              children: [
+                                TextFieldEditWidget(
+                                  label: 'Nama Lengkap :',
+                                  text: user.name,
+                                  onChanged: (name) =>
+                                      user = user.copy(name: name),
+                                ),
+                                const SizedBox(height: 10),
+                                TextFieldEditWidget(
+                                  label: 'Email :',
+                                  text: user.email,
+                                  onChanged: (email) =>
+                                      user = user.copy(email: email),
+                                ),
+                                const SizedBox(height: 10),
+                                TextFieldEditWidget(
+                                  label: 'Nomor Telpon :',
+                                  text: user.telpon,
+                                  onChanged: (telpon) =>
+                                      user = user.copy(telpon: telpon),
+                                ),
+                                const SizedBox(height: 10),
+                                TextFieldEditWidget(
+                                  label: 'Alamat :',
+                                  text: user.alamat,
+                                  // maxLines: 3,
+                                  onChanged: (alamat) =>
+                                      user = user.copy(alamat: alamat),
+                                ),
+                                const SizedBox(height: 10),
+                                TextFieldEditWidget(
+                                  label: 'Nomor Induk Keluarga :',
+                                  text: user.nik,
+                                  onChanged: (nik) =>
+                                      user = user.copy(nik: nik),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                  const SizedBox(height: 24),
-                  TextFieldEditWidget(
-                    label: 'Email',
-                    text: user.email,
-                    onChanged: (email) {},
-                  ),
-                  const SizedBox(height: 24),
-                  TextFieldEditWidget(
-                    label: 'Nomor Telpon',
-                    text: user.telpon,
-                    onChanged: (telpon) {},
-                  ),
-                  const SizedBox(height: 24),
-                  TextFieldEditWidget(
-                    label: 'Alamat',
-                    text: user.alamat,
-                    // maxLines: 3,
-                    onChanged: (alamat) {},
-                  ),
-                  const SizedBox(height: 24),
-                  TextFieldEditWidget(
-                    label: 'Nomor Induk Keluarga',
-                    text: user.nik,
-                    onChanged: (nik) {},
-                  ),
+                  ButtonSimpan(
+                    onTap: () {
+                      UserPreferences.setUser(user);
+                      Navigator.of(context).pop();
+                    },
+                    width: 350,
+                  )
                 ],
               ),
             ),

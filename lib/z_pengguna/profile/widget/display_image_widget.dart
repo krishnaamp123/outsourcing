@@ -15,7 +15,7 @@ class DisplayImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = const Color.fromRGBO(129, 12, 168, 1);
+    final color = Color.fromRGBO(129, 12, 168, 1);
 
     return Center(
         child: Stack(children: [

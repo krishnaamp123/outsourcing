@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:outsourcing/components/text_widget.dart';
 
 class TextFieldEditWidget extends StatefulWidget {
   final String label;
@@ -42,9 +43,15 @@ class _TextFieldEditWidgetState extends State<TextFieldEditWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.label,
-            style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
+        TextWidget(
+          widget.label,
+          15,
+          const Color.fromRGBO(129, 12, 168, 1),
+          FontWeight.normal,
+          letterSpace: 0,
+          textAlign: TextAlign.left,
+        ),
+        const SizedBox(height: 5),
         TextField(
           controller: controller,
           decoration: InputDecoration(
@@ -60,6 +67,7 @@ class _TextFieldEditWidgetState extends State<TextFieldEditWidget> {
             filled: true,
           ),
           maxLines: widget.maxLines,
+          onChanged: widget.onChanged,
         )
       ],
     );

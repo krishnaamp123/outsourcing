@@ -19,7 +19,7 @@ class ProfilePageState extends State<ProfilePage> {
   // final _formKey = GlobalKey<FormState>();
   // final firstNameController = TextEditingController();
   // final secondNameController = TextEditingController();
-  final user = UserPreferences.myUser;
+  final user = UserPreferences.getUser();
   var animate = false;
   var opacity = 0.0;
   bool position = false;
@@ -77,11 +77,12 @@ class ProfilePageState extends State<ProfilePage> {
                 children: [
                   ProfileUser(
                     imagePath: user.imagePath,
-                    onClicked: () {
-                      Navigator.of(context).push(
+                    onClicked: () async {
+                      await Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => const EditProfilePage()),
                       );
+                      setState(() {});
                     },
                   ),
                   const SizedBox(height: 24),
@@ -122,64 +123,79 @@ class ProfilePageState extends State<ProfilePage> {
       );
 
   Widget buildAbout(User user) => Padding(
-        padding: const EdgeInsets.only(left: 20, top: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Nomor Telpon :',
-              style: TextStyle(
-                color: Color.fromRGBO(129, 12, 168, 1),
-                fontSize: 15,
-                fontWeight: FontWeight.normal,
+        padding: const EdgeInsets.all(20),
+        child: Card(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: SizedBox(
+            height: 220,
+            width: MediaQuery.of(context).size.width,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Nomor Telpon :',
+                      style: TextStyle(
+                        color: Color.fromRGBO(129, 12, 168, 1),
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      user.telpon,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(45, 3, 59, 1),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Alamat :',
+                      style: TextStyle(
+                        color: Color.fromRGBO(129, 12, 168, 1),
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      user.alamat,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(45, 3, 59, 1),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Nomor Induk Keluarga :',
+                      style: TextStyle(
+                        color: Color.fromRGBO(129, 12, 168, 1),
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      user.nik,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(45, 3, 59, 1),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: 4),
-            Text(
-              user.telpon,
-              style: const TextStyle(
-                color: Color.fromRGBO(45, 3, 59, 1),
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Alamat :',
-              style: TextStyle(
-                color: Color.fromRGBO(129, 12, 168, 1),
-                fontSize: 15,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              user.alamat,
-              style: const TextStyle(
-                color: Color.fromRGBO(45, 3, 59, 1),
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Nomor Induk Keluarga :',
-              style: TextStyle(
-                color: Color.fromRGBO(129, 12, 168, 1),
-                fontSize: 15,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              user.nik,
-              style: const TextStyle(
-                color: Color.fromRGBO(45, 3, 59, 1),
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+          ),
         ),
       );
 }
