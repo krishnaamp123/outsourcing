@@ -21,6 +21,8 @@ class _ListPenempatanSWidgetState extends State<ListPenempatanSWidget> {
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         shrinkWrap: true,
+        padding: const EdgeInsets.only(bottom: 10),
+        itemExtent: 100,
         itemCount: penempatansController.orderList.length,
         itemBuilder: (BuildContext context, int index) {
           final order = penempatansController.orderList[index];

@@ -130,7 +130,38 @@ class _HomeSupervisorState extends State<HomeSupervisor> {
                 ),
               ),
               AnimatedPositioned(
-                top: position ? 110 : 110,
+                  top: position ? 105 : 105,
+                  right: 20,
+                  left: 20,
+                  duration: const Duration(milliseconds: 400),
+                  child: AnimatedOpacity(
+                    opacity: opacity,
+                    duration: const Duration(milliseconds: 400),
+                    child: SizedBox(
+                      width: size.width,
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          TextWidget(
+                            "Status Karyawan : ",
+                            18,
+                            Color.fromRGBO(45, 3, 59, 1),
+                            FontWeight.bold,
+                            letterSpace: 0,
+                          ),
+                          TextWidget(
+                            "Tidak Aktif",
+                            18,
+                            Colors.red,
+                            FontWeight.bold,
+                            letterSpace: 0,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
+              AnimatedPositioned(
+                top: position ? 140 : 140,
                 right: 20,
                 left: 20,
                 duration: const Duration(milliseconds: 300),
@@ -144,7 +175,7 @@ class _HomeSupervisorState extends State<HomeSupervisor> {
                 ),
               ),
               AnimatedPositioned(
-                  top: position ? 230 : 230,
+                  top: position ? 260 : 260,
                   right: 20,
                   left: 20,
                   duration: const Duration(milliseconds: 400),
@@ -168,7 +199,7 @@ class _HomeSupervisorState extends State<HomeSupervisor> {
                     ),
                   )),
               AnimatedPositioned(
-                top: position ? 255 : 305,
+                top: position ? 290 : 340,
                 left: 20,
                 right: 20,
                 duration: const Duration(milliseconds: 500),

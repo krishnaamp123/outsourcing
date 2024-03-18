@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // This class handles the Page to dispaly the user's info on the "Edit Profile" Screen
 class ProfileUser extends StatefulWidget {
@@ -37,13 +40,15 @@ class _ProfileUserState extends State<ProfileUser> {
 
   //image
   Widget buildImage() {
-    final image = NetworkImage(widget.imagePath);
+    final image = widget.imagePath.contains('https://')
+        ? NetworkImage(widget.imagePath)
+        : FileImage(File(widget.imagePath));
 
     return ClipOval(
       child: Material(
         color: Colors.transparent,
         child: Ink.image(
-          image: image,
+          image: image as ImageProvider,
           fit: BoxFit.cover,
           width: 128,
           height: 128,

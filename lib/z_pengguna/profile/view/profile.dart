@@ -19,7 +19,8 @@ class ProfilePageState extends State<ProfilePage> {
   // final _formKey = GlobalKey<FormState>();
   // final firstNameController = TextEditingController();
   // final secondNameController = TextEditingController();
-  final user = UserPreferences.getUser();
+  final user = UserPreferences.myUser;
+  // final user = UserPreferences.getUser();
   var animate = false;
   var opacity = 0.0;
   bool position = false;
