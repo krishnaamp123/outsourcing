@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:outsourcing/z_autentikasi/controller/regis_controller.dart';
 import 'package:outsourcing/z_autentikasi/widget/my_button.dart';
 import 'package:outsourcing/z_autentikasi/widget/my_textfield.dart';
+import 'package:outsourcing/z_autentikasi/widget/pass_textfield.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
@@ -84,10 +85,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(height: 5),
 
                   //password textfield
-                  MyTextField(
+                  PassTextField(
                     controller: regisController.passwordController,
                     hintText: 'Password',
-                    obscureText: true,
                     validator: regisController
                         .validatePassword, // Set validator dari controller
                     onChanged: (_) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:outsourcing/z_autentikasi/widget/my_button.dart';
 import 'package:outsourcing/z_autentikasi/widget/my_textfield.dart';
+import 'package:outsourcing/z_autentikasi/widget/pass_textfield.dart';
 import '../controller/login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -63,10 +64,9 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 5),
 
                 //password textfield
-                MyTextField(
+                PassTextField(
                   controller: loginController.passwordController,
                   hintText: 'Password',
-                  obscureText: true,
                   validator: loginController
                       .validatePassword, // Set validator dari controller
                   onChanged: (_) {
