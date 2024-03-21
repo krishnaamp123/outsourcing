@@ -131,10 +131,7 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
                           TextWidget("Halo", 15, Colors.black.withOpacity(.7),
                               FontWeight.bold),
                           TextWidget(
-                              '${name}',
-                              20,
-                              const Color.fromARGB(255, 222, 198, 198),
-                              FontWeight.bold),
+                              '${name}', 20, Colors.black, FontWeight.bold),
                         ],
                       ),
                     ],

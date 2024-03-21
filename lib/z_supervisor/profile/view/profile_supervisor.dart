@@ -1,74 +1,202 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:outsourcing/components/text_widget.dart';
+import 'package:outsourcing/z_pengguna/profile/widget/appbar_widget.dart';
+import 'package:outsourcing/z_supervisor/profile/model/supervisor.dart';
+import 'package:outsourcing/z_supervisor/profile/model/supervisor_preferences.dart';
+import 'package:outsourcing/z_supervisor/profile/view/edit_supercisor.dart';
+import 'package:outsourcing/z_supervisor/profile/view/pp_supervisor.dart';
 
-// This class handles the Page to dispaly the user's info on the "Edit Profile" Screen
+// This class handles the Page to edit the Name Section of the User Profile.
 class ProfileSupervisor extends StatefulWidget {
-  const ProfileSupervisor({super.key});
+  const ProfileSupervisor({Key? key}) : super(key: key);
 
   @override
-  State<ProfileSupervisor> createState() => _ProfileSupervisorState();
+  ProfileSupervisorState createState() {
+    return ProfileSupervisorState();
+  }
 }
 
-class _ProfileSupervisorState extends State<ProfileSupervisor> {
+class ProfileSupervisorState extends State<ProfileSupervisor> {
+  // final _formKey = GlobalKey<FormState>();
+  // final firstNameController = TextEditingController();
+  // final secondNameController = TextEditingController();
+  final supervisor = SupervisorPreferences.mySupervisor;
+  // final user = UserPreferences.getUser();
+  var animate = false;
   var opacity = 0.0;
   bool position = false;
+  late Size size;
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
-
-      setState(() {});
     });
   }
 
   animator() {
     if (opacity == 1) {
       opacity = 0;
+      animate = true;
       position = false;
     } else {
       opacity = 1;
+      animate = false;
       position = true;
     }
     setState(() {});
   }
 
+  // @override
+  // void dispose() {
+  //   firstNameController.dispose();
+  //   super.dispose();
+  // }
+
+  // void updateUserValue(String name) {
+  //   // user.name = name;
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.white,
-        padding: const EdgeInsets.only(top: 60, left: 0, right: 0),
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Column(children: [
-          AnimatedPositioned(
+      appBar: buildAppBar(context),
+      body: SafeArea(
+        child: Container(
+          color: Colors.white,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: AnimatedPositioned(
             duration: const Duration(milliseconds: 400),
-            top: position ? 1 : 100,
-            right: 20,
-            left: 20,
+            top: position ? 1 : 1,
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 400),
               opacity: opacity,
-              child: const Center(
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: TextWidget(
-                    "Profile",
-                    25,
-                    Color.fromRGBO(45, 3, 59, 1),
-                    FontWeight.bold,
-                    letterSpace: 0,
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  PPSupervisor(
+                    imagePath: supervisor.imagePath,
+                    onClicked: () async {
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const EditSupervisorPage()),
+                      );
+                      setState(() {});
+                    },
                   ),
+                  const SizedBox(height: 24),
+                  buildName(supervisor),
+                  const SizedBox(height: 24),
+                  const Divider(
+                    height: 10,
+                    thickness: 5,
+                    color: Color.fromRGBO(45, 3, 59, 1),
+                    indent: 20,
+                    endIndent: 20,
+                  ),
+                  buildAbout(supervisor),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildName(Supervisor supervisor) => Column(
+        children: [
+          Text(
+            supervisor.name,
+            style: const TextStyle(
+                color: Color.fromRGBO(45, 3, 59, 1),
+                fontWeight: FontWeight.bold,
+                fontSize: 20),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            supervisor.email,
+            style: TextStyle(fontSize: 15, color: Colors.grey[600]),
+          ),
+        ],
+      );
+
+  Widget buildAbout(Supervisor supervisor) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Card(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: SizedBox(
+            height: 220,
+            width: MediaQuery.of(context).size.width,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Nomor Telpon :',
+                      style: TextStyle(
+                        color: Color.fromRGBO(129, 12, 168, 1),
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      supervisor.telpon,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(45, 3, 59, 1),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Alamat :',
+                      style: TextStyle(
+                        color: Color.fromRGBO(129, 12, 168, 1),
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      supervisor.alamat,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(45, 3, 59, 1),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Nomor Induk Keluarga :',
+                      style: TextStyle(
+                        color: Color.fromRGBO(129, 12, 168, 1),
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      supervisor.nik,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(45, 3, 59, 1),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-        ]),
-      ),
-    );
-  }
+        ),
+      );
 }

@@ -1,74 +1,202 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:outsourcing/components/text_widget.dart';
+import 'package:outsourcing/z_karyawan/profile/model/karyawan.dart';
+import 'package:outsourcing/z_karyawan/profile/model/karyawan_preferences.dart';
+import 'package:outsourcing/z_karyawan/profile/view/edit_karyawan.dart';
+import 'package:outsourcing/z_karyawan/profile/view/pp_karyawan.dart';
+import 'package:outsourcing/z_pengguna/profile/widget/appbar_widget.dart';
 
-// This class handles the Page to dispaly the user's info on the "Edit Profile" Screen
+// This class handles the Page to edit the Name Section of the User Profile.
 class ProfileKaryawan extends StatefulWidget {
-  const ProfileKaryawan({super.key});
+  const ProfileKaryawan({Key? key}) : super(key: key);
 
   @override
-  State<ProfileKaryawan> createState() => _ProfileKaryawanState();
+  ProfileKaryawanState createState() {
+    return ProfileKaryawanState();
+  }
 }
 
-class _ProfileKaryawanState extends State<ProfileKaryawan> {
+class ProfileKaryawanState extends State<ProfileKaryawan> {
+  // final _formKey = GlobalKey<FormState>();
+  // final firstNameController = TextEditingController();
+  // final secondNameController = TextEditingController();
+  final karyawan = KaryawanPreferences.myKaryawan;
+  // final user = UserPreferences.getUser();
+  var animate = false;
   var opacity = 0.0;
   bool position = false;
+  late Size size;
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
-
-      setState(() {});
     });
   }
 
   animator() {
     if (opacity == 1) {
       opacity = 0;
+      animate = true;
       position = false;
     } else {
       opacity = 1;
+      animate = false;
       position = true;
     }
     setState(() {});
   }
 
+  // @override
+  // void dispose() {
+  //   firstNameController.dispose();
+  //   super.dispose();
+  // }
+
+  // void updateUserValue(String name) {
+  //   // user.name = name;
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.white,
-        padding: const EdgeInsets.only(top: 60, left: 0, right: 0),
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Column(children: [
-          AnimatedPositioned(
+      appBar: buildAppBar(context),
+      body: SafeArea(
+        child: Container(
+          color: Colors.white,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: AnimatedPositioned(
             duration: const Duration(milliseconds: 400),
-            top: position ? 1 : 100,
-            right: 20,
-            left: 20,
+            top: position ? 1 : 1,
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 400),
               opacity: opacity,
-              child: const Center(
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: TextWidget(
-                    "Profile",
-                    25,
-                    Color.fromRGBO(45, 3, 59, 1),
-                    FontWeight.bold,
-                    letterSpace: 0,
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  PPKaryawan(
+                    imagePath: karyawan.imagePath,
+                    onClicked: () async {
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const EditKaryawanPage()),
+                      );
+                      setState(() {});
+                    },
                   ),
+                  const SizedBox(height: 24),
+                  buildName(karyawan),
+                  const SizedBox(height: 24),
+                  const Divider(
+                    height: 10,
+                    thickness: 5,
+                    color: Color.fromRGBO(45, 3, 59, 1),
+                    indent: 20,
+                    endIndent: 20,
+                  ),
+                  buildAbout(karyawan),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildName(Karyawan karyawan) => Column(
+        children: [
+          Text(
+            karyawan.name,
+            style: const TextStyle(
+                color: Color.fromRGBO(45, 3, 59, 1),
+                fontWeight: FontWeight.bold,
+                fontSize: 20),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            karyawan.email,
+            style: TextStyle(fontSize: 15, color: Colors.grey[600]),
+          ),
+        ],
+      );
+
+  Widget buildAbout(Karyawan karyawan) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Card(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: SizedBox(
+            height: 220,
+            width: MediaQuery.of(context).size.width,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Nomor Telpon :',
+                      style: TextStyle(
+                        color: Color.fromRGBO(129, 12, 168, 1),
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      karyawan.telpon,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(45, 3, 59, 1),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Alamat :',
+                      style: TextStyle(
+                        color: Color.fromRGBO(129, 12, 168, 1),
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      karyawan.alamat,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(45, 3, 59, 1),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Nomor Induk Keluarga :',
+                      style: TextStyle(
+                        color: Color.fromRGBO(129, 12, 168, 1),
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      karyawan.nik,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(45, 3, 59, 1),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-        ]),
-      ),
-    );
-  }
+        ),
+      );
 }
