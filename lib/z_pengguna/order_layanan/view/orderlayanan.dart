@@ -4,6 +4,7 @@ import 'package:outsourcing/model/service_model.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/z_pengguna/order_layanan/controller/orderlayanan_controller.dart';
 import 'package:intl/intl.dart';
+import 'package:outsourcing/file/coba.dart';
 
 class OrderLayanan extends StatefulWidget {
   final String image;
@@ -146,7 +147,7 @@ class _OrderLayananState extends State<OrderLayanan> {
             ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 270 : 320,
+              top: position ? 260 : 400,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
@@ -158,7 +159,76 @@ class _OrderLayananState extends State<OrderLayanan> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 330,
+                    height: 95,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextWidget(
+                            'Item Terikat $name',
+                            15,
+                            const Color.fromRGBO(129, 12, 168, 1),
+                            FontWeight.normal,
+                            letterSpace: 0,
+                            textAlign: TextAlign.left,
+                          ),
+                          const SizedBox(height: 5),
+                          Expanded(
+                              child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            // padding: const EdgeInsets.only(bottom: 10),
+                            // itemExtent: 100,
+                            itemCount: terikat.length,
+                            itemBuilder: (context, index) {
+                              final itemx = terikat[index];
+                              return Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: Card(
+                                  color: Colors.grey.shade100,
+                                  elevation: 2,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(10, 6, 10, 6),
+                                    child: Text(
+                                      itemx,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 16,
+                                        color: Color.fromRGBO(45, 3, 59, 1),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          )),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 400),
+              top: position ? 360 : 410,
+              left: 20,
+              right: 20,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 400),
+                opacity: opacity,
+                child: Card(
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: SizedBox(
+                    height: 260,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),

@@ -197,7 +197,7 @@ class _HomeState extends State<Home> {
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 500),
                   opacity: opacity,
-                  child: CategoryList(),
+                  child: const CategoryList(),
                 ),
               ),
               // categoryRow(context),
