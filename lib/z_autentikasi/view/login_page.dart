@@ -46,201 +46,203 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       body: Form(
         key: _formKey,
-        child: Container(
-          color: Colors.white,
-          padding: const EdgeInsets.only(top: 60),
-          height: size.height,
-          width: size.width,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              AnimatedPositioned(
-                duration: const Duration(milliseconds: 400),
-                top: position ? 80 : 130,
-                left: 90,
-                right: 90,
-                child: AnimatedOpacity(
+        child: SingleChildScrollView(
+          child: Container(
+            color: Colors.white,
+            padding: const EdgeInsets.only(top: 60),
+            height: size.height,
+            width: size.width,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: Center(
-                    child: Image.asset(
-                      'lib/images/logo.png',
-                      height: 200,
-                      width: 200,
-                    ),
-                  ),
-                ),
-              ),
-
-              //welcome back, you've been missed!
-              AnimatedPositioned(
-                duration: const Duration(milliseconds: 400),
-                top: position ? 280 : 330,
-                left: 20,
-                right: 20,
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: Center(
-                    child: Text(
-                      'Selamat Datang Di OutsourcingApp!',
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 16,
+                  top: position ? 80 : 130,
+                  left: 90,
+                  right: 90,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 400),
+                    opacity: opacity,
+                    child: Center(
+                      child: Image.asset(
+                        'lib/images/logo.png',
+                        height: 200,
+                        width: 200,
                       ),
                     ),
                   ),
                 ),
-              ),
 
-              //username textfield
-              AnimatedPositioned(
-                duration: const Duration(milliseconds: 400),
-                top: position ? 310 : 360,
-                left: 0,
-                right: 0,
-                child: AnimatedOpacity(
+                //welcome back, you've been missed!
+                AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: MyTextField(
-                    controller: loginController.emailController,
-                    hintText: 'Email',
-                    obscureText: false,
-                    validator: loginController
-                        .validateEmail, // Set validator dari controller
-                    onChanged: (_) {
-                      setState(() {
-                        loginController.emailError = null;
-                      });
-                    },
+                  top: position ? 280 : 330,
+                  left: 20,
+                  right: 20,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 400),
+                    opacity: opacity,
+                    child: Center(
+                      child: Text(
+                        'Selamat Datang Di OutsourcingApp!',
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
 
-              //password textfield
-              AnimatedPositioned(
-                duration: const Duration(milliseconds: 400),
-                top: position ? 375 : 425,
-                left: 0,
-                right: 0,
-                child: AnimatedOpacity(
+                //username textfield
+                AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: PassTextField(
-                    controller: loginController.passwordController,
-                    hintText: 'Password',
-                    validator: loginController
-                        .validatePassword, // Set validator dari controller
-                    onChanged: (_) {
-                      setState(() {
-                        loginController.passwordError = null;
-                      });
-                    },
+                  top: position ? 310 : 360,
+                  left: 0,
+                  right: 0,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 400),
+                    opacity: opacity,
+                    child: MyTextField(
+                      controller: loginController.emailController,
+                      hintText: 'Email',
+                      obscureText: false,
+                      validator: loginController
+                          .validateEmail, // Set validator dari controller
+                      onChanged: (_) {
+                        setState(() {
+                          loginController.emailError = null;
+                        });
+                      },
+                    ),
                   ),
                 ),
-              ),
 
-              //forgot password?
-              AnimatedPositioned(
-                duration: const Duration(milliseconds: 400),
-                top: position ? 440 : 490,
-                left: 0,
-                right: 0,
-                child: AnimatedOpacity(
+                //password textfield
+                AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  top: position ? 375 : 425,
+                  left: 0,
+                  right: 0,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 400),
+                    opacity: opacity,
+                    child: PassTextField(
+                      controller: loginController.passwordController,
+                      hintText: 'Password',
+                      validator: loginController
+                          .validatePassword, // Set validator dari controller
+                      onChanged: (_) {
+                        setState(() {
+                          loginController.passwordError = null;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+
+                //forgot password?
+                AnimatedPositioned(
+                  duration: const Duration(milliseconds: 400),
+                  top: position ? 440 : 490,
+                  left: 0,
+                  right: 0,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 400),
+                    opacity: opacity,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Lupa Password?',
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                //sign in button
+                AnimatedPositioned(
+                  duration: const Duration(milliseconds: 400),
+                  top: position ? 480 : 530,
+                  left: 0,
+                  right: 0,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 400),
+                    opacity: opacity,
+                    child: MyButton(
+                      text: "Masuk",
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          loginController.handleLogin(context);
+                        }
+                      },
+                    ),
+                  ),
+                ),
+
+                // or continue with
+                AnimatedPositioned(
+                  duration: const Duration(milliseconds: 400),
+                  top: position ? 530 : 580,
+                  left: 0,
+                  right: 0,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 400),
+                    opacity: opacity,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Divider(
+                        thickness: 0.5,
+                        color: Colors.grey[400],
+                      ),
+                    ),
+                  ),
+                ),
+
+                // not a member? register now
+                AnimatedPositioned(
+                  duration: const Duration(milliseconds: 400),
+                  top: position ? 555 : 605,
+                  left: 20,
+                  right: 20,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 400),
+                    opacity: opacity,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Lupa Password?',
-                          style: TextStyle(color: Colors.grey[600]),
+                          'Belum Punya Akun?',
+                          style: TextStyle(color: Colors.grey[700]),
+                        ),
+                        const SizedBox(width: 4),
+                        GestureDetector(
+                          onTap: () {
+                            loginController.navigateToRegister(context);
+                          },
+                          child: const Text(
+                            'Daftar Sekarang',
+                            style: TextStyle(
+                              color: Color.fromRGBO(129, 12, 168, 1),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              ),
-
-              //sign in button
-              AnimatedPositioned(
-                duration: const Duration(milliseconds: 400),
-                top: position ? 480 : 530,
-                left: 0,
-                right: 0,
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: MyButton(
-                    text: "Masuk",
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        loginController.handleLogin(context);
-                      }
-                    },
-                  ),
-                ),
-              ),
-
-              // or continue with
-              AnimatedPositioned(
-                duration: const Duration(milliseconds: 400),
-                top: position ? 530 : 580,
-                left: 0,
-                right: 0,
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Divider(
-                      thickness: 0.5,
-                      color: Colors.grey[400],
-                    ),
-                  ),
-                ),
-              ),
-
-              // not a member? register now
-              AnimatedPositioned(
-                duration: const Duration(milliseconds: 400),
-                top: position ? 555 : 605,
-                left: 20,
-                right: 20,
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Belum Punya Akun?',
-                        style: TextStyle(color: Colors.grey[700]),
-                      ),
-                      const SizedBox(width: 4),
-                      GestureDetector(
-                        onTap: () {
-                          loginController.navigateToRegister(context);
-                        },
-                        child: const Text(
-                          'Daftar Sekarang',
-                          style: TextStyle(
-                            color: Color.fromRGBO(129, 12, 168, 1),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
