@@ -57,7 +57,7 @@ class _ComplaintWidgetState extends State<ComplaintWidget> {
           child: Stack(children: [
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 50 : 100,
+              top: position ? 10 : 100,
               left: 20,
               right: 20,
               child: AnimatedOpacity(

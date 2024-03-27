@@ -42,7 +42,7 @@ class _ResponseComplaintState extends State<ResponseComplaint> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         body: SafeArea(
           child: Container(

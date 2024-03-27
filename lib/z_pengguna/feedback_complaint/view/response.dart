@@ -60,11 +60,16 @@ class _ResponseWidgetState extends State<ResponseWidget> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      complaintResponse(complaint[0], response[0]),
-                      complaintResponse(complaint[1], response[1]),
-                      complaintResponse(complaint[2], response[2]),
-                      complaintResponse(complaint[2], response[2]),
-                      complaintResponse(complaint[2], response[2]),
+                      complaintResponse(
+                          complaint[0], response[0], noorder[0], nokaryawan[0]),
+                      complaintResponse(
+                          complaint[1], response[1], noorder[1], nokaryawan[1]),
+                      complaintResponse(
+                          complaint[2], response[2], noorder[2], nokaryawan[2]),
+                      complaintResponse(
+                          complaint[2], response[2], noorder[0], nokaryawan[0]),
+                      complaintResponse(
+                          complaint[2], response[2], noorder[0], nokaryawan[0]),
                     ],
                   ),
                 ),
@@ -76,7 +81,8 @@ class _ResponseWidgetState extends State<ResponseWidget> {
     );
   }
 
-  Widget complaintResponse(String complaint, String response) {
+  Widget complaintResponse(
+      String complaint, String response, String noorder, String nokaryawan) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -101,11 +107,42 @@ class _ResponseWidgetState extends State<ResponseWidget> {
               const SizedBox(
                 height: 5,
               ),
+              Row(
+                children: [
+                  TextWidget(
+                    noorder,
+                    15,
+                    const Color.fromRGBO(45, 3, 59, 1),
+                    FontWeight.bold,
+                    letterSpace: 0,
+                    textAlign: TextAlign.left,
+                  ),
+                  const TextWidget(
+                    ' | ',
+                    15,
+                    Color.fromRGBO(45, 3, 59, 1),
+                    FontWeight.bold,
+                    letterSpace: 0,
+                    textAlign: TextAlign.left,
+                  ),
+                  TextWidget(
+                    nokaryawan,
+                    15,
+                    const Color.fromRGBO(45, 3, 59, 1),
+                    FontWeight.bold,
+                    letterSpace: 0,
+                    textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 5,
+              ),
               TextWidget(
                 complaint,
-                15,
+                16,
                 const Color.fromRGBO(45, 3, 59, 1),
-                FontWeight.bold,
+                FontWeight.normal,
                 letterSpace: 0,
                 textAlign: TextAlign.left,
               ),
@@ -127,9 +164,9 @@ class _ResponseWidgetState extends State<ResponseWidget> {
               ),
               TextWidget(
                 response,
-                15,
+                16,
                 const Color.fromRGBO(45, 3, 59, 1),
-                FontWeight.bold,
+                FontWeight.normal,
                 letterSpace: 0,
                 textAlign: TextAlign.left,
               ),
