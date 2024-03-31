@@ -74,7 +74,7 @@ class _StartState extends State<Start> {
         widget = ProfilePage();
         break;
       default:
-        widget = Order();
+        widget = Home();
         break;
     }
     return widget;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:outsourcing/model/service_model.dart';
 import 'package:outsourcing/z_pengguna/dashboard/controller/service_controller.dart';
@@ -15,37 +16,59 @@ class CategoryList extends StatefulWidget {
 
 class _CategoryListState extends State<CategoryList> {
   var serviceCon = Get.put(ServiceController());
+  bool isDataLoaded = false;
+
   @override
   void initState() {
     // TODO: implement initState
-    serviceCon.getService();
     super.initState();
+    _refreshData();
+    _loadData();
+  }
+
+  // Fungsi untuk memuat data
+  void _loadData() async {
+    await serviceCon.getService(); // Tunggu hingga data selesai dimuat
+    setState(() {
+      isDataLoaded = true; // Setelah data dimuat, ubah status menjadi true
+    });
+  }
+
+  // Function to handle refreshing
+  Future<void> _refreshData() async {
+    await serviceCon.getService();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    double opacity = 1.0;
-    return AnimatedOpacity(
-      duration: const Duration(milliseconds: 500),
-      opacity: opacity,
-      child: SizedBox(
-        height: 90,
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemExtent: 90,
-          itemCount: serviceCon.listService.length,
-          itemBuilder: (BuildContext context, int index) {
-            var service = serviceCon.listService[index];
-            return serviceCard(
-              service.serviceName.toString(),
-              service.image.toString(),
-              service.serviceItems!.toList(),
-              service.basePrice.toString(),
-            );
-          },
-        ),
-      ),
+    return RefreshIndicator(
+      onRefresh: _refreshData,
+      child: isDataLoaded
+          ? SizedBox(
+              height: 90,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemExtent: 90,
+                itemCount: serviceCon.listService.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var service = serviceCon.listService[index];
+                  return serviceCard(
+                    service.serviceName.toString(),
+                    service.image.toString(),
+                    service.serviceItems!.toList(),
+                    service.basePrice.toString(),
+                  );
+                },
+              ),
+            )
+          : const Center(
+              child: SpinKitThreeBounce(
+              color: Colors.deepPurple,
+              size: 30.0,
+            ) // Tampilkan loading indicator jika data masih dimuat
+              ),
     );
   }
 
@@ -67,10 +90,9 @@ class _CategoryListState extends State<CategoryList> {
       },
       child: Obx(
         () => serviceCon.isLoading.value
-            ? CircularProgressIndicator(
-                backgroundColor: Colors.grey[300],
-                valueColor:
-                    const AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+            ? const SpinKitPulse(
+                color: Colors.grey,
+                size: 10.0,
               )
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,

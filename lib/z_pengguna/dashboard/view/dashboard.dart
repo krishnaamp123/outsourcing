@@ -354,132 +354,14 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-
-  // Widget categoryRow(BuildContext context) {
-  //   // final CategoryController categoryController = CategoryController();
-  //   return AnimatedPositioned(
-  //     top: position ? 250 : 250,
-  //     left: 20,
-  //     right: 20,
-  //     duration: const Duration(milliseconds: 400),
-  //     child: AnimatedOpacity(
-  //       duration: const Duration(milliseconds: 400),
-  //       opacity: opacity,
-  //       child: SizedBox(
-  //         width: MediaQuery.of(context).size.width,
-  //         child: Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             category(
-  //               "lib/images/icon/ic_cleaner.png",
-  //               "Cleaner",
-  //               5,
-  //               () {
-  //                 // Navigasi ke halaman Cleaner
-  //                 Navigator.push(
-  //                   context,
-  //                   MaterialPageRoute(
-  //                     builder: (context) => const CleanerPage(),
-  //                   ),
-  //                 );
-  //               },
-  //             ),
-  //             category(
-  //               "lib/images/icon/ic_driver.png",
-  //               "Driver",
-  //               5,
-  //               () {
-  //                 // Navigasi ke halaman Driver
-  //                 Navigator.push(
-  //                   context,
-  //                   MaterialPageRoute(
-  //                     builder: (context) => const DriverPage(),
-  //                   ),
-  //                 );
-  //               },
-  //             ),
-  //             category(
-  //               "lib/images/icon/ic_housekeeper.png",
-  //               "Housekeeper",
-  //               5,
-  //               () {
-  //                 // Navigasi ke halaman Housekeeper
-  //                 Navigator.push(
-  //                   context,
-  //                   MaterialPageRoute(
-  //                     builder: (context) => const HousekeeperPage(),
-  //                   ),
-  //                 );
-  //               },
-  //             ),
-  //             category(
-  //               "lib/images/icon/ic_policeman.png",
-  //               "Security",
-  //               5,
-  //               () {
-  //                 // Navigasi ke halaman Security
-  //                 Navigator.push(
-  //                   context,
-  //                   MaterialPageRoute(
-  //                     builder: (context) => const SecurityPage(),
-  //                   ),
-  //                 );
-  //               },
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget category(
-  //     String asset, String txt, double padding, VoidCallback onTap) {
-  //   return Column(
-  //     children: [
-  //       InkWell(
-  //         onTap: onTap, // Gunakan fungsi onTap yang diterima dari luar
-  //         child: Card(
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.circular(10),
-  //           ),
-  //           child: Container(
-  //             padding: EdgeInsets.all(padding),
-  //             height: 50,
-  //             width: 50,
-  //             decoration: BoxDecoration(
-  //               color: Colors.white,
-  //               borderRadius: BorderRadius.circular(10),
-  //             ),
-  //             child: Center(
-  //               child: Image(
-  //                 image: AssetImage(asset),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //       const SizedBox(
-  //         height: 5,
-  //       ),
-  //       Text(
-  //         txt,
-  //         style: const TextStyle(
-  //           fontSize: 12,
-  //           color: Color.fromRGBO(45, 3, 59, 1),
-  //           fontWeight: FontWeight.bold,
-  //           letterSpacing: 1,
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 }
 
 Future<void> logout(BuildContext context) async {
   SharedPreferences localStorage = await SharedPreferences.getInstance();
   localStorage.remove('token');
   localStorage.remove('user');
+  print('Token setelah logout: ${localStorage.getString('token')}');
+  print('User setelah logout: ${localStorage.getString('user')}');
 
   // Navigasi ke halaman login atau halaman awal aplikasi setelah logout
   Navigator.pushReplacement(

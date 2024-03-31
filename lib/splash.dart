@@ -63,69 +63,91 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
             ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: _showContent ? 60 : 150,
+              top: _showContent ? 90 : 150,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
                 opacity: _showContent ? 1.0 : 0.0,
                 curve: Curves.easeInOut,
                 duration: const Duration(milliseconds: 400),
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    TextWidget(
-                      "Penyedia",
-                      35,
-                      Color.fromRGBO(45, 3, 59, 1),
-                      FontWeight.bold,
-                      letterSpace: 5,
+                    const Center(
+                      child: TextWidget(
+                        "Penyedia",
+                        35,
+                        Color.fromRGBO(45, 3, 59, 1),
+                        FontWeight.bold,
+                        letterSpace: 8,
+                      ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
-                    TextWidget(
-                      "Jasa",
-                      35,
-                      Color.fromRGBO(45, 3, 59, 1),
-                      FontWeight.bold,
-                      letterSpace: 5,
+                    const Center(
+                      child: TextWidget(
+                        "Layanan",
+                        35,
+                        Color.fromRGBO(45, 3, 59, 1),
+                        FontWeight.bold,
+                        letterSpace: 11,
+                      ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
-                    TextWidget(
-                      "Kebutuhan",
-                      35,
-                      Color.fromRGBO(45, 3, 59, 1),
-                      FontWeight.bold,
-                      letterSpace: 5,
+                    const Center(
+                      child: TextWidget(
+                        "Outsourcing",
+                        35,
+                        Color.fromRGBO(45, 3, 59, 1),
+                        FontWeight.bold,
+                        letterSpace: 1,
+                      ),
                     ),
-                    SizedBox(
-                      height: 5,
+                    Center(
+                      child: Image.asset(
+                        'lib/images/landingpage.jpg',
+                        height: 300,
+                        width: 500,
+                      ),
                     ),
-                    TextWidget(
-                      "Outsourcing",
-                      35,
-                      Color.fromRGBO(45, 3, 59, 1),
-                      FontWeight.bold,
-                      letterSpace: 5,
+                    const Center(
+                      child: TextWidget("Cari Jasa Outsourcing?", 18,
+                          Color.fromRGBO(129, 12, 168, 1), FontWeight.bold,
+                          letterSpace: 2),
                     ),
-                    SizedBox(
-                      height: 20,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 40),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'lib/images/logonyamping.png',
+                            height: 50,
+                            width: 200,
+                          ),
+                          const TextWidget(
+                            "Aja!",
+                            18,
+                            Color.fromRGBO(129, 12, 168, 1),
+                            FontWeight.bold,
+                            letterSpace: 5,
+                          ),
+                        ],
+                      ),
                     ),
-                    TextWidget("Cari Jasa Outsourcing?\nOutsourcingApp Aja!",
-                        18, Color.fromRGBO(129, 12, 168, 1), FontWeight.bold),
                   ],
                 ),
               ),
             ),
             AnimatedPositioned(
-              bottom: 60,
+              bottom: 90,
               duration: const Duration(milliseconds: 400),
-              left: _showContent ? 20 : -100,
+              left: _showContent ? 70 : -100,
               child: AnimatedOpacity(
                 opacity: _showContent ? 1.0 : 0.0,
                 duration: const Duration(milliseconds: 400),
@@ -139,8 +161,8 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                     );
                   },
                   child: Container(
-                    width: 150,
-                    height: 60,
+                    width: 250,
+                    height: 50,
                     decoration: BoxDecoration(
                       color: const Color.fromRGBO(45, 3, 59, 1),
                       borderRadius: BorderRadius.circular(10),

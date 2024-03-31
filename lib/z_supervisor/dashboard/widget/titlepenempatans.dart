@@ -56,6 +56,8 @@ class _TitlePenempatanSState extends State<TitlePenempatanSWidget> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     localStorage.remove('token');
     localStorage.remove('supervisor');
+    print('Token setelah logout: ${localStorage.getString('token')}');
+    print('Supervisor setelah logout: ${localStorage.getString('supervisor')}');
 
     // Navigasi ke halaman login atau halaman awal aplikasi setelah logout
     Navigator.pushReplacement(

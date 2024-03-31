@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/z_pengguna/order/widget/statusdropdown_widget.dart';
@@ -17,77 +18,99 @@ class OrderHolderWidget extends StatefulWidget {
 class _OrderHolderWidgetState extends State<OrderHolderWidget> {
   // final OrderController orderController = OrderController();
   var orderCon = Get.put(OrderControllerApi());
+  bool isDataLoaded = false;
   // bool _isLoading = true; // Tambahkan variabel isLoading
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    orderCon.getOrder();
-    // orderCon.getOrder().then((_) {
-    //   setState(() {
-    //     _isLoading = false; // Setelah pengambilan data selesai, atur isLoading ke false
-    //   });
-    // });
+    _loadData();
+  }
+
+  // Fungsi untuk memuat data
+  void _loadData() async {
+    await _refreshData();
+    orderCon.filterOrdersByStatus('Semua');
+    await orderCon.getOrder(); // Tunggu hingga data selesai dimuat
+    setState(() {
+      isDataLoaded = true; // Setelah data dimuat, ubah status menjadi true
+    });
+  }
+
+  // Function to handle refreshing
+  Future<void> _refreshData() async {
+    orderCon.filterOrdersByStatus('Semua');
+    await orderCon.getOrder();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        StatusDropdown(
-          statusList: const [
-            'Semua',
-            'waiting_mou',
-            'waiting_for_payment',
-            'waiting_for_confirmation',
-            'waiting_for_further_payment',
-            'processed',
-            'ongoing',
-            'completed',
-            'cancelled',
-          ],
-          onFilterChanged: (selected) {
-            setState(() {
-              orderCon.filterOrdersByStatus(selected);
-            });
-          },
-        ),
-        Divider(
-          height: 15,
-          thickness: 2,
-          color: Colors.black.withOpacity(0.2),
-        ),
-        SizedBox(
-          height: 520,
-          width: MediaQuery.of(context).size.width,
-          child: Obx(
-            () => orderCon.isLoading.value
-                ? CircularProgressIndicator(
-                    backgroundColor: Colors.grey[300],
-                    valueColor:
-                        const AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                  )
-                : ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: orderCon.filteredOrderList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      // final order = orderController.filteredOrderList[index];
-                      var order = orderCon.filteredOrderList[index];
-                      return orderlist(
-                        order.id.toString(),
-                        // order.serviceUser!.fullname.toString(),
-                        order.date.toString(),
-                        order.address.toString(),
-                        order.status.toString(),
-                        order.totalPrice.toString(),
-                        // order.colors,
-                      );
-                    },
+    return RefreshIndicator(
+      onRefresh: _refreshData,
+      child: isDataLoaded
+          ? Column(
+              children: [
+                StatusDropdown(
+                  statusList: const [
+                    'Semua',
+                    'waiting_mou',
+                    'waiting_for_payment',
+                    'waiting_for_confirmation',
+                    'waiting_for_further_payment',
+                    'processed',
+                    'ongoing',
+                    'completed',
+                    'cancelled',
+                  ],
+                  onFilterChanged: (selected) {
+                    setState(() {
+                      orderCon.filterOrdersByStatus(selected);
+                    });
+                  },
+                ),
+                Divider(
+                  height: 15,
+                  thickness: 2,
+                  color: Colors.black.withOpacity(0.2),
+                ),
+                SizedBox(
+                  height: 520,
+                  width: MediaQuery.of(context).size.width,
+                  child: Obx(
+                    () => orderCon.isLoading.value
+                        ? const SpinKitWanderingCubes(
+                            color: Colors.deepPurple,
+                            size: 50.0,
+                          )
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: orderCon.filteredOrderList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              // final order = orderController.filteredOrderList[index];
+                              var order = orderCon.filteredOrderList[index];
+                              return orderlist(
+                                order.id.toString(),
+                                // order.serviceUser!.fullname.toString(),
+                                order.date.toString(),
+                                order.address.toString(),
+                                order.status.toString(),
+                                order.totalPrice.toString(),
+                                // order.colors,
+                              );
+                            },
+                          ),
                   ),
-          ),
-        ),
-      ],
+                ),
+              ],
+            )
+          : const Center(
+              child: SpinKitWanderingCubes(
+              color: Colors.deepPurple,
+              size: 50.0,
+            ) // Tampilkan loading indicator jika data masih dimuat
+              ),
     );
   }
 
