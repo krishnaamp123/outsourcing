@@ -39,7 +39,7 @@ class _TitlePenempatanSState extends State<TitlePenempatanSWidget> {
           ),
           InkWell(
             onTap: () {
-              logout(widget.context);
+              _showLogoutConfirmationDialog(context);
             },
             child: const Icon(
               Icons.logout_outlined,
@@ -49,6 +49,35 @@ class _TitlePenempatanSState extends State<TitlePenempatanSWidget> {
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _showLogoutConfirmationDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Konfirmasi'),
+          content: const Text('Anda yakin ingin logout?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pop(); // Tutup dialog tanpa melakukan logout
+              },
+              child: const Text('Batal'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pop(); // Tutup dialog sebelum melakukan logout
+                logout(context); // Panggil fungsi logout setelah menutup dialog
+              },
+              child: const Text('Logout'),
+            ),
+          ],
+        );
+      },
     );
   }
 

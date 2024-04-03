@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:outsourcing/z_autentikasi/view/otp_page.dart';
 import 'package:outsourcing/z_autentikasi/widget/my_button.dart';
 import 'package:outsourcing/z_autentikasi/widget/my_textfield.dart';
 import 'package:outsourcing/z_autentikasi/widget/pass_textfield.dart';
 import '../controller/login_controller.dart';
 
-class LoginPage extends StatefulWidget {
+class OTPPage extends StatefulWidget {
   final Function()? onTap;
-  const LoginPage({super.key, this.onTap});
+  const OTPPage({super.key, this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<OTPPage> createState() => _OTPPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _OTPPageState extends State<OTPPage> {
   final _formKey = GlobalKey<FormState>();
   final LoginController loginController = LoginController();
   var animate = false;
@@ -87,14 +86,27 @@ class _LoginPageState extends State<LoginPage> {
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 400),
                     opacity: opacity,
-                    child: Center(
-                      child: Text(
-                        'Selamat Datang Di OutsourcingApp!',
-                        style: TextStyle(
-                          color: Colors.grey[700],
-                          fontSize: 16,
+                    child: Column(
+                      children: [
+                        Center(
+                          child: Text(
+                            'Verifikasi',
+                            style: TextStyle(
+                              color: Colors.grey[700],
+                              fontSize: 16,
+                            ),
+                          ),
                         ),
-                      ),
+                        Center(
+                          child: Text(
+                            'Masukan Nomor Kode OTP Email',
+                            style: TextStyle(
+                              color: Colors.grey[700],
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -160,19 +172,9 @@ class _LoginPageState extends State<LoginPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const OTPPage(),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              'Lupa Password?',
-                              style: TextStyle(color: Colors.grey[600]),
-                            ),
+                          Text(
+                            'Lupa Password?',
+                            style: TextStyle(color: Colors.grey[600]),
                           ),
                         ],
                       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/z_pengguna/order/widget/statusdropdown_widget.dart';
 
@@ -116,6 +117,14 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
 
   Widget orderlist(
       String id, String tanggal, String alamat, String status, String harga) {
+    // Parse tanggal menjadi objek DateTime
+    DateTime parsedDate = DateTime.parse(tanggal);
+
+    // Format tanggal sesuai keinginan (hanya hari, bulan, dan tahun)
+    String formattedDate = DateFormat('dd-MM-yyyy').format(parsedDate);
+
+    // Tentukan warna untuk setiap status
+    Color statusColor = _getStatusColor(status);
     return GestureDetector(
       onTap: () {
         orderCon.navigateToDetails(context, id, tanggal, alamat, status, harga);
@@ -159,7 +168,7 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
                     height: 5,
                   ),
                   TextWidget(
-                    tanggal,
+                    formattedDate,
                     15,
                     Colors.black.withOpacity(.6),
                     FontWeight.bold,
@@ -177,7 +186,7 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
                   TextWidget(
                     status,
                     15,
-                    const Color.fromRGBO(45, 3, 59, 1),
+                    statusColor,
                     FontWeight.bold,
                     letterSpace: 0,
                     textAlign: TextAlign.left,
@@ -200,5 +209,28 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
         ),
       ),
     );
+  }
+
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'waiting_mou':
+        return Colors.orange;
+      case 'waiting_for_payment':
+        return Colors.orange;
+      case 'waiting_for_confirmation':
+        return Colors.orange;
+      case 'waiting_for_further_payment':
+        return Colors.orange;
+      case 'processed':
+        return Colors.orange;
+      case 'ongoing':
+        return Colors.green;
+      case 'completed':
+        return Colors.blue;
+      case 'cancelled':
+        return Colors.red;
+      default:
+        return const Color.fromRGBO(45, 3, 59, 1);
+    }
   }
 }

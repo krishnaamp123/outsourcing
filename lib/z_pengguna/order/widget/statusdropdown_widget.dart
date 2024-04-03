@@ -61,14 +61,15 @@ class _StatusDropdownState extends State<StatusDropdown> {
               },
               items: widget.statusList
                   .map<DropdownMenuItem<String>>((String value) {
+                // Tentukan warna untuk setiap status
+                Color statusColor = _getStatusColor(value);
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(
                     value,
                     style: TextStyle(
-                      color: value == _selectedStatus
-                          ? const Color.fromRGBO(45, 3, 59, 1)
-                          : const Color.fromRGBO(45, 3, 59, 1),
+                      color:
+                          value == _selectedStatus ? statusColor : statusColor,
                       fontWeight: value == _selectedStatus
                           ? FontWeight.bold
                           : FontWeight.normal,
@@ -133,5 +134,28 @@ class _StatusDropdownState extends State<StatusDropdown> {
         ),
       ]),
     );
+  }
+
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'waiting_mou':
+        return Colors.orange;
+      case 'waiting_for_payment':
+        return Colors.orange;
+      case 'waiting_for_confirmation':
+        return Colors.orange;
+      case 'waiting_for_further_payment':
+        return Colors.orange;
+      case 'processed':
+        return Colors.orange;
+      case 'ongoing':
+        return Colors.green;
+      case 'completed':
+        return Colors.blue;
+      case 'cancelled':
+        return Colors.red;
+      default:
+        return const Color.fromRGBO(45, 3, 59, 1);
+    }
   }
 }
