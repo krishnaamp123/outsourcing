@@ -4,7 +4,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/service/auth_service.dart';
 import 'package:outsourcing/z_autentikasi/view/login_page.dart';
-import 'package:outsourcing/z_autentikasi/view/start.dart';
+import 'package:outsourcing/z_autentikasi/view/otp_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisController {
@@ -109,7 +109,7 @@ class RegisController {
     if (validateForm()) {
       bool signedIn = await signin();
       if (signedIn) {
-        navigateToStart(context);
+        navigateToOTP(context);
       } else {
         final snackBar = SnackBar(
           elevation: 0,
@@ -156,7 +156,7 @@ class RegisController {
     }
   }
 
-  void navigateToStart(BuildContext context) async {
+  void navigateToOTP(BuildContext context) async {
     final snackBar = SnackBar(
       elevation: 0,
       behavior: SnackBarBehavior.floating,
@@ -164,7 +164,7 @@ class RegisController {
       content: AwesomeSnackbarContent(
         title: 'Info',
         message:
-            'Terimakasih telah mendaftarkan akun anda, halaman dashboard akan muncul beberapa saat lagi',
+            'Terimakasih telah mendaftarkan akun anda, harap melakukan verifikasi melalui email',
         contentType: ContentType.success,
       ),
     );
@@ -173,13 +173,12 @@ class RegisController {
       ..hideCurrentSnackBar()
       ..showSnackBar(snackBar);
 
-    await Future.delayed(
-        Duration(seconds: 3)); // Menggunakan jeda waktu 2 detik
+    await Future.delayed(Duration(seconds: 3));
 
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => Start(),
+        builder: (context) => OTPPage(),
       ),
     );
   }

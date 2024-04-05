@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:outsourcing/z_autentikasi/controller/otp_controller.dart';
 import 'package:outsourcing/z_autentikasi/widget/my_button.dart';
-import 'package:outsourcing/z_autentikasi/widget/my_textfield.dart';
-import 'package:outsourcing/z_autentikasi/widget/pass_textfield.dart';
-import '../controller/login_controller.dart';
 
 class OTPPage extends StatefulWidget {
   final Function()? onTap;
@@ -14,7 +12,7 @@ class OTPPage extends StatefulWidget {
 
 class _OTPPageState extends State<OTPPage> {
   final _formKey = GlobalKey<FormState>();
-  final LoginController loginController = LoginController();
+  final OTPController otpController = OTPController();
   var animate = false;
   var opacity = 0.0;
   bool position = false;
@@ -61,17 +59,15 @@ class _OTPPageState extends State<OTPPage> {
               children: [
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 80 : 130,
-                  left: 90,
-                  right: 90,
+                  top: position ? 150 : 200,
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 400),
                     opacity: opacity,
                     child: Center(
                       child: Image.asset(
-                        'lib/images/logo.png',
+                        'lib/images/emailverif.jpg',
                         height: 200,
-                        width: 200,
+                        width: 300,
                       ),
                     ),
                   ),
@@ -80,7 +76,7 @@ class _OTPPageState extends State<OTPPage> {
                 //welcome back, you've been missed!
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 280 : 330,
+                  top: position ? 340 : 390,
                   left: 20,
                   right: 20,
                   child: AnimatedOpacity(
@@ -88,21 +84,23 @@ class _OTPPageState extends State<OTPPage> {
                     opacity: opacity,
                     child: Column(
                       children: [
-                        Center(
+                        const Center(
                           child: Text(
-                            'Verifikasi',
+                            'Verifikasi Akun',
                             style: TextStyle(
-                              color: Colors.grey[700],
+                              color: Color.fromRGBO(129, 12, 168, 1),
+                              fontWeight: FontWeight.bold,
                               fontSize: 16,
                             ),
                           ),
                         ),
+                        const SizedBox(height: 5),
                         Center(
                           child: Text(
-                            'Masukan Nomor Kode OTP Email',
+                            'Selesaikan Verifikasi Melalui Email',
                             style: TextStyle(
                               color: Colors.grey[700],
-                              fontSize: 16,
+                              fontSize: 15,
                             ),
                           ),
                         ),
@@ -111,91 +109,20 @@ class _OTPPageState extends State<OTPPage> {
                   ),
                 ),
 
-                //username textfield
-                AnimatedPositioned(
-                  duration: const Duration(milliseconds: 400),
-                  top: position ? 310 : 360,
-                  left: 0,
-                  right: 0,
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 400),
-                    opacity: opacity,
-                    child: MyTextField(
-                      controller: loginController.emailController,
-                      hintText: 'Email',
-                      obscureText: false,
-                      validator: loginController
-                          .validateEmail, // Set validator dari controller
-                      onChanged: (_) {
-                        setState(() {
-                          loginController.emailError = null;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-
-                //password textfield
-                AnimatedPositioned(
-                  duration: const Duration(milliseconds: 400),
-                  top: position ? 375 : 425,
-                  left: 0,
-                  right: 0,
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 400),
-                    opacity: opacity,
-                    child: PassTextField(
-                      controller: loginController.passwordController,
-                      hintText: 'Password',
-                      validator: loginController
-                          .validatePassword, // Set validator dari controller
-                      onChanged: (_) {
-                        setState(() {
-                          loginController.passwordError = null;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-
-                //forgot password?
-                AnimatedPositioned(
-                  duration: const Duration(milliseconds: 400),
-                  top: position ? 440 : 490,
-                  left: 0,
-                  right: 0,
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 400),
-                    opacity: opacity,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            'Lupa Password?',
-                            style: TextStyle(color: Colors.grey[600]),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-
                 //sign in button
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 480 : 530,
+                  top: position ? 420 : 530,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 400),
                     opacity: opacity,
                     child: MyButton(
-                      text: "Masuk",
+                      text: "Login Sekarang",
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          loginController.handleLogin(context);
+                          otpController.loginNow(context);
                         }
                       },
                     ),
@@ -205,7 +132,7 @@ class _OTPPageState extends State<OTPPage> {
                 // or continue with
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 530 : 580,
+                  top: position ? 470 : 580,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
@@ -224,7 +151,7 @@ class _OTPPageState extends State<OTPPage> {
                 // not a member? register now
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 555 : 605,
+                  top: position ? 490 : 605,
                   left: 20,
                   right: 20,
                   child: AnimatedOpacity(
@@ -234,16 +161,16 @@ class _OTPPageState extends State<OTPPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Belum Punya Akun?',
+                          'Tidak Menerima Email?',
                           style: TextStyle(color: Colors.grey[700]),
                         ),
                         const SizedBox(width: 4),
                         GestureDetector(
                           onTap: () {
-                            loginController.navigateToRegister(context);
+                            otpController.checkEmail(context);
                           },
                           child: const Text(
-                            'Daftar Sekarang',
+                            'Periksa Kembali Email Anda',
                             style: TextStyle(
                               color: Color.fromRGBO(129, 12, 168, 1),
                               fontWeight: FontWeight.bold,

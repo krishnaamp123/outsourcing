@@ -64,9 +64,12 @@ class _OrderMOUState extends State<OrderMOU> {
     String formattedHarga =
         NumberFormat.currency(locale: 'id', symbol: 'Rp', decimalDigits: 0)
             .format(hargaInt);
+    // Parse tanggal menjadi objek DateTime
+    DateTime parsedDate = DateTime.parse(widget.tanggal);
+    // Format tanggal sesuai keinginan (hanya hari, bulan, dan tahun)
+    String formattedDate = DateFormat('dd-MM-yyyy').format(parsedDate);
     String alamat = widget.alamat;
     String name = widget.name;
-    String tanggal = widget.tanggal;
     String status = widget.status;
     // Color colors = widget.colors;
     return Scaffold(
@@ -273,7 +276,7 @@ class _OrderMOUState extends State<OrderMOU> {
                             height: 5,
                           ),
                           TextWidget(
-                            tanggal,
+                            formattedDate,
                             18,
                             const Color.fromRGBO(45, 3, 59, 1),
                             FontWeight.bold,
@@ -297,7 +300,7 @@ class _OrderMOUState extends State<OrderMOU> {
                           TextWidget(
                             status,
                             18,
-                            Color.fromRGBO(129, 12, 168, 1),
+                            Colors.orange,
                             FontWeight.bold,
                             letterSpace: 0,
                             textAlign: TextAlign.left,
