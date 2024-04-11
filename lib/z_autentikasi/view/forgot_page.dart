@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:outsourcing/z_autentikasi/view/forgot_page.dart';
+import 'package:outsourcing/z_autentikasi/controller/forgot_controller.dart';
 import 'package:outsourcing/z_autentikasi/widget/my_button.dart';
 import 'package:outsourcing/z_autentikasi/widget/my_textfield.dart';
-import 'package:outsourcing/z_autentikasi/widget/pass_textfield.dart';
-import '../controller/login_controller.dart';
 
-class LoginPage extends StatefulWidget {
+class ForgotPage extends StatefulWidget {
   final Function()? onTap;
-  const LoginPage({super.key, this.onTap});
+  const ForgotPage({super.key, this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<ForgotPage> createState() => _ForgotPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ForgotPageState extends State<ForgotPage> {
   final _formKey = GlobalKey<FormState>();
-  final LoginController loginController = LoginController();
+  final ForgotController forgotController = ForgotController();
   var animate = false;
   var opacity = 0.0;
   bool position = false;
@@ -62,17 +60,15 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 80 : 130,
-                  left: 90,
-                  right: 90,
+                  top: position ? 100 : 150,
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 400),
                     opacity: opacity,
                     child: Center(
                       child: Image.asset(
-                        'lib/images/logo.png',
+                        'lib/images/forgotpass.jpg',
                         height: 200,
-                        width: 200,
+                        width: 300,
                       ),
                     ),
                   ),
@@ -81,101 +77,58 @@ class _LoginPageState extends State<LoginPage> {
                 //welcome back, you've been missed!
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 280 : 330,
+                  top: position ? 290 : 340,
                   left: 20,
                   right: 20,
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 400),
                     opacity: opacity,
-                    child: Center(
-                      child: Text(
-                        'Selamat Datang Di OutsourcingApp!',
-                        style: TextStyle(
-                          color: Colors.grey[700],
-                          fontSize: 16,
+                    child: Column(
+                      children: [
+                        const Center(
+                          child: Text(
+                            'Reset Password',
+                            style: TextStyle(
+                              color: Color.fromRGBO(129, 12, 168, 1),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
                         ),
-                      ),
+                        const SizedBox(height: 5),
+                        Center(
+                          child: Text(
+                            'Masukkan Alamat Email Akun Anda',
+                            style: TextStyle(
+                              color: Colors.grey[700],
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
 
-                //username textfield
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 310 : 360,
+                  top: position ? 350 : 390,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 400),
                     opacity: opacity,
                     child: MyTextField(
-                      controller: loginController.emailController,
+                      controller: forgotController.emailController,
                       hintText: 'Email',
                       obscureText: false,
-                      validator: loginController
+                      validator: forgotController
                           .validateEmail, // Set validator dari controller
                       onChanged: (_) {
                         setState(() {
-                          loginController.emailError = null;
+                          forgotController.emailError = null;
                         });
                       },
-                    ),
-                  ),
-                ),
-
-                //password textfield
-                AnimatedPositioned(
-                  duration: const Duration(milliseconds: 400),
-                  top: position ? 375 : 425,
-                  left: 0,
-                  right: 0,
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 400),
-                    opacity: opacity,
-                    child: PassTextField(
-                      controller: loginController.passwordController,
-                      hintText: 'Password',
-                      validator: loginController
-                          .validatePassword, // Set validator dari controller
-                      onChanged: (_) {
-                        setState(() {
-                          loginController.passwordError = null;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-
-                //forgot password?
-                AnimatedPositioned(
-                  duration: const Duration(milliseconds: 400),
-                  top: position ? 440 : 490,
-                  left: 0,
-                  right: 0,
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 400),
-                    opacity: opacity,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ForgotPage(),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              'Lupa Password?',
-                              style: TextStyle(color: Colors.grey[600]),
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ),
@@ -183,17 +136,17 @@ class _LoginPageState extends State<LoginPage> {
                 //sign in button
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 480 : 530,
+                  top: position ? 430 : 480,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 400),
                     opacity: opacity,
                     child: MyButton(
-                      text: "Masuk",
+                      text: "Reset Password",
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          loginController.handleLogin(context);
+                          forgotController.handleForgot(context);
                         }
                       },
                     ),
@@ -203,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                 // or continue with
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 530 : 580,
+                  top: position ? 480 : 530,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
@@ -222,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                 // not a member? register now
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 555 : 605,
+                  top: position ? 500 : 550,
                   left: 20,
                   right: 20,
                   child: AnimatedOpacity(
@@ -232,16 +185,16 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Belum Punya Akun?',
+                          'Sudah Mengganti Password?',
                           style: TextStyle(color: Colors.grey[700]),
                         ),
                         const SizedBox(width: 4),
                         GestureDetector(
                           onTap: () {
-                            loginController.navigateToRegister(context);
+                            forgotController.backLogin(context);
                           },
                           child: const Text(
-                            'Daftar Sekarang',
+                            'Masuk Sekarang',
                             style: TextStyle(
                               color: Color.fromRGBO(129, 12, 168, 1),
                               fontWeight: FontWeight.bold,
