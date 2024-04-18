@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                 //username textfield
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 310 : 360,
+                  top: position ? 305 : 360,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(

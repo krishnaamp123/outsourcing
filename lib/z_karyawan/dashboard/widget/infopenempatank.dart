@@ -59,7 +59,7 @@ class _InfoPenempatanKState extends State<InfoPenempatanKWidget> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       TextWidget(
-                        "Temukan paket layanan yang anda cari disini,\ndapatkan harga lebih murah dengan paket layanan",
+                        "Jangan lupa untuk memberikan yang terbaik kepada\npengguna jasa untuk meningkatkan kepuasan pengguna",
                         14,
                         Colors.white,
                         FontWeight.normal,

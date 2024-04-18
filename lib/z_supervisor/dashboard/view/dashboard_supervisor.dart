@@ -143,7 +143,7 @@ class _HomeSupervisorState extends State<HomeSupervisor> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           TextWidget(
-                            "Status Karyawan : ",
+                            "Status Supervisor : ",
                             18,
                             Color.fromRGBO(45, 3, 59, 1),
                             FontWeight.bold,

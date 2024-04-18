@@ -82,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 //welcome back, you've been missed!
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 240 : 290,
+                  top: position ? 230 : 290,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
@@ -103,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 //fullname textfield
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 270 : 320,
+                  top: position ? 260 : 320,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
@@ -127,7 +127,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 //email textfield
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 335 : 385,
+                  top: position ? 330 : 385,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
@@ -174,7 +174,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 //alamar textfield
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 465 : 515,
+                  top: position ? 470 : 515,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
@@ -198,7 +198,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 //nik textfield
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 530 : 580,
+                  top: position ? 540 : 580,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
@@ -222,7 +222,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 //telpon textfield
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 595 : 645,
+                  top: position ? 610 : 645,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
@@ -246,7 +246,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 //sign in button
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 670 : 720,
+                  top: position ? 680 : 720,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
@@ -266,7 +266,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 // divider
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 720 : 770,
+                  top: position ? 725 : 770,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
