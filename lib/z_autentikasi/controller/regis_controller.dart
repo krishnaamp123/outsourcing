@@ -1,19 +1,40 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:outsourcing/model/regency_model.dart';
 import 'package:outsourcing/service/auth_service.dart';
+import 'package:outsourcing/service/regency_service.dart';
 import 'package:outsourcing/z_autentikasi/view/login_page.dart';
 import 'package:outsourcing/z_autentikasi/view/otp_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class RegisController {
+class RegisController extends GetxController implements GetxService {
+  var listRegency = <RegencyModel>[].obs;
+  final regency = RegencyService();
+  var isLoading = false.obs;
+
+  Future<void> getRegency() async {
+    isLoading.value = true;
+    var response = await regency.getRegency();
+    var responsedecode = jsonDecode(response.body);
+    listRegency.clear();
+    for (var i = 0; i < responsedecode['datas'].length; i++) {
+      RegencyModel data = RegencyModel.fromJson(responsedecode['datas'][i]);
+      listRegency.add(data);
+    }
+    isLoading.value = false;
+  }
+
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController alamatController = TextEditingController();
   final TextEditingController nikController = TextEditingController();
   final TextEditingController telponController = TextEditingController();
+  final TextEditingController tempatController = TextEditingController();
+  bool isDateSelected = false;
 
   String? usernameError;
   String? emailError;
@@ -21,6 +42,7 @@ class RegisController {
   String? alamatError;
   String? nikError;
   String? telponError;
+  String? tempatError;
 
   String? validateUsername(String? usernameValue) {
     if (usernameValue == null || usernameValue.isEmpty) {
@@ -75,6 +97,13 @@ class RegisController {
     return null;
   }
 
+  String? validateTempat(String? tempatValue) {
+    if (tempatValue == null || tempatValue.isEmpty) {
+      return 'Masukkan tempat lahir';
+    }
+    return null;
+  }
+
   bool validateForm() {
     final usernameValue = usernameController.text;
     final emailValue = emailController.text;
@@ -82,6 +111,7 @@ class RegisController {
     final alamatValue = alamatController.text;
     final nikValue = nikController.text;
     final telponValue = telponController.text;
+    final tempatValue = tempatController.text;
 
     final usernameValidation = validateUsername(usernameValue);
     final emailValidation = validateEmail(emailValue);
@@ -89,6 +119,7 @@ class RegisController {
     final alamatValidation = validateAlamat(alamatValue);
     final nikValidation = validateNIK(nikValue);
     final telponValidation = validateTelpon(telponValue);
+    final tempatValidation = validateTempat(tempatValue);
 
     usernameError = usernameValidation;
     emailError = emailValidation;
@@ -96,13 +127,16 @@ class RegisController {
     alamatError = alamatValidation;
     nikError = nikValidation;
     telponError = telponValidation;
+    tempatError = tempatValidation;
 
     return usernameValidation == null &&
         emailValidation == null &&
         passwordValidation == null &&
         alamatValidation == null &&
         nikValidation == null &&
-        telponValidation == null;
+        telponValidation == null &&
+        tempatValidation == null &&
+        isDateSelected;
   }
 
   Future<void> handleSignin(BuildContext context) async {
@@ -138,6 +172,7 @@ class RegisController {
       'address': alamatController.text,
       'identity_card_number': nikController.text,
       'phone': telponController.text,
+      'tempat': tempatController.text,
     };
 
     var res = await Network().auth(data, '/service-users/register/');
