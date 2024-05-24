@@ -51,7 +51,7 @@ class LoginController {
   }
 
   void navigateBasedOnRole(BuildContext context, String roles) {
-    if (roles == '"service_user"') {
+    if (roles == '"service_users"') {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -75,31 +75,59 @@ class LoginController {
     }
   }
 
+  bool validateToken(String token) {
+    final segments = token.split('.');
+    if (segments.length != 3) {
+      return false;
+    }
+    return true;
+  }
+
   Future<void> handleLogin(BuildContext context) async {
     if (validateForm()) {
       bool loggedIn = await login(); // Tunggu sampai proses login selesai
       if (loggedIn) {
         SharedPreferences localStorage = await SharedPreferences.getInstance();
-        var roles = localStorage.getString('roles');
-        print('roles: $roles');
-        if (roles != null && roles.isNotEmpty) {
-          final snackBar = SnackBar(
-            elevation: 0,
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Colors.transparent,
-            content: AwesomeSnackbarContent(
-              title: 'Info',
-              message: 'Halaman dashboard akan muncul beberapa saat lagi',
-              contentType: ContentType.success,
-            ),
-          );
+        var token = localStorage.getString('token');
+        print('tokenlogin: $token');
+        if (token != null && validateToken(token)) {
+          var roles = localStorage.getString('roles');
+          print('roles: $roles');
+          if (roles != null && roles.isNotEmpty) {
+            final snackBar = SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'Info',
+                message: 'Halaman dashboard akan muncul beberapa saat lagi',
+                contentType: ContentType.success,
+              ),
+            );
 
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(snackBar);
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(snackBar);
 
-          await Future.delayed(Duration(seconds: 3));
-          navigateBasedOnRole(context, roles);
+            await Future.delayed(Duration(seconds: 3));
+            navigateBasedOnRole(context, roles);
+          } else {
+            final snackBar = SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'Info',
+                message:
+                    'Harap periksa kembali akun yang anda masukan, akun yang anda masukan tidak memiliki role',
+                contentType: ContentType.failure,
+              ),
+            );
+
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(snackBar);
+          }
         } else {
           final snackBar = SnackBar(
             elevation: 0,
@@ -108,7 +136,7 @@ class LoginController {
             content: AwesomeSnackbarContent(
               title: 'Info',
               message:
-                  'Harap periksa kembali akun yang anda masukan, akun yang anda masukan tidak memiliki role',
+                  'Harap periksa kembali akun yang anda masukan, akun yang anda masukan belum terdaftar',
               contentType: ContentType.failure,
             ),
           );
@@ -117,22 +145,6 @@ class LoginController {
             ..hideCurrentSnackBar()
             ..showSnackBar(snackBar);
         }
-      } else {
-        final snackBar = SnackBar(
-          elevation: 0,
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.transparent,
-          content: AwesomeSnackbarContent(
-            title: 'Info',
-            message:
-                'Harap periksa kembali akun yang anda masukan, akun yang anda masukan belum terdaftar',
-            contentType: ContentType.failure,
-          ),
-        );
-
-        ScaffoldMessenger.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(snackBar);
       }
     }
   }
@@ -147,7 +159,7 @@ class LoginController {
     var body = json.decode(res.body);
     if (res.statusCode == 200) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
-      localStorage.setString('token', json.encode(body['data']['token']));
+      localStorage.setString('token', body['data']['token']);
       localStorage.setString(
           'user', json.encode(body['data']['user']['service_user_profile']));
       localStorage.setString(

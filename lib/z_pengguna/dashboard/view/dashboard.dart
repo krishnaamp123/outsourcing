@@ -4,9 +4,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/z_autentikasi/view/login_page.dart';
 import 'package:outsourcing/components/text_widget.dart';
-import 'package:outsourcing/file/list.dart';
 import 'package:outsourcing/z_pengguna/dashboard/widget/categorylist_widget.dart';
-import 'package:outsourcing/z_pengguna/order_paketlayanan/view/see_all.dart';
+import 'package:outsourcing/z_pengguna/dashboard/widget/paketlist_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
@@ -202,154 +201,18 @@ class _HomeState extends State<Home> {
               ),
               // categoryRow(context),
               AnimatedPositioned(
-                  top: position ? 350 : 350,
-                  left: 20,
-                  right: 20,
-                  duration: const Duration(milliseconds: 400),
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 300),
-                    opacity: opacity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const TextWidget(
-                          "Paket Layanan",
-                          20,
-                          Color.fromRGBO(45, 3, 59, 1),
-                          FontWeight.bold,
-                          letterSpace: 0,
-                        ),
-                        InkWell(
-                            onTap: () async {
-                              animator();
-                              setState(() {});
-                              // Timer(Duration(seconds: 1),() {
-                              //   Navigator.push(context, MaterialPageRoute(builder: (context) => SeeAll(),));
-                              //   animator();
-                              // },);
-                              await Future.delayed(
-                                  const Duration(milliseconds: 500));
-                              // ignore: use_build_context_synchronously
-                              await Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return const SeeAll();
-                                },
-                              ));
-
-                              setState(() {
-                                animator();
-                              });
-                            },
-                            child: const TextWidget(
-                              "Lihat Semua",
-                              15,
-                              Color.fromRGBO(193, 71, 233, 1),
-                              FontWeight.bold,
-                              letterSpace: 0,
-                            )),
-                      ],
-                    ),
-                  )),
-              serviceList(),
+                top: position ? 350 : 350,
+                left: 20,
+                right: 20,
+                duration: const Duration(milliseconds: 400),
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 300),
+                  opacity: opacity,
+                  child: const PaketListWidget(),
+                ),
+              ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget serviceList() {
-    return AnimatedPositioned(
-      top: position ? 380 : 480,
-      left: 20,
-      right: 20,
-      duration: const Duration(milliseconds: 400),
-      child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 400),
-        opacity: opacity,
-        child: SizedBox(
-          height: 300,
-          width: MediaQuery.of(context).size.width,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                paketLayanan(names[0], desc[0], images[0], item[0], jumlah[0],
-                    hari[0], harga[0]),
-                paketLayanan(names[1], desc[1], images[1], item[1], jumlah[1],
-                    hari[1], harga[1]),
-                paketLayanan(names[2], desc[2], images[2], item[2], jumlah[2],
-                    hari[2], harga[2]),
-                paketLayanan(names[3], desc[3], images[3], item[3], jumlah[3],
-                    hari[3], harga[3]),
-                paketLayanan(names[4], desc[4], images[4], item[4], jumlah[4],
-                    hari[4], harga[4]),
-                paketLayanan(names[5], desc[5], images[5], item[5], jumlah[5],
-                    hari[5], harga[5]),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget paketLayanan(String name, String desc, AssetImage image, String item,
-      String jumlah, String hari, String harga) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: SizedBox(
-        height: 100,
-        width: double.infinity,
-        child: Row(
-          children: [
-            const SizedBox(
-              width: 15,
-            ),
-            CircleAvatar(
-              radius: 30,
-              backgroundImage: image,
-              backgroundColor: const Color.fromRGBO(193, 71, 233, 1),
-            ),
-            const SizedBox(
-              width: 15,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextWidget(
-                  harga,
-                  0,
-                  const Color.fromRGBO(45, 3, 59, 1),
-                  FontWeight.bold,
-                  letterSpace: 0,
-                  textAlign: TextAlign.left,
-                ),
-                TextWidget(
-                  name,
-                  18,
-                  const Color.fromRGBO(45, 3, 59, 1),
-                  FontWeight.bold,
-                  letterSpace: 0,
-                  textAlign: TextAlign.left,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextWidget(
-                  desc,
-                  15,
-                  Colors.black.withOpacity(.6),
-                  FontWeight.bold,
-                  letterSpace: 0,
-                  textAlign: TextAlign.left,
-                ),
-              ],
-            ),
-          ],
         ),
       ),
     );

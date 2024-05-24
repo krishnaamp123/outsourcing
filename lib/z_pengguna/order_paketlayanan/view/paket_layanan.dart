@@ -1,22 +1,29 @@
 import 'dart:async';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:outsourcing/core.dart';
 
 class PaketLayanan extends StatefulWidget {
   final String alamat;
-  final AssetImage image;
+  final String image;
   final String name;
-  final String desc;
-  final String harga;
+  final String description;
+  final String includes;
+  final String totalprice;
+  final String mincontract;
+  final String totalemployee;
   final Function()? onTap;
   const PaketLayanan(
       {super.key,
       required this.alamat,
       required this.image,
       required this.name,
-      required this.desc,
-      required this.harga,
+      required this.description,
+      required this.includes,
+      required this.totalprice,
+      required this.mincontract,
+      required this.totalemployee,
       this.onTap});
 
   @override
@@ -36,10 +43,20 @@ class _PaketLayananState extends State<PaketLayanan> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    setPaymentOptions();
+    selectedPayment = paymentOptions.first;
     Future.delayed(Duration.zero, () {
       animator();
-      selectedPayment = paymentOptions.first;
     });
+  }
+
+  void setPaymentOptions() {
+    int days = int.parse(widget.mincontract);
+    if (days < 30) {
+      paymentOptions = ['full'];
+    } else {
+      paymentOptions = ['full', 'dp', '3_termin'];
+    }
   }
 
   animator() {
@@ -59,6 +76,13 @@ class _PaketLayananState extends State<PaketLayanan> {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     String alamat = widget.alamat;
+    String hari = widget.mincontract;
+    String jumlah = widget.totalemployee;
+    String totalprice = widget.totalprice;
+    int hargaInt = int.parse(totalprice);
+    String formattedTotalPrice =
+        NumberFormat.currency(locale: 'id', symbol: 'Rp', decimalDigits: 0)
+            .format(hargaInt);
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -91,9 +115,10 @@ class _PaketLayananState extends State<PaketLayanan> {
                   child: Container(
                     height: size.height / 4,
                     width: size.width,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: widget.image, fit: BoxFit.cover)),
+                            image: AssetImage('lib/images/icon/ic_user.png'),
+                            fit: BoxFit.cover)),
                   ),
                 )),
             AnimatedPositioned(
@@ -120,7 +145,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                           height: 5,
                         ),
                         TextWidget(
-                          widget.desc,
+                          widget.description,
                           15,
                           Colors.black.withOpacity(.6),
                           FontWeight.bold,
@@ -167,7 +192,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                                       height: 5,
                                     ),
                                     TextWidget(
-                                      widget.harga,
+                                      formattedTotalPrice,
                                       18,
                                       const Color.fromRGBO(45, 3, 59, 1),
                                       FontWeight.bold,
@@ -385,9 +410,9 @@ class _PaketLayananState extends State<PaketLayanan> {
                                   buttonStyleData: const ButtonStyleData(
                                     // padding: EdgeInsets.symmetric(horizontal: 5),
                                     padding:
-                                        EdgeInsets.only(left: 10, right: 10),
+                                        EdgeInsets.only(left: 20, right: 20),
                                     height: 40,
-                                    // width: 200,
+                                    width: 150,
                                   ),
                                   iconStyleData: const IconStyleData(
                                     icon: Icon(
@@ -427,34 +452,84 @@ class _PaketLayananState extends State<PaketLayanan> {
                   child: SizedBox(
                     height: 170,
                     width: MediaQuery.of(context).size.width,
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 5,
-                          ),
-                          TextWidget(
-                            "Deskripsi Paket Layanan",
-                            15,
-                            Color.fromRGBO(129, 12, 168, 1),
-                            FontWeight.normal,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          TextWidget(
-                            "Security yang memiliki pengalaman \nTentunya dalam penjagaan event\nWaktu kerja: 6 jam/hari\nHari kerja: setiap hari",
-                            15,
-                            Color.fromRGBO(45, 3, 59, 1),
-                            FontWeight.normal,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Lama Kontrak : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  '$hari Hari',
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Jumlah Karyawan : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  '$jumlah Orang',
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const TextWidget(
+                              "Deskripsi Paket Layanan : ",
+                              15,
+                              Color.fromRGBO(129, 12, 168, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextWidget(
+                              widget.includes,
+                              15,
+                              const Color.fromRGBO(45, 3, 59, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

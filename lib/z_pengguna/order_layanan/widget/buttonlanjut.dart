@@ -15,7 +15,7 @@ class ButtonLanjut extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(15),
-        margin: const EdgeInsets.symmetric(horizontal: 25),
+        margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           color: const Color.fromRGBO(45, 3, 59, 1),
           borderRadius: BorderRadius.circular(8),

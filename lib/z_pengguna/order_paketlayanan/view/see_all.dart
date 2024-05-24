@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/z_pengguna/order_paketlayanan/controller/see_all_controller.dart';
 import 'package:outsourcing/z_pengguna/order_paketlayanan/widget/info_widget.dart';
-import 'package:outsourcing/z_pengguna/order_paketlayanan/widget/paketlist_widget.dart';
+import 'package:outsourcing/z_pengguna/order_paketlayanan/widget/seepaketlist_widget.dart';
 import 'package:outsourcing/z_pengguna/order_paketlayanan/widget/upperrow_widget.dart';
 
 class SeeAll extends StatefulWidget {
@@ -147,11 +147,7 @@ class _SeeAllState extends State<SeeAll> {
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 500),
                   opacity: opacity,
-                  child: PackageList(
-                    images: images,
-                    names: names,
-                    desc: desc,
-                    harga: harga,
+                  child: SeePackageList(
                     alamatController: seeallController.alamatController,
                     formKey: _formKey,
                   ),

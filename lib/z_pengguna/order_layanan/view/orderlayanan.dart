@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
-import 'package:outsourcing/model/service_model.dart';
+import 'package:outsourcing/model/layanan_model.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/z_pengguna/order_layanan/controller/orderlayanan_controller.dart';
 import 'package:intl/intl.dart';
-import 'package:outsourcing/file/coba.dart';
 
 class OrderLayanan extends StatefulWidget {
   final String image;
   final String name;
-  final List<ServiceItems> serviceItems;
+  final List<AdditionalItems> additionalItems;
+  final List<RequiredItems> requiredItems;
   final String baseprice;
 
   const OrderLayanan(
       {Key? key,
       required this.image,
       required this.name,
-      required this.serviceItems,
+      required this.additionalItems,
+      required this.requiredItems,
       required this.baseprice})
       : super(key: key);
 
@@ -29,23 +30,25 @@ class _OrderLayananState extends State<OrderLayanan> {
   //text editing controllers
   final OrderLayananController orderlayananController =
       OrderLayananController();
-  // int? jumlahCleaner = 1;
+  // int? jumlahKaryawan = 1;
   var animate = false;
   var opacity = 0.0;
   bool position = false;
   late Size size;
-  int jumlahCleaner = 1;
-  List<ServiceItems> serviceItems = [];
+  int jumlahKaryawan = 1;
+  List<AdditionalItems> additionalItems = [];
+  List<RequiredItems> requiredItems = [];
+  List<int> pricePerItem = [];
   List<bool> checkedItems = [];
-  List<int> hargaitem = [];
-  List<int> idservice = [];
+  List<int> hargaperitem = [];
+  List<int> idlayanan = [];
 
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
-      checkedItems = List<bool>.filled(widget.serviceItems.length, false);
+      checkedItems = List<bool>.filled(widget.additionalItems.length, false);
     });
   }
 
@@ -159,7 +162,7 @@ class _OrderLayananState extends State<OrderLayanan> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 95,
+                    height: 115,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
@@ -180,9 +183,9 @@ class _OrderLayananState extends State<OrderLayanan> {
                             scrollDirection: Axis.horizontal,
                             // padding: const EdgeInsets.only(bottom: 10),
                             // itemExtent: 100,
-                            itemCount: terikat.length,
+                            itemCount: widget.requiredItems.length,
                             itemBuilder: (context, index) {
-                              final itemx = terikat[index];
+                              final itemx = widget.requiredItems[index];
                               return Container(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 5.0),
@@ -194,13 +197,26 @@ class _OrderLayananState extends State<OrderLayanan> {
                                   child: Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(10, 6, 10, 6),
-                                    child: Text(
-                                      itemx,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(45, 3, 59, 1),
-                                      ),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          itemx.itemName!,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: Color.fromRGBO(45, 3, 59, 1),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Text(
+                                          'Rp. ${NumberFormat.currency(locale: 'id', symbol: '', decimalDigits: 0).format(itemx.pricePerItem)}',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 14,
+                                            color: Color.fromRGBO(45, 3, 59, 1),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -216,7 +232,7 @@ class _OrderLayananState extends State<OrderLayanan> {
             ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 360 : 410,
+              top: position ? 380 : 410,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
@@ -228,7 +244,7 @@ class _OrderLayananState extends State<OrderLayanan> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 260,
+                    height: 230,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
@@ -245,11 +261,11 @@ class _OrderLayananState extends State<OrderLayanan> {
                           ),
                           Expanded(
                             child: ListView.builder(
-                              itemCount: widget.serviceItems.length,
+                              itemCount: widget.additionalItems.length,
                               padding: const EdgeInsets.only(bottom: 10),
                               itemExtent: 50,
                               itemBuilder: (context, index) {
-                                final item = widget.serviceItems[index];
+                                final item = widget.additionalItems[index];
                                 return CheckboxListTile(
                                   title: Row(
                                     mainAxisAlignment:
@@ -258,13 +274,13 @@ class _OrderLayananState extends State<OrderLayanan> {
                                       Text(
                                         item.itemName!,
                                         style: const TextStyle(
-                                          fontWeight: FontWeight.normal,
+                                          fontWeight: FontWeight.bold,
                                           fontSize: 16,
                                           color: Color.fromRGBO(45, 3, 59, 1),
                                         ),
                                       ),
                                       Text(
-                                        '${item.partialServiceId}',
+                                        '${item.id}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.normal,
                                           fontSize: 14,
@@ -332,13 +348,13 @@ class _OrderLayananState extends State<OrderLayanan> {
                         ),
                         const SizedBox(height: 5),
                         InputQty.int(
-                          initVal: jumlahCleaner,
+                          initVal: jumlahKaryawan,
                           minVal: 1,
                           maxVal: 50,
                           steps: 1,
                           onQtyChanged: (value) {
                             setState(() {
-                              jumlahCleaner = value ?? 1;
+                              jumlahKaryawan = value ?? 1;
                             });
                           },
                           messageBuilder: (minVal, maxVal, value) {
@@ -356,7 +372,7 @@ class _OrderLayananState extends State<OrderLayanan> {
                               );
                             } else {
                               // setState(() {
-                              //   jumlahCleaner = value as int?;
+                              //   jumlahKaryawan = value as int?;
                               // });
                               return Text("Jumlah : $value",
                                   textAlign: TextAlign.center);
@@ -367,25 +383,24 @@ class _OrderLayananState extends State<OrderLayanan> {
                       ButtonLanjut(
                         onTap: () {
                           List<String> selectedItems = [];
-                          hargaitem = [];
-                          idservice = [];
+                          hargaperitem = [];
+                          idlayanan = [];
                           if (_formKey.currentState!.validate()) {
                             for (int i = 0; i < checkedItems.length; i++) {
                               if (checkedItems[i]) {
                                 selectedItems
-                                    .add(widget.serviceItems[i].itemName!);
-                                hargaitem
-                                    .add(widget.serviceItems[i].pricePerItem!);
-                                idservice.add(
-                                    widget.serviceItems[i].partialServiceId!);
+                                    .add(widget.additionalItems[i].itemName!);
+                                hargaperitem.add(
+                                    widget.additionalItems[i].pricePerItem!);
+                                idlayanan.add(widget.additionalItems[i].id!);
                               }
                             }
                             orderlayananController.handleOrderLayanan(
                                 context,
                                 selectedItems.isNotEmpty ? selectedItems : null,
-                                hargaitem,
-                                idservice,
-                                jumlahCleaner,
+                                hargaperitem,
+                                idlayanan,
+                                jumlahKaryawan,
                                 name,
                                 image,
                                 baseprice);

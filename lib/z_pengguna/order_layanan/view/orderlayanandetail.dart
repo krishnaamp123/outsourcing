@@ -9,13 +9,12 @@ import 'package:intl/intl.dart';
 
 class OrderLayananDetail extends StatefulWidget {
   final Function()? onTap;
-  // const OrderLayananDetail({super.key, this.onTap});
   final String alamat;
   final String hari;
   final List<String> selectedItems;
   final List<int> hargaitem;
   final List<int> idservice;
-  final int jumlahCleaner;
+  final int jumlahKaryawan;
   final String image;
   final String name;
   final String baseprice;
@@ -27,7 +26,7 @@ class OrderLayananDetail extends StatefulWidget {
       required this.selectedItems,
       required this.hargaitem,
       required this.idservice,
-      required this.jumlahCleaner,
+      required this.jumlahKaryawan,
       required this.image,
       required this.name,
       required this.baseprice,
@@ -43,20 +42,27 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
   var opacity = 0.0;
   bool position = false;
   late Size size;
-  // final OrderLayananController orderlayananController =
-  //     OrderLayananController();
   late String selectedPayment;
   List<String> paymentOptions = ['full', 'dp', '3_termin'];
   DateTime selectedDate = DateTime.now();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    setPaymentOptions();
+    selectedPayment = paymentOptions.first;
     Future.delayed(Duration.zero, () {
       animator();
-      selectedPayment = paymentOptions.first;
     });
+  }
+
+  void setPaymentOptions() {
+    int days = int.parse(widget.hari);
+    if (days < 30) {
+      paymentOptions = ['full'];
+    } else {
+      paymentOptions = ['full', 'dp', '3_termin'];
+    }
   }
 
   animator() {
@@ -87,9 +93,8 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
             .format(hargaInt);
     List<String> selectedItems = widget.selectedItems;
     List<int> hargaitem = widget.hargaitem;
-    List<int> idservice = widget.idservice;
-    int jumlahCleaner = widget.jumlahCleaner;
-    // int? jumlahCleaner = widget.jumlahCleaner;
+    int jumlahKaryawan = widget.jumlahKaryawan;
+    // int? jumlahKaryawan = widget.jumlahKaryawan;
     size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -349,7 +354,7 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                                 textAlign: TextAlign.left,
                               ),
                               TextWidget(
-                                '$jumlahCleaner Orang',
+                                '$jumlahKaryawan Orang',
                                 15,
                                 const Color.fromRGBO(45, 3, 59, 1),
                                 FontWeight.bold,
@@ -470,8 +475,9 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                                   buttonStyleData: const ButtonStyleData(
                                     // padding: EdgeInsets.symmetric(horizontal: 5),
                                     padding:
-                                        EdgeInsets.only(left: 10, right: 10),
+                                        EdgeInsets.only(left: 20, right: 20),
                                     height: 40,
+                                    width: 150,
                                     // width: 200,
                                   ),
                                   iconStyleData: const IconStyleData(
@@ -533,16 +539,16 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                               itemBuilder: (context, index) {
                                 return ListTile(
                                   title: Text(selectedItems[index]),
-                                  subtitle: Text
-                                      // ('Rp. ${hargaitem[index]}')
-                                      ('Rp. ${NumberFormat.currency(locale: 'id', symbol: '', decimalDigits: 0).format(hargaitem[index])}'),
                                   titleTextStyle: const TextStyle(
                                       color: Color.fromRGBO(45, 3, 59, 1),
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
+                                  subtitle: Text
+                                      // ('Rp. ${hargaitem[index]}')
+                                      ('Rp. ${NumberFormat.currency(locale: 'id', symbol: '', decimalDigits: 0).format(hargaitem[index])}'),
                                   subtitleTextStyle: const TextStyle(
                                       color: Color.fromRGBO(45, 3, 59, 1),
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.normal,
                                       fontSize: 14),
                                 );
                               },

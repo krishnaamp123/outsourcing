@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:outsourcing/model/service_model.dart';
-import 'package:outsourcing/service/service_service.dart';
+import 'package:outsourcing/buangan/service_model.dart';
+import 'package:outsourcing/buangan/service_service.dart';
 
 class ServiceController extends GetxController implements GetxService {
   var listService = <ServiceModel>[].obs;

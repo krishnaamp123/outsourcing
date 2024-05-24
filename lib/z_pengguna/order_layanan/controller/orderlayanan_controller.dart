@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:outsourcing/model/order_model.dart';
@@ -13,7 +11,7 @@ class OrderLayananController extends GetxController implements GetxService {
   final service = OrderService();
   var isLoading = false.obs;
   // String? alamatCon, hariCon, nameCon, bestpriceCon;
-  // int? jumlahCleanerCon;
+  // int? jumlahKaryawanCon;
   // List<String> selectedItemsCon = [];
 
   String? alamatError;
@@ -56,13 +54,13 @@ class OrderLayananController extends GetxController implements GetxService {
       List<String>? selectedItems,
       List<int>? hargaitem,
       List<int>? idservice,
-      int jumlahCleaner,
+      int jumlahKaryawan,
       String name,
       String image,
       String baseprice) {
     if (validateForm()) {
       navigateToOrderLayananDetail(context, selectedItems, hargaitem, idservice,
-          jumlahCleaner, name, image, baseprice);
+          jumlahKaryawan, name, image, baseprice);
     }
   }
 
@@ -71,7 +69,7 @@ class OrderLayananController extends GetxController implements GetxService {
       List<String>? selectedItems,
       List<int>? hargaitem,
       List<int>? idservice,
-      int jumlahCleaner,
+      int jumlahKaryawan,
       String name,
       String image,
       String baseprice) {
@@ -88,7 +86,7 @@ class OrderLayananController extends GetxController implements GetxService {
           image: image,
           baseprice: baseprice,
           selectedItems: selectedItems ?? [],
-          jumlahCleaner: jumlahCleaner,
+          jumlahKaryawan: jumlahKaryawan,
           hargaitem: hargaitem ?? [],
           idservice: idservice ?? [],
         ),

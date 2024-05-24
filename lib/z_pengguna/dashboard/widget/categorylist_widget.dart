@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:outsourcing/model/service_model.dart';
-import 'package:outsourcing/z_pengguna/dashboard/controller/service_controller.dart';
+import 'package:outsourcing/model/layanan_model.dart';
+import 'package:outsourcing/z_pengguna/dashboard/controller/layanan_controller.dart';
 import 'package:outsourcing/z_pengguna/order_layanan/view/orderlayanan.dart';
 
 class CategoryList extends StatefulWidget {
@@ -15,7 +15,7 @@ class CategoryList extends StatefulWidget {
 }
 
 class _CategoryListState extends State<CategoryList> {
-  var serviceCon = Get.put(ServiceController());
+  var layananCon = Get.put(LayananController());
   bool isDataLoaded = false;
 
   @override
@@ -28,7 +28,7 @@ class _CategoryListState extends State<CategoryList> {
 
   // Fungsi untuk memuat data
   void _loadData() async {
-    await serviceCon.getService(); // Tunggu hingga data selesai dimuat
+    await layananCon.getLayanan(); // Tunggu hingga data selesai dimuat
     setState(() {
       isDataLoaded = true; // Setelah data dimuat, ubah status menjadi true
     });
@@ -36,7 +36,7 @@ class _CategoryListState extends State<CategoryList> {
 
   // Function to handle refreshing
   Future<void> _refreshData() async {
-    await serviceCon.getService();
+    await layananCon.getLayanan();
     setState(() {});
   }
 
@@ -51,14 +51,15 @@ class _CategoryListState extends State<CategoryList> {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemExtent: 90,
-                itemCount: serviceCon.listService.length,
+                itemCount: layananCon.listLayanan.length,
                 itemBuilder: (BuildContext context, int index) {
-                  var service = serviceCon.listService[index];
-                  return serviceCard(
-                    service.serviceName.toString(),
-                    service.image.toString(),
-                    service.serviceItems!.toList(),
-                    service.basePrice.toString(),
+                  var layanan = layananCon.listLayanan[index];
+                  return layananCard(
+                    layanan.serviceName.toString(),
+                    layanan.mainImage.toString(),
+                    layanan.additionalItems!.toList(),
+                    layanan.requiredItems!.toList(),
+                    layanan.totalPrice.toString(),
                   );
                 },
               ),
@@ -72,7 +73,11 @@ class _CategoryListState extends State<CategoryList> {
     );
   }
 
-  Widget serviceCard(String name, String image, List<ServiceItems> serviceItems,
+  Widget layananCard(
+      String name,
+      String image,
+      List<AdditionalItems> additionalItems,
+      List<RequiredItems> requiredItems,
       String baseprice) {
     return GestureDetector(
       onTap: () {
@@ -83,13 +88,14 @@ class _CategoryListState extends State<CategoryList> {
             builder: (context) => OrderLayanan(
                 name: name,
                 image: image,
-                serviceItems: serviceItems,
+                additionalItems: additionalItems,
+                requiredItems: requiredItems,
                 baseprice: baseprice),
           ),
         );
       },
       child: Obx(
-        () => serviceCon.isLoading.value
+        () => layananCon.isLoading.value
             ? const SpinKitPulse(
                 color: Colors.grey,
                 size: 10.0,
@@ -110,14 +116,7 @@ class _CategoryListState extends State<CategoryList> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image(
-                            image: AssetImage('lib/images/icon/ic_user.png'),
-                          ),
-                        ],
-                      ),
+                      child: mainImageWidget(image),
                     ),
                   ),
                   const SizedBox(height: 5),
@@ -133,5 +132,21 @@ class _CategoryListState extends State<CategoryList> {
               ),
       ),
     );
+  }
+
+  Widget mainImageWidget(String imageUrl) {
+    if (imageUrl.isEmpty) {
+      return const Image(
+        image: AssetImage('lib/images/icon/ic_user.png'),
+      );
+    } else {
+      return Image.network(
+        imageUrl,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return const Icon(Icons.error, color: Colors.red);
+        },
+      );
+    }
   }
 }
