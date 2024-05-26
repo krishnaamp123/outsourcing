@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:outsourcing/core.dart';
 import 'package:outsourcing/z_autentikasi/view/start.dart';
 import 'package:outsourcing/z_pengguna/order_layanan/controller/orderlayanandetail_controller.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OrderLayananDetail extends StatefulWidget {
   final Function()? onTap;
@@ -45,12 +47,14 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
   late String selectedPayment;
   List<String> paymentOptions = ['full', 'dp', '3_termin'];
   DateTime selectedDate = DateTime.now();
+  String companyname = '';
 
   @override
   void initState() {
     super.initState();
     setPaymentOptions();
     selectedPayment = paymentOptions.first;
+    _loadUserData();
     Future.delayed(Duration.zero, () {
       animator();
     });
@@ -76,6 +80,28 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
       position = true;
     }
     setState(() {});
+  }
+
+  _loadUserData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var userData = localStorage.getString('user');
+    if (userData != null) {
+      var user = jsonDecode(userData);
+      if (user != null && user['fullname'] != null) {
+        String fullName = user['fullname'];
+        List<String> nameParts = fullName.split(' ');
+        String firstName = '';
+
+        if (nameParts.length >= 2) {
+          firstName = '${nameParts[0]} ${nameParts[1]}';
+        } else {
+          firstName = fullName;
+        }
+        setState(() {
+          companyname = firstName;
+        });
+      }
+    }
   }
 
   @override

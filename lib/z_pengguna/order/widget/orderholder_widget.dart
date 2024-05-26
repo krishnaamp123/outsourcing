@@ -24,7 +24,6 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _loadData();
   }
@@ -33,7 +32,7 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
   void _loadData() async {
     await _refreshData();
     orderCon.filterOrdersByStatus('Semua');
-    await orderCon.getOrder(); // Tunggu hingga data selesai dimuat
+    await orderCon.getOrderLayanan(); // Tunggu hingga data selesai dimuat
     setState(() {
       isDataLoaded = true; // Setelah data dimuat, ubah status menjadi true
     });
@@ -42,7 +41,7 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
   // Function to handle refreshing
   Future<void> _refreshData() async {
     orderCon.filterOrdersByStatus('Semua');
-    await orderCon.getOrder();
+    await orderCon.getOrderLayanan();
     setState(() {});
   }
 
@@ -56,14 +55,16 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
                 StatusDropdown(
                   statusList: const [
                     'Semua',
-                    'waiting_mou',
-                    'waiting_for_payment',
                     'waiting_for_confirmation',
-                    'waiting_for_further_payment',
-                    'processed',
+                    'waiting_for_mou',
+                    'waiting_for_mou_confirmation',
+                    'confirmed',
+                    'waiting_for_initial_payment',
+                    'confirmed',
                     'ongoing',
-                    'completed',
-                    'cancelled',
+                    'waiting_for_further_payment',
+                    'suspended',
+                    'done',
                   ],
                   onFilterChanged: (selected) {
                     setState(() {
@@ -94,7 +95,7 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
                               return orderlist(
                                 order.id.toString(),
                                 // order.serviceUser!.fullname.toString(),
-                                order.date.toString(),
+                                order.startDate.toString(),
                                 order.address.toString(),
                                 order.status.toString(),
                                 order.totalPrice.toString(),
@@ -213,21 +214,23 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
 
   Color _getStatusColor(String status) {
     switch (status) {
-      case 'waiting_mou':
+      case 'waiting_for_mou':
         return Colors.orange;
-      case 'waiting_for_payment':
-        return Colors.orange;
-      case 'waiting_for_confirmation':
+      case 'waiting_for_initial_payment':
         return Colors.orange;
       case 'waiting_for_further_payment':
         return Colors.orange;
-      case 'processed':
+      case 'waiting_for_confirmation':
+        return Colors.orange;
+      case 'waiting_for_mou_confirmation':
         return Colors.orange;
       case 'ongoing':
         return Colors.green;
-      case 'completed':
+      case 'done':
         return Colors.blue;
-      case 'cancelled':
+      case 'confirmed':
+        return Colors.blue;
+      case 'suspended':
         return Colors.red;
       default:
         return const Color.fromRGBO(45, 3, 59, 1);

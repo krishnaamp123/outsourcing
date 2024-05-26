@@ -48,8 +48,8 @@ class _OrderLayananState extends State<OrderLayanan> {
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
-      checkedItems = List<bool>.filled(widget.additionalItems.length, false);
     });
+    checkedItems = List<bool>.filled(widget.additionalItems.length, false);
   }
 
   animator() {

@@ -4,35 +4,32 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:outsourcing/core.dart';
-import 'package:outsourcing/model/order_model.dart';
+import 'package:outsourcing/model/orderlayanan_model.dart';
+import 'package:outsourcing/service/orderlayanan_service.dart';
 import 'package:outsourcing/z_pengguna/order/view/ordermou.dart';
 import 'package:outsourcing/z_pengguna/order/view/orderpenilaian.dart';
-import 'package:outsourcing/service/order_service.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart' as dot_env;
 
 class OrderControllerApi extends GetxController implements GetxService {
-  var listOrder = <OrderModel>[].obs;
-  final service = OrderService();
+  var listOrder = <OrderLayananModel>[].obs;
+  final service = OrderLayananService();
   var isLoading = false.obs;
 
-  Future<void> getOrder() async {
+  Future<void> getOrderLayanan() async {
     isLoading.value = true;
-    var response = await service.getOrder();
+    // await dot_env.dotenv.load(fileName: ".env");
+    var response = await service.getOrderLayanan();
     var responsedecode = jsonDecode(response.body);
-
-    if (responsedecode['payload'] != null &&
-        responsedecode['payload']['datas'] != null) {
-      listOrder.clear();
-      for (var i = 0; i < responsedecode['payload']['datas'].length; i++) {
-        OrderModel data =
-            OrderModel.fromJson(responsedecode['payload']['datas'][i]);
-        listOrder.add(data);
-      }
+    listOrder.clear();
+    for (var i = 0; i < responsedecode['datas'].length; i++) {
+      OrderLayananModel data =
+          OrderLayananModel.fromJson(responsedecode['datas'][i]);
+      listOrder.add(data);
     }
-
     isLoading.value = false;
   }
 
-  RxList<OrderModel> filteredOrderList = <OrderModel>[].obs;
+  RxList<OrderLayananModel> filteredOrderList = <OrderLayananModel>[].obs;
 
   void filterOrdersByStatus(String status) {
     if (status == 'Semua') {
@@ -45,7 +42,7 @@ class OrderControllerApi extends GetxController implements GetxService {
 
   void navigateToDetails(BuildContext context, String name, String tanggal,
       String alamat, String status, String harga) {
-    if (status == 'waiting_mou') {
+    if (status == 'waiting_for_mou') {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -58,7 +55,7 @@ class OrderControllerApi extends GetxController implements GetxService {
           ),
         ),
       );
-    } else if (status == 'waiting_for_payment') {
+    } else if (status == 'waiting_for_initial_payment') {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -84,7 +81,7 @@ class OrderControllerApi extends GetxController implements GetxService {
           ),
         ),
       );
-    } else if (status == "completed") {
+    } else if (status == "done") {
       final snackBar = SnackBar(
         elevation: 0,
         behavior: SnackBarBehavior.floating,

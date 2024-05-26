@@ -5,9 +5,12 @@ import 'package:outsourcing/core.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/z_pengguna/profile/model/user_preference.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart' as dot_env;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // await dot_env.dotenv.load(fileName: ".env");
+  // await dotenv.load();
   await UserPreferences.init();
   runApp(const MyApp());
 }
