@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
 import 'package:intl/intl.dart';
+import 'package:outsourcing/z_pengguna/order/widget/buttonbayar_widget.dart';
 
 class OrderBayar extends StatefulWidget {
   final Function()? onTap;
@@ -288,10 +289,12 @@ class _OrderBayarState extends State<OrderBayar> {
                 duration: const Duration(milliseconds: 400),
                 child: SizedBox(
                   width: size.width,
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ButtonPembayaran(),
+                      ButtonBayar(
+                        transactionId: name,
+                      ),
                     ],
                   ),
                 ),
