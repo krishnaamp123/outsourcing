@@ -55,6 +55,7 @@ class _CategoryListState extends State<CategoryList> {
                 itemBuilder: (BuildContext context, int index) {
                   var layanan = layananCon.listLayanan[index];
                   return layananCard(
+                    layanan.id.toString(),
                     layanan.serviceName.toString(),
                     layanan.mainImage.toString(),
                     layanan.additionalItems!.toList(),
@@ -74,6 +75,7 @@ class _CategoryListState extends State<CategoryList> {
   }
 
   Widget layananCard(
+      String idserviceril,
       String name,
       String image,
       List<AdditionalItems> additionalItems,
@@ -86,6 +88,7 @@ class _CategoryListState extends State<CategoryList> {
           context,
           MaterialPageRoute(
             builder: (context) => OrderLayanan(
+                idserviceril: idserviceril,
                 name: name,
                 image: image,
                 additionalItems: additionalItems,

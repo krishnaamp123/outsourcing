@@ -8,11 +8,13 @@ import '../../../core.dart';
 
 class SeePackageList extends StatefulWidget {
   final TextEditingController alamatController;
+  final TextEditingController namapesananController;
   final GlobalKey<FormState> formKey;
 
   const SeePackageList({
     Key? key,
     required this.alamatController,
+    required this.namapesananController,
     required this.formKey,
   }) : super(key: key);
 
@@ -69,6 +71,7 @@ class _PackageListState extends State<SeePackageList> {
                         itemBuilder: (BuildContext context, int index) {
                           var paket = paketCon.listPaket[index];
                           return paketCard(
+                              paket.id.toString(),
                               paket.packageName.toString(),
                               paket.mainImage.toString(),
                               paket.description.toString(),
@@ -90,6 +93,7 @@ class _PackageListState extends State<SeePackageList> {
   }
 
   Widget paketCard(
+      String idpaket,
       String name,
       String image,
       String description,
@@ -102,14 +106,21 @@ class _PackageListState extends State<SeePackageList> {
         if (widget.formKey.currentState!.validate()) {
           String alamat = widget.alamatController.text;
           String? alamatError = seeallController.validateAlamat(alamat);
+          String namapesanan = widget.namapesananController.text;
+          String? namapesananError =
+              seeallController.validateNamaPesanan(namapesanan);
           if (alamatError != null) {
             seeallController.alamatError = alamatError;
+          } else if (namapesananError != null) {
+            seeallController.namapesananError = namapesananError;
           } else {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => PaketLayanan(
+                  namapesanan: namapesanan,
                   alamat: alamat,
+                  idpaket: idpaket,
                   image: image,
                   name: name,
                   description: description,

@@ -95,22 +95,38 @@ class _SeeAllState extends State<SeeAll> {
                     child: SizedBox(
                       height: 110,
                       width: MediaQuery.of(context).size.width,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            TextFieldAlamat(
-                              controller: seeallController.alamatController,
-                              upText: 'Alamat',
-                              hintText: 'ex: Jl Udayana...',
-                              obscureText: false,
-                              validator: seeallController.validateAlamat,
-                              onChanged: (_) {
-                                setState(() {
-                                  seeallController.alamatError = null;
-                                });
-                              },
-                            ),
-                          ]),
+                      child: SingleChildScrollView(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              TextFieldAlamat(
+                                controller:
+                                    seeallController.namapesananController,
+                                upText: 'Atas Nama Pemesanan',
+                                hintText: 'ex: PT Udayana...',
+                                obscureText: false,
+                                validator: seeallController.validateNamaPesanan,
+                                onChanged: (_) {
+                                  setState(() {
+                                    seeallController.namapesananError = null;
+                                  });
+                                },
+                              ),
+                              const SizedBox(height: 10),
+                              TextFieldAlamat(
+                                controller: seeallController.alamatController,
+                                upText: 'Alamat',
+                                hintText: 'ex: Jl Udayana...',
+                                obscureText: false,
+                                validator: seeallController.validateAlamat,
+                                onChanged: (_) {
+                                  setState(() {
+                                    seeallController.alamatError = null;
+                                  });
+                                },
+                              ),
+                            ]),
+                      ),
                     ),
                   ),
                 ),
@@ -149,6 +165,8 @@ class _SeeAllState extends State<SeeAll> {
                   opacity: opacity,
                   child: SeePackageList(
                     alamatController: seeallController.alamatController,
+                    namapesananController:
+                        seeallController.namapesananController,
                     formKey: _formKey,
                   ),
                 ),

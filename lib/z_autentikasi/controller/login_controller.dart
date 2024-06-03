@@ -92,7 +92,9 @@ class LoginController {
         print('tokenlogin: $token');
         if (token != null && validateToken(token)) {
           var roles = localStorage.getString('roles');
+          var user = localStorage.getString('user');
           print('roles: $roles');
+          print('userprofile: $user');
           if (roles != null && roles.isNotEmpty) {
             final snackBar = SnackBar(
               elevation: 0,

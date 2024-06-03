@@ -22,12 +22,12 @@ class _PaketListWidgetState extends State<PaketListWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    _refreshData();
     _loadData();
   }
 
   // Fungsi untuk memuat data
   void _loadData() async {
-    await _refreshData();
     await paketCon.getPaket();
     setState(() {
       isDataLoaded = true;
@@ -92,9 +92,11 @@ class _PaketListWidgetState extends State<PaketListWidget> {
                             itemBuilder: (BuildContext context, int index) {
                               var paket = paketCon.listPaket[index];
                               return paketCard(
+                                paket.id.toString(),
                                 paket.packageName.toString(),
                                 paket.mainImage.toString(),
                                 paket.description.toString(),
+                                paket.minContract.toString(),
                               );
                             },
                           ),
@@ -111,7 +113,8 @@ class _PaketListWidgetState extends State<PaketListWidget> {
     );
   }
 
-  Widget paketCard(String name, String image, String description) {
+  Widget paketCard(String idpaket, String name, String image,
+      String description, String contract) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -128,7 +131,8 @@ class _PaketListWidgetState extends State<PaketListWidget> {
             CircleAvatar(
               radius: 30,
               backgroundImage: mainImageWidget(image),
-              backgroundColor: const Color.fromRGBO(193, 71, 233, 1),
+              // backgroundImage: AssetImage('lib/images/icon/ic_user.png'),
+              backgroundColor: Color.fromRGBO(193, 71, 233, 1),
             ),
             const SizedBox(
               width: 15,

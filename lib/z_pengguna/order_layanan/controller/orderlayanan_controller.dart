@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:outsourcing/model/order_model.dart';
 import 'package:outsourcing/z_pengguna/order_layanan/view/orderlayanandetail.dart';
-import 'package:outsourcing/service/order_service.dart';
 
 class OrderLayananController extends GetxController implements GetxService {
+  final TextEditingController namapesananController = TextEditingController();
   final TextEditingController alamatController = TextEditingController();
   final TextEditingController hariController = TextEditingController();
-  var postOrder = OrderModel().obs;
-  final service = OrderService();
   var isLoading = false.obs;
-  // String? alamatCon, hariCon, nameCon, bestpriceCon;
-  // int? jumlahKaryawanCon;
-  // List<String> selectedItemsCon = [];
 
+  String? namapesananError;
   String? alamatError;
   String? hariError;
+
+  String? validateNamaPesanan(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Masukkan nama pemesanan';
+    }
+    return null;
+  }
 
   String? validateAlamat(String? value) {
     if (value == null || value.isEmpty) {
@@ -37,11 +39,18 @@ class OrderLayananController extends GetxController implements GetxService {
   }
 
   bool validateForm() {
-    if (alamatController.text.isEmpty) {
+    if (namapesananController.text.isEmpty) {
+      namapesananError = 'Masukan nama pemesanan';
+      alamatError = null;
+      hariError = null;
+      return false;
+    } else if (alamatController.text.isEmpty) {
+      namapesananError = null;
       alamatError = 'Masukkan alamat';
       hariError = null;
       return false;
     } else if (hariController.text.isEmpty) {
+      namapesananError = null;
       hariError = 'Masukkan jumlah hari';
       alamatError = null;
       return false;
@@ -53,14 +62,15 @@ class OrderLayananController extends GetxController implements GetxService {
       BuildContext context,
       List<String>? selectedItems,
       List<int>? hargaitem,
-      List<int>? idservice,
+      List<int>? idlayanan,
       int jumlahKaryawan,
+      String idserviceril,
       String name,
       String image,
       String baseprice) {
     if (validateForm()) {
-      navigateToOrderLayananDetail(context, selectedItems, hargaitem, idservice,
-          jumlahKaryawan, name, image, baseprice);
+      navigateToOrderLayananDetail(context, selectedItems, hargaitem, idlayanan,
+          jumlahKaryawan, idserviceril, name, image, baseprice);
     }
   }
 
@@ -68,11 +78,13 @@ class OrderLayananController extends GetxController implements GetxService {
       BuildContext context,
       List<String>? selectedItems,
       List<int>? hargaitem,
-      List<int>? idservice,
+      List<int>? idlayanan,
       int jumlahKaryawan,
+      String idserviceril,
       String name,
       String image,
       String baseprice) {
+    String namapesanan = namapesananController.text;
     String alamat = alamatController.text;
     String hari = hariController.text;
 
@@ -80,45 +92,19 @@ class OrderLayananController extends GetxController implements GetxService {
       context,
       MaterialPageRoute(
         builder: (context) => OrderLayananDetail(
+          namapesanan: namapesanan,
           alamat: alamat,
           hari: hari,
+          idserviceril: idserviceril,
           name: name,
           image: image,
           baseprice: baseprice,
           selectedItems: selectedItems ?? [],
           jumlahKaryawan: jumlahKaryawan,
           hargaitem: hargaitem ?? [],
-          idservice: idservice ?? [],
+          idlayanan: idlayanan ?? [],
         ),
       ),
     );
   }
-
-  // Future<void> PostOrder({required int user_id}) async {
-  //   isLoading.value = true;
-
-  //   var response = await service.postOrder(postOrder.value);
-  //   var responsedecode = jsonDecode(response.body);
-
-  //   if (response.statusCode == 200) {
-  //     Get.back();
-  //     Get.snackbar(
-  //       'Create Berhasil',
-  //       "Data berhasil ditambah",
-  //       colorText: Colors.white,
-  //       backgroundColor: Colors.lightBlue,
-  //     );
-  //     // resetForm();
-  //   } else {
-  //     Get.snackbar(
-  //       'Create Gagal',
-  //       "Data gagal ditambah, mohon periksa kembali",
-  //       colorText: Colors.white,
-  //       backgroundColor: Colors.red,
-  //     );
-  //   }
-  //   isLoading.value = false;
-
-  //   // Get.back();
-  // }
 }

@@ -1,11 +1,18 @@
 import 'dart:async';
+import 'dart:convert';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:outsourcing/core.dart';
+import 'package:outsourcing/z_autentikasi/view/start.dart';
+import 'package:outsourcing/z_pengguna/order_paketlayanan/controller/paketlayanan_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PaketLayanan extends StatefulWidget {
+  final String idpaket;
   final String alamat;
+  final String namapesanan;
   final String image;
   final String name;
   final String description;
@@ -16,7 +23,9 @@ class PaketLayanan extends StatefulWidget {
   final Function()? onTap;
   const PaketLayanan(
       {super.key,
+      required this.idpaket,
       required this.alamat,
+      required this.namapesanan,
       required this.image,
       required this.name,
       required this.description,
@@ -38,6 +47,10 @@ class _PaketLayananState extends State<PaketLayanan> {
   late String selectedPayment;
   List<String> paymentOptions = ['full', 'dp', '3_termin'];
   DateTime selectedDate = DateTime.now();
+  int? serviceuserid;
+  String billingname = '';
+  int? idregency;
+  String billingaddress = '';
 
   @override
   void initState() {
@@ -45,6 +58,10 @@ class _PaketLayananState extends State<PaketLayanan> {
     super.initState();
     setPaymentOptions();
     selectedPayment = paymentOptions.first;
+    _loadIdData();
+    _loadNameData();
+    _loadRegencyData();
+    _loadFullAddressData();
     Future.delayed(Duration.zero, () {
       animator();
     });
@@ -72,8 +89,67 @@ class _PaketLayananState extends State<PaketLayanan> {
     setState(() {});
   }
 
+  _loadIdData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var idData = localStorage.getString('user');
+    if (idData != null) {
+      var id = jsonDecode(idData);
+      if (id != null && id['id'] is int) {
+        setState(() {
+          serviceuserid = id['id'];
+        });
+      } else {
+        print("id is not an integer");
+      }
+    }
+  }
+
+  _loadNameData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var nameData = localStorage.getString('user');
+    if (nameData != null) {
+      var name = jsonDecode(nameData);
+      if (name != null && name['fullname'] != null) {
+        String fullName = name['fullname'];
+        setState(() {
+          billingname = fullName;
+        });
+      }
+    }
+  }
+
+  _loadRegencyData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var regencyData = localStorage.getString('user');
+    if (regencyData != null) {
+      var regency = jsonDecode(regencyData);
+      if (regency != null && regency['regency_id'] is int) {
+        setState(() {
+          idregency = regency['regency_id'];
+        });
+      } else {
+        print("regency_id is not an integer");
+      }
+    }
+  }
+
+  _loadFullAddressData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var fulladdressData = localStorage.getString('user');
+    if (fulladdressData != null) {
+      var fulladdress = jsonDecode(fulladdressData);
+      if (fulladdress != null && fulladdress['full_address'] != null) {
+        String addressfull = fulladdress['full_address'];
+        setState(() {
+          billingaddress = addressfull;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final OrderPaketController orderpaketController = OrderPaketController();
     size = MediaQuery.of(context).size;
     String alamat = widget.alamat;
     String hari = widget.mincontract;
@@ -546,10 +622,136 @@ class _PaketLayananState extends State<PaketLayanan> {
                 duration: const Duration(milliseconds: 400),
                 child: SizedBox(
                   width: size.width,
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ButtonPesanan(),
+                      ElevatedButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const TextWidget(
+                                      "Konfirmasi Pesanan",
+                                      20,
+                                      Color.fromRGBO(45, 3, 59, 1),
+                                      FontWeight.bold,
+                                      letterSpace: 0,
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextWidget(
+                                      "Cek kembali data pesanan anda\nPastikan sudah mengunduh MOU",
+                                      15,
+                                      Colors.black.withOpacity(0.6),
+                                      FontWeight.bold,
+                                      letterSpace: 0,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        final snackBar = SnackBar(
+                                          elevation: 0,
+                                          behavior: SnackBarBehavior.floating,
+                                          backgroundColor: Colors.transparent,
+                                          content: AwesomeSnackbarContent(
+                                            title: 'Info',
+                                            message:
+                                                'Terimakasih telah membuat pesanan, harap mengumpulkan berkas yang diperlukan',
+                                            contentType: ContentType.success,
+                                          ),
+                                        );
+
+                                        ScaffoldMessenger.of(context)
+                                          ..hideCurrentSnackBar()
+                                          ..showSnackBar(snackBar);
+
+                                        Navigator.pop(context);
+
+                                        orderpaketController.PostOrderPaket(
+                                          serviceuserid: serviceuserid,
+                                          billingname: billingname,
+                                          idregency: idregency,
+                                          billingaddress: billingaddress,
+                                          namapesanan: widget.namapesanan,
+                                          alamat: widget.alamat,
+                                          hari: widget.mincontract,
+                                          selectedDate: selectedDate,
+                                          selectedPayment: selectedPayment,
+                                          idpaket: widget.idpaket,
+                                        );
+
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => const Start(),
+                                          ),
+                                        );
+                                      },
+                                      label: const Text('Buat Pesanan',
+                                          style: TextStyle(
+                                            color:
+                                                Color.fromRGBO(193, 71, 233, 1),
+                                          )),
+                                      icon: const Icon(
+                                        Icons.upload_file,
+                                        color: Color.fromRGBO(193, 71, 233, 1),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        shadowColor:
+                                            Colors.purple, // Warna teks
+                                        minimumSize: const Size(240, 40),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(240, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          backgroundColor:
+                              const Color.fromRGBO(193, 71, 233, 1),
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.symmetric(horizontal: 70),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Center(
+                            child: TextWidget(
+                              "Buat Pesanan",
+                              16,
+                              Colors.white,
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

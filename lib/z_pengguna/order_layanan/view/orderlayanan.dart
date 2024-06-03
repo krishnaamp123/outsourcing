@@ -6,6 +6,7 @@ import 'package:outsourcing/z_pengguna/order_layanan/controller/orderlayanan_con
 import 'package:intl/intl.dart';
 
 class OrderLayanan extends StatefulWidget {
+  final String idserviceril;
   final String image;
   final String name;
   final List<AdditionalItems> additionalItems;
@@ -14,6 +15,7 @@ class OrderLayanan extends StatefulWidget {
 
   const OrderLayanan(
       {Key? key,
+      required this.idserviceril,
       required this.image,
       required this.name,
       required this.additionalItems,
@@ -68,6 +70,7 @@ class _OrderLayananState extends State<OrderLayanan> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
+    String idserviceril = widget.idserviceril;
     String name = widget.name;
     String image = widget.image;
     String baseprice = widget.baseprice;
@@ -115,6 +118,22 @@ class _OrderLayananState extends State<OrderLayanan> {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+                            TextFieldLayanan(
+                              controller:
+                                  orderlayananController.namapesananController,
+                              upText: 'Atas Nama Pemesanan',
+                              hintText: 'ex: PT Udayana...',
+                              obscureText: false,
+                              validator:
+                                  orderlayananController.validateNamaPesanan,
+                              onChanged: (_) {
+                                setState(() {
+                                  orderlayananController.namapesananError =
+                                      null;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 10),
                             TextFieldLayanan(
                               controller:
                                   orderlayananController.alamatController,
@@ -401,6 +420,7 @@ class _OrderLayananState extends State<OrderLayanan> {
                                 hargaperitem,
                                 idlayanan,
                                 jumlahKaryawan,
+                                idserviceril,
                                 name,
                                 image,
                                 baseprice);

@@ -11,24 +11,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class OrderLayananDetail extends StatefulWidget {
   final Function()? onTap;
+  final String namapesanan;
   final String alamat;
   final String hari;
   final List<String> selectedItems;
   final List<int> hargaitem;
-  final List<int> idservice;
+  final List<int> idlayanan;
   final int jumlahKaryawan;
+  final String idserviceril;
   final String image;
   final String name;
   final String baseprice;
 
   const OrderLayananDetail(
       {Key? key,
+      required this.namapesanan,
       required this.alamat,
       required this.hari,
       required this.selectedItems,
       required this.hargaitem,
-      required this.idservice,
+      required this.idlayanan,
       required this.jumlahKaryawan,
+      required this.idserviceril,
       required this.image,
       required this.name,
       required this.baseprice,
@@ -47,14 +51,20 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
   late String selectedPayment;
   List<String> paymentOptions = ['full', 'dp', '3_termin'];
   DateTime selectedDate = DateTime.now();
-  String companyname = '';
+  int? serviceuserid;
+  String billingname = '';
+  int? idregency;
+  String billingaddress = '';
 
   @override
   void initState() {
     super.initState();
     setPaymentOptions();
     selectedPayment = paymentOptions.first;
-    _loadUserData();
+    _loadIdData();
+    _loadNameData();
+    _loadRegencyData();
+    _loadFullAddressData();
     Future.delayed(Duration.zero, () {
       animator();
     });
@@ -82,23 +92,59 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
     setState(() {});
   }
 
-  _loadUserData() async {
+  _loadIdData() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var userData = localStorage.getString('user');
-    if (userData != null) {
-      var user = jsonDecode(userData);
-      if (user != null && user['fullname'] != null) {
-        String fullName = user['fullname'];
-        List<String> nameParts = fullName.split(' ');
-        String firstName = '';
-
-        if (nameParts.length >= 2) {
-          firstName = '${nameParts[0]} ${nameParts[1]}';
-        } else {
-          firstName = fullName;
-        }
+    var idData = localStorage.getString('user');
+    if (idData != null) {
+      var id = jsonDecode(idData);
+      if (id != null && id['id'] is int) {
         setState(() {
-          companyname = firstName;
+          serviceuserid = id['id'];
+        });
+      } else {
+        print("id is not an integer");
+      }
+    }
+  }
+
+  _loadNameData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var nameData = localStorage.getString('user');
+    if (nameData != null) {
+      var name = jsonDecode(nameData);
+      if (name != null && name['fullname'] != null) {
+        String fullName = name['fullname'];
+        setState(() {
+          billingname = fullName;
+        });
+      }
+    }
+  }
+
+  _loadRegencyData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var regencyData = localStorage.getString('user');
+    if (regencyData != null) {
+      var regency = jsonDecode(regencyData);
+      if (regency != null && regency['regency_id'] is int) {
+        setState(() {
+          idregency = regency['regency_id'];
+        });
+      } else {
+        print("regency_id is not an integer");
+      }
+    }
+  }
+
+  _loadFullAddressData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var fulladdressData = localStorage.getString('user');
+    if (fulladdressData != null) {
+      var fulladdress = jsonDecode(fulladdressData);
+      if (fulladdress != null && fulladdress['full_address'] != null) {
+        String addressfull = fulladdress['full_address'];
+        setState(() {
+          billingaddress = addressfull;
         });
       }
     }
@@ -108,6 +154,7 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
   Widget build(BuildContext context) {
     final OrderLayananDetailController orderlayanandetailController =
         OrderLayananDetailController();
+    // String idserviceril = widget.idserviceril;
     String alamat = widget.alamat;
     String hari = widget.hari;
     String name = widget.name;
@@ -119,6 +166,7 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
             .format(hargaInt);
     List<String> selectedItems = widget.selectedItems;
     List<int> hargaitem = widget.hargaitem;
+    // List<int> idlayanan = widget.idlayanan;
     int jumlahKaryawan = widget.jumlahKaryawan;
     // int? jumlahKaryawan = widget.jumlahKaryawan;
     size = MediaQuery.of(context).size;
@@ -652,12 +700,19 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
 
                                         Navigator.pop(context);
 
-                                        orderlayanandetailController.PostOrder(
-                                          hari: widget.hari,
+                                        orderlayanandetailController
+                                            .PostOrderLayanan(
+                                          serviceuserid: serviceuserid,
+                                          billingname: billingname,
+                                          idregency: idregency,
+                                          billingaddress: billingaddress,
+                                          namapesanan: widget.namapesanan,
                                           alamat: widget.alamat,
+                                          hari: widget.hari,
                                           selectedDate: selectedDate,
                                           selectedPayment: selectedPayment,
-                                          idservice: widget.idservice,
+                                          idlayanan: widget.idlayanan,
+                                          idserviceril: widget.idserviceril,
                                         );
 
                                         Navigator.pushReplacement(

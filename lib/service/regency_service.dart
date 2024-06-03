@@ -4,7 +4,7 @@ import '../global.dart';
 
 class RegencyService {
   Future<http.Response> getRegency() async {
-    var url = Uri.parse(baseURL + '/regencies/?page=1');
+    var url = Uri.parse('$baseURL/regencies/?page=1');
     http.Response response = await http.get(url, headers: {
       'Content-Type': 'application/json',
     });

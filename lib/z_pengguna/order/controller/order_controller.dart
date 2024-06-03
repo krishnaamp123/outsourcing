@@ -4,32 +4,31 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:outsourcing/core.dart';
-import 'package:outsourcing/model/orderlayanan_model.dart';
-import 'package:outsourcing/service/orderlayanan_service.dart';
+import 'package:outsourcing/model/order_model.dart';
+import 'package:outsourcing/service/orderl_service.dart';
 import 'package:outsourcing/z_pengguna/order/view/ordermou.dart';
 import 'package:outsourcing/z_pengguna/order/view/orderpenilaian.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart' as dot_env;
 
 class OrderControllerApi extends GetxController implements GetxService {
-  var listOrder = <OrderLayananModel>[].obs;
-  final service = OrderLayananService();
+  var listOrder = <OrderModel>[].obs;
+  final service = OrderService();
   var isLoading = false.obs;
 
   Future<void> getOrderLayanan() async {
     isLoading.value = true;
     // await dot_env.dotenv.load(fileName: ".env");
-    var response = await service.getOrderLayanan();
+    var response = await service.getOrder();
     var responsedecode = jsonDecode(response.body);
     listOrder.clear();
     for (var i = 0; i < responsedecode['datas'].length; i++) {
-      OrderLayananModel data =
-          OrderLayananModel.fromJson(responsedecode['datas'][i]);
+      OrderModel data = OrderModel.fromJson(responsedecode['datas'][i]);
       listOrder.add(data);
     }
     isLoading.value = false;
   }
 
-  RxList<OrderLayananModel> filteredOrderList = <OrderLayananModel>[].obs;
+  RxList<OrderModel> filteredOrderList = <OrderModel>[].obs;
 
   void filterOrdersByStatus(String status) {
     if (status == 'Semua') {
