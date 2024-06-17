@@ -51,7 +51,7 @@ class LoginController {
   }
 
   void navigateBasedOnRole(BuildContext context, String roles) {
-    if (roles == '"service_users"') {
+    if (roles == '"service_user"') {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:outsourcing/global.dart';
 import 'package:outsourcing/model/layanan_model.dart';
 import 'package:outsourcing/z_pengguna/dashboard/controller/layanan_controller.dart';
 import 'package:outsourcing/z_pengguna/order_layanan/view/orderlayanan.dart';
@@ -61,6 +62,7 @@ class _CategoryListState extends State<CategoryList> {
                     layanan.additionalItems!.toList(),
                     layanan.requiredItems!.toList(),
                     layanan.totalPrice.toString(),
+                    layanan.description.toString(),
                   );
                 },
               ),
@@ -75,12 +77,20 @@ class _CategoryListState extends State<CategoryList> {
   }
 
   Widget layananCard(
-      String idserviceril,
-      String name,
-      String image,
-      List<AdditionalItems> additionalItems,
-      List<RequiredItems> requiredItems,
-      String baseprice) {
+    String idserviceril,
+    String name,
+    String image,
+    List<AdditionalItems> additionalItems,
+    List<RequiredItems> requiredItems,
+    String baseprice,
+    String description,
+  ) {
+    // String displayName =
+    //     name.length > 12 ? '${name.substring(0, 12)}...' : name;
+    final imageURL = '$baseURL/resource/services/$idserviceril/main_image/';
+
+    print('Image URL: $imageURL');
+
     return GestureDetector(
       onTap: () {
         // Aksi saat card diklik
@@ -93,7 +103,8 @@ class _CategoryListState extends State<CategoryList> {
                 image: image,
                 additionalItems: additionalItems,
                 requiredItems: requiredItems,
-                baseprice: baseprice),
+                baseprice: baseprice,
+                description: description),
           ),
         );
       },
@@ -119,37 +130,34 @@ class _CategoryListState extends State<CategoryList> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: mainImageWidget(image),
+                      child: Image.network(
+                        imageURL,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          print('Error loading image: $error');
+                          return Image.asset(
+                            'lib/images/icon/ic_user.png',
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 5),
                   Text(
                     name,
-                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 12,
+                      color: Color.fromRGBO(45, 3, 59, 1),
                       fontWeight: FontWeight.bold,
+                      letterSpacing: 0,
                     ),
+                    textAlign: TextAlign.left,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
       ),
     );
-  }
-
-  Widget mainImageWidget(String imageUrl) {
-    if (imageUrl.isEmpty) {
-      return const Image(
-        image: AssetImage('lib/images/icon/ic_user.png'),
-      );
-    } else {
-      return Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) {
-          return const Icon(Icons.error, color: Colors.red);
-        },
-      );
-    }
   }
 }

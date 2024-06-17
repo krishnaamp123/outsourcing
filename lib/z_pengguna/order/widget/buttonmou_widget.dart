@@ -18,7 +18,7 @@ class _ButtonMOUState extends State<ButtonMOU> {
           context: context,
           builder: (BuildContext context) {
             return Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.fromLTRB(72, 16, 72, 16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [

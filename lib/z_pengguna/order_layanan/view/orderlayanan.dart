@@ -12,16 +12,18 @@ class OrderLayanan extends StatefulWidget {
   final List<AdditionalItems> additionalItems;
   final List<RequiredItems> requiredItems;
   final String baseprice;
+  final String description;
 
-  const OrderLayanan(
-      {Key? key,
-      required this.idserviceril,
-      required this.image,
-      required this.name,
-      required this.additionalItems,
-      required this.requiredItems,
-      required this.baseprice})
-      : super(key: key);
+  const OrderLayanan({
+    Key? key,
+    required this.idserviceril,
+    required this.image,
+    required this.name,
+    required this.additionalItems,
+    required this.requiredItems,
+    required this.baseprice,
+    required this.description,
+  }) : super(key: key);
 
   @override
   State<OrderLayanan> createState() => _OrderLayananState();
@@ -74,6 +76,7 @@ class _OrderLayananState extends State<OrderLayanan> {
     String name = widget.name;
     String image = widget.image;
     String baseprice = widget.baseprice;
+    String description = widget.description;
     return Scaffold(
       body: Form(
         key: _formKey,
@@ -91,10 +94,14 @@ class _OrderLayananState extends State<OrderLayanan> {
               child: AnimatedOpacity(
                 duration: const Duration(milliseconds: 400),
                 opacity: opacity,
-                child: BackButtonWidget(
-                  animator: animator,
-                  context: context,
-                  labelText: 'Pesan $name',
+                child: Column(
+                  children: [
+                    BackButtonWidget(
+                      animator: animator,
+                      context: context,
+                      labelText: 'Pesan',
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -112,12 +119,27 @@ class _OrderLayananState extends State<OrderLayanan> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 200,
+                    height: 230,
                     width: MediaQuery.of(context).size.width,
                     child: SingleChildScrollView(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 25),
+                                child: TextWidget(
+                                  name,
+                                  18,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  textAlign: TextAlign.left,
+                                  letterSpace: 0,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 5),
                             TextFieldLayanan(
                               controller:
                                   orderlayananController.namapesananController,
@@ -133,7 +155,7 @@ class _OrderLayananState extends State<OrderLayanan> {
                                 });
                               },
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             TextFieldLayanan(
                               controller:
                                   orderlayananController.alamatController,
@@ -147,7 +169,7 @@ class _OrderLayananState extends State<OrderLayanan> {
                                 });
                               },
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             TextFieldLayanan(
                               controller: orderlayananController.hariController,
                               upText: 'Lama Kontrak',
@@ -169,7 +191,7 @@ class _OrderLayananState extends State<OrderLayanan> {
             ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 260 : 400,
+              top: position ? 290 : 340,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
@@ -188,10 +210,10 @@ class _OrderLayananState extends State<OrderLayanan> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextWidget(
-                            'Item Terikat $name',
+                          const TextWidget(
+                            'Item Terikat',
                             15,
-                            const Color.fromRGBO(129, 12, 168, 1),
+                            Color.fromRGBO(129, 12, 168, 1),
                             FontWeight.normal,
                             letterSpace: 0,
                             textAlign: TextAlign.left,
@@ -215,7 +237,7 @@ class _OrderLayananState extends State<OrderLayanan> {
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(10, 6, 10, 6),
+                                        const EdgeInsets.fromLTRB(10, 2, 10, 2),
                                     child: Column(
                                       children: [
                                         Text(
@@ -226,7 +248,7 @@ class _OrderLayananState extends State<OrderLayanan> {
                                             color: Color.fromRGBO(45, 3, 59, 1),
                                           ),
                                         ),
-                                        const SizedBox(height: 5),
+                                        const SizedBox(height: 0),
                                         Text(
                                           'Rp. ${NumberFormat.currency(locale: 'id', symbol: '', decimalDigits: 0).format(itemx.pricePerItem)}',
                                           style: const TextStyle(
@@ -251,7 +273,7 @@ class _OrderLayananState extends State<OrderLayanan> {
             ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 380 : 410,
+              top: position ? 410 : 460,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
@@ -263,7 +285,7 @@ class _OrderLayananState extends State<OrderLayanan> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 230,
+                    height: 210,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
@@ -356,10 +378,10 @@ class _OrderLayananState extends State<OrderLayanan> {
                         Container(
                           alignment: Alignment.centerLeft,
                           margin: const EdgeInsets.symmetric(horizontal: 25),
-                          child: TextWidget(
-                            "Jumlah $name",
+                          child: const TextWidget(
+                            "Jumlah Karyawan",
                             15,
-                            const Color.fromRGBO(129, 12, 168, 1),
+                            Color.fromRGBO(129, 12, 168, 1),
                             FontWeight.normal,
                             letterSpace: 0,
                             textAlign: TextAlign.left,
@@ -415,15 +437,17 @@ class _OrderLayananState extends State<OrderLayanan> {
                               }
                             }
                             orderlayananController.handleOrderLayanan(
-                                context,
-                                selectedItems.isNotEmpty ? selectedItems : null,
-                                hargaperitem,
-                                idlayanan,
-                                jumlahKaryawan,
-                                idserviceril,
-                                name,
-                                image,
-                                baseprice);
+                              context,
+                              selectedItems.isNotEmpty ? selectedItems : null,
+                              hargaperitem,
+                              idlayanan,
+                              jumlahKaryawan,
+                              idserviceril,
+                              name,
+                              image,
+                              baseprice,
+                              description,
+                            );
                           }
                         },
                       )

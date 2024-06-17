@@ -138,21 +138,23 @@ class _StatusDropdownState extends State<StatusDropdown> {
 
   Color _getStatusColor(String status) {
     switch (status) {
-      case 'waiting_mou':
+      case 'waiting_for_mou':
         return Colors.orange;
-      case 'waiting_for_payment':
-        return Colors.orange;
-      case 'waiting_for_confirmation':
+      case 'waiting_for_initial_payment':
         return Colors.orange;
       case 'waiting_for_further_payment':
         return Colors.orange;
-      case 'processed':
+      case 'waiting_for_confirmation':
+        return Colors.orange;
+      case 'waiting_for_mou_confirmation':
         return Colors.orange;
       case 'ongoing':
         return Colors.green;
-      case 'completed':
+      case 'done':
         return Colors.blue;
-      case 'cancelled':
+      case 'confirmed':
+        return Colors.blue;
+      case 'suspended':
         return Colors.red;
       default:
         return const Color.fromRGBO(45, 3, 59, 1);

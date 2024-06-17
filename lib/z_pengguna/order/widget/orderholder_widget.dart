@@ -58,7 +58,6 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
                     'waiting_for_confirmation',
                     'waiting_for_mou',
                     'waiting_for_mou_confirmation',
-                    'confirmed',
                     'waiting_for_initial_payment',
                     'confirmed',
                     'ongoing',
@@ -94,12 +93,17 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
                               var order = orderCon.filteredOrderList[index];
                               return orderlist(
                                 order.id.toString(),
-                                // order.serviceUser!.fullname.toString(),
+                                order.companyName.toString(),
                                 order.startDate.toString(),
+                                order.orderDate.toString(),
                                 order.address.toString(),
+                                order.details!.first.totalEmployee.toString(),
+                                order.contractDuration.toString(),
                                 order.status.toString(),
                                 order.totalPrice.toString(),
-                                // order.colors,
+                                order.totalPaid.toString(),
+                                order.paymentMethod.toString(),
+                                order.nextPaymentDeadline.toString(),
                               );
                             },
                           ),
@@ -117,7 +121,19 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
   }
 
   Widget orderlist(
-      String id, String tanggal, String alamat, String status, String harga) {
+    String id,
+    String namapesanan,
+    String tanggal,
+    String tanggalorder,
+    String alamat,
+    String jumlahkaryawan,
+    String lamakontrak,
+    String status,
+    String harga,
+    String hargaterbayar,
+    String metodebayar,
+    String deadlinebayar,
+  ) {
     // Parse tanggal menjadi objek DateTime
     DateTime parsedDate = DateTime.parse(tanggal);
 
@@ -128,19 +144,22 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
     Color statusColor = _getStatusColor(status);
     return GestureDetector(
       onTap: () {
-        orderCon.navigateToDetails(context, id, tanggal, alamat, status, harga);
+        orderCon.navigateToDetails(
+            context,
+            id,
+            namapesanan,
+            tanggal,
+            tanggalorder,
+            alamat,
+            jumlahkaryawan,
+            lamakontrak,
+            status,
+            harga,
+            hargaterbayar,
+            metodebayar,
+            deadlinebayar);
       },
-      child:
-          // Obx(
-          //   () => orderCon.isLoading.value
-          //       ? LinearProgressIndicator(
-          //           backgroundColor: Colors.grey[300],
-          //           valueColor:
-          //               const AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-          //           minHeight: 1,
-          //         )
-          //       :
-          Card(
+      child: Card(
         elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -153,54 +172,60 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
               const SizedBox(
                 width: 15,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextWidget(
-                    'Order $id',
-                    18,
-                    const Color.fromRGBO(45, 3, 59, 1),
-                    FontWeight.bold,
-                    letterSpace: 0,
-                    textAlign: TextAlign.left,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  TextWidget(
-                    formattedDate,
-                    15,
-                    Colors.black.withOpacity(.6),
-                    FontWeight.bold,
-                    letterSpace: 0,
-                    textAlign: TextAlign.left,
-                  ),
-                  TextWidget(
-                    alamat,
-                    15,
-                    Colors.black.withOpacity(.6),
-                    FontWeight.bold,
-                    letterSpace: 0,
-                    textAlign: TextAlign.left,
-                  ),
-                  TextWidget(
-                    status,
-                    15,
-                    statusColor,
-                    FontWeight.bold,
-                    letterSpace: 0,
-                    textAlign: TextAlign.left,
-                  ),
-                  TextWidget(
-                    harga,
-                    0,
-                    const Color.fromRGBO(45, 3, 59, 1),
-                    FontWeight.bold,
-                    letterSpace: 0,
-                    textAlign: TextAlign.left,
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextWidget(
+                      'Order $id',
+                      18,
+                      const Color.fromRGBO(45, 3, 59, 1),
+                      FontWeight.bold,
+                      letterSpace: 0,
+                      textAlign: TextAlign.left,
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TextWidget(
+                      formattedDate,
+                      15,
+                      Colors.black.withOpacity(.6),
+                      FontWeight.bold,
+                      letterSpace: 0,
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      alamat,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black.withOpacity(.6),
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0,
+                      ),
+                      textAlign: TextAlign.left,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    TextWidget(
+                      status,
+                      15,
+                      statusColor,
+                      FontWeight.bold,
+                      letterSpace: 0,
+                      textAlign: TextAlign.left,
+                    ),
+                    TextWidget(
+                      harga,
+                      0,
+                      const Color.fromRGBO(45, 3, 59, 1),
+                      FontWeight.bold,
+                      letterSpace: 0,
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 width: 15,

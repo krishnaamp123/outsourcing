@@ -93,7 +93,7 @@ class _SeeAllState extends State<SeeAll> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: SizedBox(
-                      height: 110,
+                      height: 175,
                       width: MediaQuery.of(context).size.width,
                       child: SingleChildScrollView(
                         child: Column(
@@ -112,7 +112,7 @@ class _SeeAllState extends State<SeeAll> {
                                   });
                                 },
                               ),
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 5),
                               TextFieldAlamat(
                                 controller: seeallController.alamatController,
                                 upText: 'Alamat',
@@ -132,7 +132,7 @@ class _SeeAllState extends State<SeeAll> {
                 ),
               ),
               AnimatedPositioned(
-                  top: position ? 310 : 360,
+                  top: position ? 370 : 420,
                   right: 20,
                   left: 20,
                   duration: const Duration(milliseconds: 400),
@@ -156,7 +156,7 @@ class _SeeAllState extends State<SeeAll> {
                     ),
                   )),
               AnimatedPositioned(
-                top: position ? 340 : 370,
+                top: position ? 400 : 450,
                 left: 20,
                 right: 20,
                 duration: const Duration(milliseconds: 500),

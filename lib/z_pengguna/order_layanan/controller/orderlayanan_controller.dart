@@ -59,31 +59,35 @@ class OrderLayananController extends GetxController implements GetxService {
   }
 
   void handleOrderLayanan(
-      BuildContext context,
-      List<String>? selectedItems,
-      List<int>? hargaitem,
-      List<int>? idlayanan,
-      int jumlahKaryawan,
-      String idserviceril,
-      String name,
-      String image,
-      String baseprice) {
+    BuildContext context,
+    List<String>? selectedItems,
+    List<int>? hargaitem,
+    List<int>? idlayanan,
+    int jumlahKaryawan,
+    String idserviceril,
+    String name,
+    String image,
+    String baseprice,
+    String description,
+  ) {
     if (validateForm()) {
       navigateToOrderLayananDetail(context, selectedItems, hargaitem, idlayanan,
-          jumlahKaryawan, idserviceril, name, image, baseprice);
+          jumlahKaryawan, idserviceril, name, image, baseprice, description);
     }
   }
 
   void navigateToOrderLayananDetail(
-      BuildContext context,
-      List<String>? selectedItems,
-      List<int>? hargaitem,
-      List<int>? idlayanan,
-      int jumlahKaryawan,
-      String idserviceril,
-      String name,
-      String image,
-      String baseprice) {
+    BuildContext context,
+    List<String>? selectedItems,
+    List<int>? hargaitem,
+    List<int>? idlayanan,
+    int jumlahKaryawan,
+    String idserviceril,
+    String name,
+    String image,
+    String baseprice,
+    String description,
+  ) {
     String namapesanan = namapesananController.text;
     String alamat = alamatController.text;
     String hari = hariController.text;
@@ -99,6 +103,7 @@ class OrderLayananController extends GetxController implements GetxService {
           name: name,
           image: image,
           baseprice: baseprice,
+          description: description,
           selectedItems: selectedItems ?? [],
           jumlahKaryawan: jumlahKaryawan,
           hargaitem: hargaitem ?? [],

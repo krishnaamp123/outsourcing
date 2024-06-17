@@ -5,7 +5,9 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:outsourcing/core.dart';
+import 'package:outsourcing/global.dart';
 import 'package:outsourcing/z_autentikasi/view/start.dart';
+import 'package:outsourcing/z_pengguna/order/widget/downloadpdf_widget.dart';
 import 'package:outsourcing/z_pengguna/order_paketlayanan/controller/paketlayanan_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -151,14 +153,18 @@ class _PaketLayananState extends State<PaketLayanan> {
   Widget build(BuildContext context) {
     final OrderPaketController orderpaketController = OrderPaketController();
     size = MediaQuery.of(context).size;
+    String idpaket = widget.idpaket;
+    String namapesanan = widget.namapesanan;
     String alamat = widget.alamat;
     String hari = widget.mincontract;
     String jumlah = widget.totalemployee;
     String totalprice = widget.totalprice;
     int hargaInt = int.parse(totalprice);
     String formattedTotalPrice =
-        NumberFormat.currency(locale: 'id', symbol: 'Rp', decimalDigits: 0)
+        NumberFormat.currency(locale: 'id', symbol: 'Rp.', decimalDigits: 0)
             .format(hargaInt);
+    final imageURL = '$baseURL/resource/packages/$idpaket/main_image/';
+    print('Image URL: $imageURL');
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -182,21 +188,41 @@ class _PaketLayananState extends State<PaketLayanan> {
               ),
             ),
             AnimatedPositioned(
-                top: 60,
-                right: animate ? -90 : -190,
+              top: 60,
+              right: animate ? -120 : -220,
+              duration: const Duration(milliseconds: 400),
+              child: AnimatedOpacity(
                 duration: const Duration(milliseconds: 400),
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 400),
-                  opacity: opacity,
-                  child: Container(
-                    height: size.height / 4,
-                    width: size.width,
-                    decoration: const BoxDecoration(
+                opacity: opacity,
+                child: Stack(
+                  children: [
+                    Container(
+                      height: size.height / 4,
+                      width: size.width,
+                      decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('lib/images/icon/ic_user.png'),
-                            fit: BoxFit.cover)),
-                  ),
-                )),
+                          image: NetworkImage(imageURL),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: Image.network(
+                        imageURL,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          print('Error loading image: $error');
+                          return Image.asset(
+                            'lib/images/icon/ic_user.png',
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             AnimatedPositioned(
                 left: animate ? 60 : 10,
                 duration: const Duration(milliseconds: 400),
@@ -221,7 +247,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                           height: 5,
                         ),
                         TextWidget(
-                          widget.description,
+                          "Pastikan Lagi Pesanan\nSesuai Keinginan Anda",
                           15,
                           Colors.black.withOpacity(.6),
                           FontWeight.bold,
@@ -283,36 +309,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Card(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: const SizedBox(
-                            height: 50,
-                            width: 180,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Icon(
-                                  Icons.download,
-                                  color: Colors.blue,
-                                  size: 30,
-                                ),
-                                SizedBox(
-                                  height: 0,
-                                ),
-                                TextWidget(
-                                  "Unduh MOU",
-                                  18,
-                                  Color.fromRGBO(45, 3, 59, 1),
-                                  FontWeight.bold,
-                                  letterSpace: 0,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        const DownloadPdfCard(),
                       ],
                     ),
                   ),
@@ -348,36 +345,60 @@ class _PaketLayananState extends State<PaketLayanan> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 70,
+                    height: 110,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          const TextWidget(
-                            "Alamat Anda",
-                            15,
-                            Color.fromRGBO(129, 12, 168, 1),
-                            FontWeight.normal,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextWidget(
-                            alamat,
-                            18,
-                            const Color.fromRGBO(45, 3, 59, 1),
-                            FontWeight.bold,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const TextWidget(
+                              "Atas Nama :",
+                              15,
+                              Color.fromRGBO(129, 12, 168, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextWidget(
+                              namapesanan,
+                              15,
+                              const Color.fromRGBO(45, 3, 59, 1),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            const TextWidget(
+                              "Alamat Anda :",
+                              15,
+                              Color.fromRGBO(129, 12, 168, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextWidget(
+                              alamat,
+                              15,
+                              const Color.fromRGBO(45, 3, 59, 1),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -385,7 +406,7 @@ class _PaketLayananState extends State<PaketLayanan> {
               ),
             ),
             AnimatedPositioned(
-              top: position ? 370 : 420,
+              top: position ? 400 : 450,
               right: 30,
               left: 30,
               duration: const Duration(milliseconds: 400),
@@ -402,13 +423,13 @@ class _PaketLayananState extends State<PaketLayanan> {
                         children: [
                           const TextWidget(
                             "Tanggal Pemesanan",
-                            16,
+                            15,
                             Color.fromRGBO(129, 12, 168, 1),
                             FontWeight.normal,
                             letterSpace: 0,
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: 5,
                           ),
                           GestureDetector(
                             onTap: () async {
@@ -450,7 +471,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                           children: [
                             const TextWidget(
                               "Tipe Pembayaran",
-                              16,
+                              15,
                               Color.fromRGBO(129, 12, 168, 1),
                               FontWeight.normal,
                               letterSpace: 0,
@@ -514,7 +535,7 @@ class _PaketLayananState extends State<PaketLayanan> {
             ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 460 : 510,
+              top: position ? 480 : 530,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
@@ -526,7 +547,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 170,
+                    height: 160,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -586,7 +607,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                               height: 10,
                             ),
                             const TextWidget(
-                              "Deskripsi Paket Layanan : ",
+                              "Termasuk Paket Layanan : ",
                               15,
                               Color.fromRGBO(129, 12, 168, 1),
                               FontWeight.normal,
@@ -599,8 +620,30 @@ class _PaketLayananState extends State<PaketLayanan> {
                             TextWidget(
                               widget.includes,
                               15,
-                              const Color.fromRGBO(45, 3, 59, 1),
+                              Colors.black.withOpacity(.6),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            const TextWidget(
+                              "Deskripsi Paket Layanan : ",
+                              15,
+                              Color.fromRGBO(129, 12, 168, 1),
                               FontWeight.normal,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextWidget(
+                              widget.description,
+                              15,
+                              Colors.black.withOpacity(.6),
+                              FontWeight.bold,
                               letterSpace: 0,
                               textAlign: TextAlign.left,
                             ),
@@ -631,7 +674,8 @@ class _PaketLayananState extends State<PaketLayanan> {
                             context: context,
                             builder: (BuildContext context) {
                               return Container(
-                                padding: const EdgeInsets.all(16),
+                                padding:
+                                    const EdgeInsets.fromLTRB(80, 16, 80, 16),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [

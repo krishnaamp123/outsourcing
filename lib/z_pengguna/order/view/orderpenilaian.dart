@@ -6,20 +6,33 @@ import 'package:intl/intl.dart';
 
 class OrderPenilaian extends StatefulWidget {
   final Function()? onTap;
-  final String name;
-  final String harga;
-  final String alamat;
+  final String id;
+  final String namapesanan;
   final String tanggal;
+  final String tanggalorder;
+  final String alamat;
+  final String jumlahkaryawan;
+  final String lamakontrak;
   final String status;
-  // final Color colors;
+  final String harga;
+  final String hargaterbayar;
+  final String metodebayar;
+  final String deadlinebayar;
 
   const OrderPenilaian({
     Key? key,
-    required this.name,
+    required this.id,
+    required this.namapesanan,
     required this.tanggal,
+    required this.tanggalorder,
     required this.alamat,
+    required this.jumlahkaryawan,
+    required this.lamakontrak,
     required this.status,
     required this.harga,
+    required this.hargaterbayar,
+    required this.metodebayar,
+    required this.deadlinebayar,
     // required this.colors,
     this.onTap,
   }) : super(key: key);
@@ -62,14 +75,14 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
     String harga = widget.harga;
     int hargaInt = int.parse(harga);
     String formattedHarga =
-        NumberFormat.currency(locale: 'id', symbol: 'Rp', decimalDigits: 0)
+        NumberFormat.currency(locale: 'id', symbol: 'Rp.', decimalDigits: 0)
             .format(hargaInt);
     // Parse tanggal menjadi objek DateTime
     DateTime parsedDate = DateTime.parse(widget.tanggal);
     // Format tanggal sesuai keinginan (hanya hari, bulan, dan tahun)
     String formattedDate = DateFormat('dd-MM-yyyy').format(parsedDate);
     String alamat = widget.alamat;
-    String name = widget.name;
+    String id = widget.id;
     String status = widget.status;
     // Color colors = widget.colors;
     return Scaffold(
@@ -109,7 +122,7 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextWidget(
-                          'Order $name',
+                          'Order $id',
                           20,
                           const Color.fromRGBO(45, 3, 59, 1),
                           FontWeight.bold,

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Network {
-  final String _url = 'http://10.0.2.2:8080';
+  final String _url = 'http://10.0.2.2:8080/api/v1';
 
   Future<String> getToken() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/model/order_model.dart';
-import 'package:outsourcing/service/orderl_service.dart';
+import 'package:outsourcing/service/order_service.dart';
 import 'package:outsourcing/z_pengguna/order/view/ordermou.dart';
 import 'package:outsourcing/z_pengguna/order/view/orderpenilaian.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart' as dot_env;
@@ -39,18 +39,38 @@ class OrderControllerApi extends GetxController implements GetxService {
     }
   }
 
-  void navigateToDetails(BuildContext context, String name, String tanggal,
-      String alamat, String status, String harga) {
+  void navigateToDetails(
+    BuildContext context,
+    String id,
+    String namapesanan,
+    String tanggal,
+    String tanggalorder,
+    String alamat,
+    String jumlahkaryawan,
+    String lamakontrak,
+    String status,
+    String harga,
+    String hargaterbayar,
+    String metodebayar,
+    String deadlinebayar,
+  ) {
     if (status == 'waiting_for_mou') {
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => OrderMOU(
-            name: name,
+            id: id,
+            namapesanan: namapesanan,
             tanggal: tanggal,
+            tanggalorder: tanggalorder,
             alamat: alamat,
+            jumlahkaryawan: jumlahkaryawan,
+            lamakontrak: lamakontrak,
             status: status,
             harga: harga,
+            hargaterbayar: hargaterbayar,
+            metodebayar: metodebayar,
+            deadlinebayar: deadlinebayar,
           ),
         ),
       );
@@ -59,11 +79,18 @@ class OrderControllerApi extends GetxController implements GetxService {
         context,
         MaterialPageRoute(
           builder: (context) => OrderBayar(
-            name: name,
+            id: id,
+            namapesanan: namapesanan,
             tanggal: tanggal,
+            tanggalorder: tanggalorder,
             alamat: alamat,
+            jumlahkaryawan: jumlahkaryawan,
+            lamakontrak: lamakontrak,
             status: status,
             harga: harga,
+            hargaterbayar: hargaterbayar,
+            metodebayar: metodebayar,
+            deadlinebayar: deadlinebayar,
           ),
         ),
       );
@@ -72,11 +99,18 @@ class OrderControllerApi extends GetxController implements GetxService {
         context,
         MaterialPageRoute(
           builder: (context) => OrderPenilaian(
-            name: name,
+            id: id,
+            namapesanan: namapesanan,
             tanggal: tanggal,
+            tanggalorder: tanggalorder,
             alamat: alamat,
+            jumlahkaryawan: jumlahkaryawan,
+            lamakontrak: lamakontrak,
             status: status,
             harga: harga,
+            hargaterbayar: hargaterbayar,
+            metodebayar: metodebayar,
+            deadlinebayar: deadlinebayar,
           ),
         ),
       );
@@ -131,45 +165,3 @@ class OrderControllerApi extends GetxController implements GetxService {
     }
   }
 }
-
-  // void filterOrdersByStatus(BuildContext context, String status) {
-  //   if (status == 'Semua') {
-  //     filteredOrderList.assignAll(listOrder);
-  //   } else if (status == 'waiting_for_confirmation') {
-  //     var selectedOrder =
-  //         listOrder.firstWhere((order) => order.status == status);
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => OrderBayar(
-  //           name: selectedOrder.id.toString(),
-  //           harga: selectedOrder.totalPrice.toString(),
-  //           alamat: selectedOrder.address.toString(),
-  //           tanggal: selectedOrder.date.toString(),
-  //           status: selectedOrder.status.toString(),
-  //         ),
-  //       ),
-  //     );
-  //   }
-  //   // else if (status == 'waiting_mou') {
-  //   //   // Navigasi ke halaman yang sesuai
-  //   //   Get.to(NamaHalaman2());
-  //   // }
-  //   // else {
-  //   //   final snackBar = SnackBar(
-  //   //     elevation: 0,
-  //   //     behavior: SnackBarBehavior.floating,
-  //   //     backgroundColor: Colors.transparent,
-  //   //     content: AwesomeSnackbarContent(
-  //   //       title: 'Info',
-  //   //       message:
-  //   //           'Terimakasih sudah memesan layanan kami, kontrak pemesanan anda sudah berakhir',
-  //   //       contentType: ContentType.help,
-  //   //     ),
-  //   //   );
-
-  //   //   ScaffoldMessenger.of(context)
-  //   //     ..hideCurrentSnackBar()
-  //   //     ..showSnackBar(snackBar);
-  //   // }
-  // }

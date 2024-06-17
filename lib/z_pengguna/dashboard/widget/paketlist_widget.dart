@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:outsourcing/components/text_widget.dart';
+import 'package:outsourcing/global.dart';
 import 'package:outsourcing/z_pengguna/dashboard/controller/paket_controller.dart';
 import 'package:outsourcing/z_pengguna/order_paketlayanan/view/see_all.dart';
 
@@ -74,7 +75,7 @@ class _PaketListWidgetState extends State<PaketListWidget> {
                         )),
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 5),
                 SizedBox(
                   height: 300,
                   width: MediaQuery.of(context).size.width,
@@ -115,6 +116,8 @@ class _PaketListWidgetState extends State<PaketListWidget> {
 
   Widget paketCard(String idpaket, String name, String image,
       String description, String contract) {
+    final imageURL = '$baseURL/resource/packages/$idpaket/main_image/';
+    print('Image URL: $imageURL');
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -130,51 +133,52 @@ class _PaketListWidgetState extends State<PaketListWidget> {
             ),
             CircleAvatar(
               radius: 30,
-              backgroundImage: mainImageWidget(image),
-              // backgroundImage: AssetImage('lib/images/icon/ic_user.png'),
-              backgroundColor: Color.fromRGBO(193, 71, 233, 1),
+              backgroundImage: NetworkImage(
+                imageURL,
+              ),
+              onBackgroundImageError: (error, stackTrace) {
+                print('Error loading image: $error');
+              },
+              backgroundColor: const Color.fromRGBO(193, 71, 233, 1),
             ),
             const SizedBox(
               width: 15,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextWidget(
-                  name,
-                  18,
-                  const Color.fromRGBO(45, 3, 59, 1),
-                  FontWeight.bold,
-                  letterSpace: 0,
-                  textAlign: TextAlign.left,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextWidget(
-                  description,
-                  15,
-                  Colors.black.withOpacity(.6),
-                  FontWeight.bold,
-                  letterSpace: 0,
-                  textAlign: TextAlign.left,
-                ),
-              ],
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Color.fromRGBO(45, 3, 59, 1),
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0,
+                    ),
+                    textAlign: TextAlign.left,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    description,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black.withOpacity(.6),
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0,
+                    ),
+                    textAlign: TextAlign.left,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  ImageProvider mainImageWidget(String imageUrl) {
-    if (imageUrl.isEmpty) {
-      return const AssetImage('lib/images/icon/ic_user.png');
-    } else {
-      return NetworkImage(
-        imageUrl,
-      );
-    }
   }
 }

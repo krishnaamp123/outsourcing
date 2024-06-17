@@ -3,24 +3,39 @@ import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/z_pengguna/order/widget/buttonmou_widget.dart';
 import 'package:intl/intl.dart';
+import 'package:outsourcing/z_pengguna/order/widget/downloadpdf_widget.dart';
 
 class OrderMOU extends StatefulWidget {
   final Function()? onTap;
-  final String name;
-  final String harga;
-  final String alamat;
+  final String id;
+  final String namapesanan;
   final String tanggal;
+  final String tanggalorder;
+  final String alamat;
+  final String jumlahkaryawan;
+  final String lamakontrak;
   final String status;
+  final String harga;
+  final String hargaterbayar;
+  final String metodebayar;
+  final String deadlinebayar;
+
   // final Color colors;
 
   const OrderMOU({
     Key? key,
-    required this.name,
+    required this.id,
+    required this.namapesanan,
     required this.tanggal,
+    required this.tanggalorder,
     required this.alamat,
+    required this.jumlahkaryawan,
+    required this.lamakontrak,
     required this.status,
     required this.harga,
-    // required this.colors,
+    required this.hargaterbayar,
+    required this.metodebayar,
+    required this.deadlinebayar,
     this.onTap,
   }) : super(key: key);
 
@@ -62,16 +77,29 @@ class _OrderMOUState extends State<OrderMOU> {
     String harga = widget.harga;
     int hargaInt = int.parse(harga);
     String formattedHarga =
-        NumberFormat.currency(locale: 'id', symbol: 'Rp', decimalDigits: 0)
+        NumberFormat.currency(locale: 'id', symbol: 'Rp.', decimalDigits: 0)
             .format(hargaInt);
-    // Parse tanggal menjadi objek DateTime
+    String hargaterbayar = widget.hargaterbayar;
+    int hargaterbayarInt = int.parse(hargaterbayar);
+    String formattedHargaTerbayar =
+        NumberFormat.currency(locale: 'id', symbol: 'Rp.', decimalDigits: 0)
+            .format(hargaterbayarInt);
     DateTime parsedDate = DateTime.parse(widget.tanggal);
-    // Format tanggal sesuai keinginan (hanya hari, bulan, dan tahun)
     String formattedDate = DateFormat('dd-MM-yyyy').format(parsedDate);
+    DateTime parsedOrderDate = DateTime.parse(widget.tanggalorder);
+    String formattedOrderDate =
+        DateFormat('dd-MM-yyyy').format(parsedOrderDate);
+    DateTime parsedDeadlineDate = DateTime.parse(widget.deadlinebayar);
+    String formattedDeadlineDate =
+        DateFormat('dd-MM-yyyy').format(parsedDeadlineDate);
+    String id = widget.id;
     String alamat = widget.alamat;
-    String name = widget.name;
     String status = widget.status;
-    // Color colors = widget.colors;
+    String namapesanan = widget.namapesanan;
+    String jumlahkaryawan = widget.jumlahkaryawan;
+    String lamakontrak = widget.lamakontrak;
+    String metodebayar = widget.metodebayar;
+
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -109,7 +137,7 @@ class _OrderMOUState extends State<OrderMOU> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextWidget(
-                          'Order $name',
+                          'Order $id',
                           20,
                           const Color.fromRGBO(45, 3, 59, 1),
                           FontWeight.bold,
@@ -118,12 +146,25 @@ class _OrderMOUState extends State<OrderMOU> {
                         const SizedBox(
                           height: 5,
                         ),
-                        TextWidget(
-                          "Harga Telah Disesuaikan\nDengan Customisasi Anda",
-                          15,
-                          Colors.black.withOpacity(.6),
-                          FontWeight.bold,
-                          letterSpace: 0,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextWidget(
+                              "Status Pesanan :",
+                              15,
+                              Colors.black.withOpacity(.6),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                            ),
+                            TextWidget(
+                              status,
+                              18,
+                              Colors.orange,
+                              FontWeight.bold,
+                              letterSpace: 0,
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 10,
@@ -181,36 +222,7 @@ class _OrderMOUState extends State<OrderMOU> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Card(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: const SizedBox(
-                            height: 50,
-                            width: 180,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Icon(
-                                  Icons.download,
-                                  color: Colors.blue,
-                                  size: 30,
-                                ),
-                                SizedBox(
-                                  height: 0,
-                                ),
-                                TextWidget(
-                                  "Unduh MOU",
-                                  18,
-                                  Color.fromRGBO(45, 3, 59, 1),
-                                  FontWeight.bold,
-                                  letterSpace: 0,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        const DownloadPdfCard(),
                         const SizedBox(
                           height: 10,
                         ),
@@ -232,80 +244,152 @@ class _OrderMOUState extends State<OrderMOU> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 170,
+                    height: 360,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          const TextWidget(
-                            "Alamat Anda",
-                            15,
-                            Color.fromRGBO(129, 12, 168, 1),
-                            FontWeight.normal,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextWidget(
-                            alamat,
-                            18,
-                            const Color.fromRGBO(45, 3, 59, 1),
-                            FontWeight.bold,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextWidget(
-                            "Hari Pemesanan",
-                            15,
-                            Color.fromRGBO(129, 12, 168, 1),
-                            FontWeight.normal,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextWidget(
-                            formattedDate,
-                            18,
-                            const Color.fromRGBO(45, 3, 59, 1),
-                            FontWeight.bold,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextWidget(
-                            "Status",
-                            15,
-                            Color.fromRGBO(129, 12, 168, 1),
-                            FontWeight.normal,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextWidget(
-                            status,
-                            18,
-                            Colors.orange,
-                            FontWeight.bold,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const TextWidget(
+                              "Atas Nama :",
+                              15,
+                              Color.fromRGBO(129, 12, 168, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextWidget(
+                              namapesanan,
+                              15,
+                              const Color.fromRGBO(45, 3, 59, 1),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            const TextWidget(
+                              "Alamat Anda :",
+                              15,
+                              Color.fromRGBO(129, 12, 168, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextWidget(
+                              alamat,
+                              15,
+                              const Color.fromRGBO(45, 3, 59, 1),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Lama Kontrak : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  '$lamakontrak Hari',
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Jumlah Karyawan : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  '$jumlahkaryawan Orang',
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            const TextWidget(
+                              "Deskripsi Layanan :",
+                              15,
+                              Color.fromRGBO(129, 12, 168, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextWidget(
+                              "description",
+                              15,
+                              Colors.black.withOpacity(.6),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const TextWidget(
+                              "Status Pesanan :",
+                              15,
+                              Color.fromRGBO(129, 12, 168, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextWidget(
+                              status,
+                              15,
+                              Colors.orange,
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

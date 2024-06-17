@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:outsourcing/model/order_model.dart';
-import 'package:outsourcing/service/orderl_service.dart';
+import 'package:outsourcing/service/order_service.dart';
 
 class OrderLayananDetailController extends GetxController
     implements GetxService {
