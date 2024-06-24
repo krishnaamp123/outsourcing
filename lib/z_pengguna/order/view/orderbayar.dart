@@ -77,14 +77,26 @@ class _OrderBayarState extends State<OrderBayar> {
     String formattedHarga =
         NumberFormat.currency(locale: 'id', symbol: 'Rp.', decimalDigits: 0)
             .format(hargaInt);
-    // Parse tanggal menjadi objek DateTime
+    String hargaterbayar = widget.hargaterbayar;
+    int hargaterbayarInt = int.parse(hargaterbayar);
+    String formattedHargaTerbayar =
+        NumberFormat.currency(locale: 'id', symbol: 'Rp.', decimalDigits: 0)
+            .format(hargaterbayarInt);
     DateTime parsedDate = DateTime.parse(widget.tanggal);
-    // Format tanggal sesuai keinginan (hanya hari, bulan, dan tahun)
     String formattedDate = DateFormat('dd-MM-yyyy').format(parsedDate);
-    String alamat = widget.alamat;
+    DateTime parsedOrderDate = DateTime.parse(widget.tanggalorder);
+    String formattedOrderDate =
+        DateFormat('dd-MM-yyyy').format(parsedOrderDate);
+    DateTime parsedDeadlineDate = DateTime.parse(widget.deadlinebayar);
+    String formattedDeadlineDate =
+        DateFormat('dd-MM-yyyy').format(parsedDeadlineDate);
     String id = widget.id;
+    String alamat = widget.alamat;
     String status = widget.status;
-    // Color colors = widget.colors;
+    String namapesanan = widget.namapesanan;
+    String jumlahkaryawan = widget.jumlahkaryawan;
+    String lamakontrak = widget.lamakontrak;
+    String metodebayar = widget.metodebayar;
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -131,12 +143,25 @@ class _OrderBayarState extends State<OrderBayar> {
                         const SizedBox(
                           height: 5,
                         ),
-                        TextWidget(
-                          "Harga Telah Disesuaikan\nDengan Customisasi Anda",
-                          15,
-                          Colors.black.withOpacity(.6),
-                          FontWeight.bold,
-                          letterSpace: 0,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextWidget(
+                              "Status Pesanan :",
+                              15,
+                              Colors.black.withOpacity(.6),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                            ),
+                            TextWidget(
+                              status,
+                              18,
+                              Colors.orange,
+                              FontWeight.bold,
+                              letterSpace: 0,
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 10,
@@ -200,7 +225,7 @@ class _OrderBayarState extends State<OrderBayar> {
                 )),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 200 : 250,
+              top: position ? 210 : 330,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
@@ -212,80 +237,191 @@ class _OrderBayarState extends State<OrderBayar> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 170,
+                    height: 300,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          const TextWidget(
-                            "Alamat Anda",
-                            15,
-                            Color.fromRGBO(129, 12, 168, 1),
-                            FontWeight.normal,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextWidget(
-                            alamat,
-                            18,
-                            const Color.fromRGBO(45, 3, 59, 1),
-                            FontWeight.bold,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextWidget(
-                            "Hari Pemesanan",
-                            15,
-                            Color.fromRGBO(129, 12, 168, 1),
-                            FontWeight.normal,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextWidget(
-                            formattedDate,
-                            18,
-                            const Color.fromRGBO(45, 3, 59, 1),
-                            FontWeight.bold,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextWidget(
-                            "Status",
-                            15,
-                            Color.fromRGBO(129, 12, 168, 1),
-                            FontWeight.normal,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextWidget(
-                            status,
-                            18,
-                            Colors.orange,
-                            FontWeight.bold,
-                            letterSpace: 0,
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const TextWidget(
+                              'Rincian Pesanan',
+                              20,
+                              Color.fromRGBO(45, 3, 59, 1),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            const TextWidget(
+                              "Atas Nama :",
+                              15,
+                              Color.fromRGBO(129, 12, 168, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextWidget(
+                              namapesanan,
+                              15,
+                              const Color.fromRGBO(45, 3, 59, 1),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            const TextWidget(
+                              "Alamat Anda :",
+                              15,
+                              Color.fromRGBO(129, 12, 168, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextWidget(
+                              alamat,
+                              15,
+                              const Color.fromRGBO(45, 3, 59, 1),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Lama Kontrak : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  '$lamakontrak Hari',
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Jumlah Karyawan : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  '$jumlahkaryawan Orang',
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Tanggal Pemesanan : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  formattedDate,
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Tanggal Dipesan : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  formattedOrderDate,
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            const TextWidget(
+                              "Deskripsi Layanan :",
+                              15,
+                              Color.fromRGBO(129, 12, 168, 1),
+                              FontWeight.normal,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextWidget(
+                              "description",
+                              15,
+                              Colors.black.withOpacity(.6),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -293,7 +429,122 @@ class _OrderBayarState extends State<OrderBayar> {
               ),
             ),
             AnimatedPositioned(
-              top: position ? 660 : 330,
+              duration: const Duration(milliseconds: 400),
+              top: position ? 520 : 570,
+              left: 20,
+              right: 20,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 400),
+                opacity: opacity,
+                child: Card(
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: SizedBox(
+                    height: 125,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const TextWidget(
+                              'Pembayaran',
+                              20,
+                              Color.fromRGBO(45, 3, 59, 1),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Metode Pembayaran : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  metodebayar,
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Harga Terbayarkan : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  formattedHargaTerbayar,
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Deadline Pembayaran : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  formattedDeadlineDate,
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            AnimatedPositioned(
+              top: position ? 660 : 710,
               right: 30,
               left: 30,
               duration: const Duration(milliseconds: 400),

@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:outsourcing/CookieClient.dart';
 import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/global.dart';
+import 'package:outsourcing/service/token.dart';
 import 'package:uuid/uuid.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -18,20 +21,33 @@ class ButtonBayar extends StatefulWidget {
 
 class _ButtonBayarState extends State<ButtonBayar> {
   Future<void> _payWithBankTransfer(BuildContext context) async {
+    var token = await getToken();
+    if (token.isEmpty) {
+      throw Exception('Token is missing');
+    }
+
     final uuid = Uuid();
     final orderId = '${widget.transactionId}_${uuid.v4()}';
     final url =
         Uri.parse(baseURL + '/transactions/${widget.transactionId}/pay/');
+    var cj = CookieJar();
+    var uri = Uri.parse(baseURL);
+
+    await cj.saveFromResponse(uri, [Cookie('session', token)]);
+    var cookies = await cj.loadForRequest(uri);
+    print('Cookies: $cookies');
+
+    var client = http.Client();
+    client = CookieClient(client, cookieJar: cj);
 
     try {
-      final response = await http.post(
+      http.Response response = await client.post(
         url,
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
         body: jsonEncode(<String, dynamic>{
           'order_id': orderId,
-          // Tambahkan body request jika diperlukan
         }),
       );
 
@@ -46,7 +62,6 @@ class _ButtonBayarState extends State<ButtonBayar> {
         print('Midtrans Token: $midtransToken');
         print('Redirect URL: $redirectUrl');
 
-        // Menampilkan toast
         Fluttertoast.showToast(
           msg: "Payment created, redirecting...",
           toastLength: Toast.LENGTH_SHORT,
@@ -57,9 +72,7 @@ class _ButtonBayarState extends State<ButtonBayar> {
           fontSize: 16.0,
         );
 
-        // Redirect to Midtrans URL
         final uri = Uri.parse(redirectUrl);
-
         if (await canLaunchUrl(uri)) {
           final bool launched = await launchUrl(
             uri,
@@ -137,7 +150,7 @@ class _ButtonBayarState extends State<ButtonBayar> {
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      shadowColor: Colors.purple, // Warna teks
+                      shadowColor: Colors.purple,
                       minimumSize: const Size(240, 40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -161,7 +174,7 @@ class _ButtonBayarState extends State<ButtonBayar> {
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      shadowColor: Colors.purple, // Warna teks
+                      shadowColor: Colors.purple,
                       minimumSize: const Size(240, 40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:outsourcing/CookieClient.dart';
@@ -76,18 +77,44 @@ class OrderService {
     return response;
   }
 
-  Future<http.Response> postMOU(OrderModel orderModel) async {
-    // SharedPreferences localStorage = await SharedPreferences.getInstance();
-    // var token = localStorage.getString('token')?.replaceAll('"', "");
+  Future<http.Response> postMOU(File pdfFile, String id) async {
     var token = await getToken();
-    var url = Uri.parse('$baseURL/transactions/1/upload-mou/');
-    http.Response response = await http.post(url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(orderModel.toJson()));
-    print(response.body);
-    print(token);
+    if (token.isEmpty) {
+      throw Exception('Token is missing');
+    }
+
+    var url = Uri.parse('$baseURL/transactions/$id/upload-mou/');
+    var cj = CookieJar();
+    var uri = Uri.parse(baseURL);
+
+    // Simpan cookie token
+    await cj.saveFromResponse(uri, [Cookie('session', token)]);
+    var cookies = await cj.loadForRequest(uri);
+    print('Cookies: $cookies');
+
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+
+    var client = http.Client();
+    client = CookieClient(client, cookieJar: cj);
+
+    List<int> fileBytes = await pdfFile.readAsBytes();
+    String base64Pdf = base64Encode(fileBytes);
+
+    var body = jsonEncode({
+      'file': base64Pdf,
+    });
+
+    http.Response response = await client.post(
+      url,
+      headers: headers,
+      body: body,
+    );
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
     return response;
   }
 }

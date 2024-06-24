@@ -20,6 +20,7 @@ class OrderLayananDetailController extends GetxController
     required String hari,
     required DateTime selectedDate,
     required String selectedPayment,
+    required int? jumlahkaryawan,
     required List<int> idlayanan,
     required String idserviceril,
   }) async {
@@ -41,7 +42,7 @@ class OrderLayananDetailController extends GetxController
 
     Details details = Details(
       serviceId: int.tryParse(idserviceril),
-      totalEmployee: 10, // Adjust total_employee as needed
+      totalEmployee: jumlahkaryawan, // Adjust total_employee as needed
       etcs: etcsList,
     );
 

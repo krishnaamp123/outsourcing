@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:outsourcing/service/auth_service.dart';
 import 'package:outsourcing/core.dart';
-import 'package:outsourcing/z_karyawan/dashboard/controller/penempatank_controller.dart';
 import 'package:outsourcing/z_karyawan/dashboard/widget/infopenempatank.dart';
-import 'package:outsourcing/z_karyawan/dashboard/widget/listpenempatank.dart';
+import 'package:outsourcing/z_karyawan/dashboard/widget/listplacementk.dart';
 import 'package:outsourcing/z_karyawan/dashboard/widget/titlepenempatank.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,12 +17,8 @@ class HomeKaryawan extends StatefulWidget {
 
 class _HomeKaryawanState extends State<HomeKaryawan> {
   String name = '';
-
   var opacity = 0.0;
   bool position = false;
-  final _formKey = GlobalKey<FormState>();
-  //text editing controllers
-  final PenempatanKController penempatankController = PenempatanKController();
   @override
   void initState() {
     super.initState();
@@ -32,7 +26,6 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
       animator();
     });
     _loadUserData();
-    _printToken();
   }
 
   animator() {
@@ -73,24 +66,15 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
     }
   }
 
-  void _printToken() async {
-    Network network = Network();
-    String token = await network.getToken();
-    print('Token: $token'); // Cetak token ke debug console
-  }
-
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    // String username = widget.username;
     return Scaffold(
-      body: Form(
-        key: _formKey,
+      body: SafeArea(
         child: Container(
           color: Colors.white,
-          padding: const EdgeInsets.only(top: 60),
-          height: size.height,
-          width: size.width,
+          padding: const EdgeInsets.only(top: 30),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           child: Stack(
             children: [
               AnimatedPositioned(
@@ -130,8 +114,7 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
                         children: [
                           TextWidget("Halo", 15, Colors.black.withOpacity(.7),
                               FontWeight.bold),
-                          TextWidget(
-                              '${name}', 20, Colors.black, FontWeight.bold),
+                          TextWidget(name, 20, Colors.black, FontWeight.bold),
                         ],
                       ),
                     ],
@@ -146,9 +129,8 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
                   child: AnimatedOpacity(
                     opacity: opacity,
                     duration: const Duration(milliseconds: 400),
-                    child: SizedBox(
-                      width: size.width,
-                      child: const Row(
+                    child: const SizedBox(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           TextWidget(
@@ -191,9 +173,8 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
                   child: AnimatedOpacity(
                     opacity: opacity,
                     duration: const Duration(milliseconds: 400),
-                    child: SizedBox(
-                      width: size.width,
-                      child: const Row(
+                    child: const SizedBox(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           TextWidget(
@@ -215,7 +196,7 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 500),
                   opacity: opacity,
-                  child: const ListPenempatanKWidget(),
+                  child: const ListPlacementKWidget(),
                 ),
               ),
             ],

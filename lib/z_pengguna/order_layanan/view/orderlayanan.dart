@@ -330,14 +330,6 @@ class _OrderLayananState extends State<OrderLayanan> {
                                       ),
                                     ],
                                   ),
-                                  // subtitle: Text(
-                                  //   'Rp. ${item.pricePerItem.toString()}',
-                                  //   style: const TextStyle(
-                                  //     fontWeight: FontWeight.normal,
-                                  //     fontSize: 14,
-                                  //     color: Color.fromRGBO(45, 3, 59, 1),
-                                  //   ),
-                                  // ),
                                   subtitle: Text(
                                     'Rp. ${NumberFormat.currency(locale: 'id', symbol: '', decimalDigits: 0).format(item.pricePerItem)}',
                                     style: const TextStyle(

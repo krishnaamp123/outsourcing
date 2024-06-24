@@ -58,14 +58,14 @@ class LoginController {
           builder: (context) => const Start(),
         ),
       );
-    } else if (roles == '"employee"') {
+    } else if (roles == '"employees"') {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => const StartKaryawan(),
         ),
       );
-    } else if (roles == '"supervisor"') {
+    } else if (roles == '"supervisors"') {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

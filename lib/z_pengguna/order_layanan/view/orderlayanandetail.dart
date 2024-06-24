@@ -172,7 +172,6 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
             .format(hargaInt);
     List<String> selectedItems = widget.selectedItems;
     List<int> hargaitem = widget.hargaitem;
-    // List<int> idlayanan = widget.idlayanan;
     int jumlahKaryawan = widget.jumlahKaryawan;
     // int? jumlahKaryawan = widget.jumlahKaryawan;
     final imageURL = '$baseURL/resource/services/$idserviceril/main_image/';
@@ -761,6 +760,7 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
                                           hari: widget.hari,
                                           selectedDate: selectedDate,
                                           selectedPayment: selectedPayment,
+                                          jumlahkaryawan: widget.jumlahKaryawan,
                                           idlayanan: widget.idlayanan,
                                           idserviceril: widget.idserviceril,
                                         );

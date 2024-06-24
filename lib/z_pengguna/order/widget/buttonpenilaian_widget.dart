@@ -80,7 +80,7 @@ class _ButtonPenilaianState extends State<ButtonPenilaian> {
       ),
       child: Container(
         padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.symmetric(horizontal: 70),
+        margin: const EdgeInsets.symmetric(horizontal: 60),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
         ),

@@ -2,9 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
-import 'package:outsourcing/z_supervisor/dashboard/controller/penempatans_controller.dart';
 import 'package:outsourcing/z_supervisor/dashboard/widget/infopenempatans.dart';
-import 'package:outsourcing/z_supervisor/dashboard/widget/listpenempatans.dart';
+import 'package:outsourcing/z_supervisor/dashboard/widget/listplacements.dart';
 import 'package:outsourcing/z_supervisor/dashboard/widget/titlepenempatans.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,12 +17,8 @@ class HomeSupervisor extends StatefulWidget {
 
 class _HomeSupervisorState extends State<HomeSupervisor> {
   String name = '';
-
   var opacity = 0.0;
   bool position = false;
-  final _formKey = GlobalKey<FormState>();
-  //text editing controllers
-  final PenempatanSController penempatansController = PenempatanSController();
   @override
   void initState() {
     super.initState();
@@ -73,15 +68,13 @@ class _HomeSupervisorState extends State<HomeSupervisor> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Form(
-        key: _formKey,
+      body: SafeArea(
         child: Container(
           color: Colors.white,
-          padding: const EdgeInsets.only(top: 60),
-          height: size.height,
-          width: size.width,
+          padding: const EdgeInsets.only(top: 30),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           child: Stack(
             children: [
               AnimatedPositioned(
@@ -138,7 +131,7 @@ class _HomeSupervisorState extends State<HomeSupervisor> {
                     opacity: opacity,
                     duration: const Duration(milliseconds: 400),
                     child: SizedBox(
-                      width: size.width,
+                      width: MediaQuery.of(context).size.width,
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -183,7 +176,7 @@ class _HomeSupervisorState extends State<HomeSupervisor> {
                     opacity: opacity,
                     duration: const Duration(milliseconds: 400),
                     child: SizedBox(
-                      width: size.width,
+                      width: MediaQuery.of(context).size.width,
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -206,7 +199,7 @@ class _HomeSupervisorState extends State<HomeSupervisor> {
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 500),
                   opacity: opacity,
-                  child: const ListPenempatanSWidget(),
+                  child: const ListPlacementSWidget(),
                 ),
               ),
             ],

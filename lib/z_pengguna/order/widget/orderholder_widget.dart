@@ -59,6 +59,7 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
                     'waiting_for_mou',
                     'waiting_for_mou_confirmation',
                     'waiting_for_initial_payment',
+                    'waiting_for_placement',
                     'confirmed',
                     'ongoing',
                     'waiting_for_further_payment',

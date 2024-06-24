@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
-import 'package:outsourcing/z_pengguna/order/widget/buttonmou_widget.dart';
+import 'package:outsourcing/service/order_service.dart';
 import 'package:intl/intl.dart';
 import 'package:outsourcing/z_pengguna/order/widget/downloadpdf_widget.dart';
+import 'package:file_picker/file_picker.dart';
 
 class OrderMOU extends StatefulWidget {
   final Function()? onTap;
@@ -48,6 +51,7 @@ class _OrderMOUState extends State<OrderMOU> {
   var opacity = 0.0;
   bool position = false;
   late Size size;
+  final OrderService orderService = OrderService();
 
   @override
   void initState() {
@@ -197,7 +201,7 @@ class _OrderMOUState extends State<OrderMOU> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     TextWidget(
-                                      "Harga",
+                                      "Total Harga",
                                       15,
                                       Colors.black.withOpacity(.6),
                                       FontWeight.bold,
@@ -244,7 +248,7 @@ class _OrderMOUState extends State<OrderMOU> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 360,
+                    height: 230,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -254,6 +258,16 @@ class _OrderMOUState extends State<OrderMOU> {
                           children: [
                             const SizedBox(
                               height: 10,
+                            ),
+                            const TextWidget(
+                              'Rincian Pesanan',
+                              20,
+                              Color.fromRGBO(45, 3, 59, 1),
+                              FontWeight.bold,
+                              letterSpace: 0,
+                            ),
+                            const SizedBox(
+                              height: 5,
                             ),
                             const TextWidget(
                               "Atas Nama :",
@@ -347,6 +361,54 @@ class _OrderMOUState extends State<OrderMOU> {
                             const SizedBox(
                               height: 5,
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Tanggal Pemesanan : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  formattedDate,
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Tanggal Dipesan : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  formattedOrderDate,
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
                             const TextWidget(
                               "Deskripsi Layanan :",
                               15,
@@ -369,24 +431,120 @@ class _OrderMOUState extends State<OrderMOU> {
                             const SizedBox(
                               height: 10,
                             ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 400),
+              top: position ? 520 : 570,
+              left: 20,
+              right: 20,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 400),
+                opacity: opacity,
+                child: Card(
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: SizedBox(
+                    height: 125,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
                             const TextWidget(
-                              "Status Pesanan :",
-                              15,
-                              Color.fromRGBO(129, 12, 168, 1),
-                              FontWeight.normal,
+                              'Pembayaran',
+                              20,
+                              Color.fromRGBO(45, 3, 59, 1),
+                              FontWeight.bold,
                               letterSpace: 0,
-                              textAlign: TextAlign.left,
                             ),
                             const SizedBox(
                               height: 5,
                             ),
-                            TextWidget(
-                              status,
-                              15,
-                              Colors.orange,
-                              FontWeight.bold,
-                              letterSpace: 0,
-                              textAlign: TextAlign.left,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Metode Pembayaran : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  metodebayar,
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Harga Terbayarkan : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  formattedHargaTerbayar,
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const TextWidget(
+                                  "Deadline Pembayaran : ",
+                                  15,
+                                  Color.fromRGBO(129, 12, 168, 1),
+                                  FontWeight.normal,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                                TextWidget(
+                                  formattedDeadlineDate,
+                                  15,
+                                  const Color.fromRGBO(45, 3, 59, 1),
+                                  FontWeight.bold,
+                                  letterSpace: 0,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
                             ),
                           ],
                         ),
@@ -397,7 +555,7 @@ class _OrderMOUState extends State<OrderMOU> {
               ),
             ),
             AnimatedPositioned(
-              top: position ? 660 : 330,
+              top: position ? 660 : 710,
               right: 30,
               left: 30,
               duration: const Duration(milliseconds: 400),
@@ -406,10 +564,83 @@ class _OrderMOUState extends State<OrderMOU> {
                 duration: const Duration(milliseconds: 400),
                 child: SizedBox(
                   width: size.width,
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ButtonMOU(),
+                      ElevatedButton(
+                        onPressed: () async {
+                          FilePickerResult? result =
+                              await FilePicker.platform.pickFiles(
+                            type: FileType.custom,
+                            allowedExtensions: ['pdf'],
+                          );
+
+                          if (result != null &&
+                              result.files.single.path != null) {
+                            File pdfFile = File(result.files.single.path!);
+
+                            // Unggah file MOU
+                            var response =
+                                await orderService.postMOU(pdfFile, id);
+                            if (response.statusCode == 200) {
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.transparent,
+                                content: AwesomeSnackbarContent(
+                                  title: 'Info',
+                                  message: 'File MOU berhasil diunggah!',
+                                  contentType: ContentType.success,
+                                ),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(snackBar);
+                            } else {
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.transparent,
+                                content: AwesomeSnackbarContent(
+                                  title: 'Error',
+                                  message: 'Gagal mengunggah file MOU.',
+                                  contentType: ContentType.failure,
+                                ),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(snackBar);
+                            }
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(240, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          backgroundColor:
+                              const Color.fromRGBO(193, 71, 233, 1),
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.symmetric(horizontal: 70),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              "Unggah MOU",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
