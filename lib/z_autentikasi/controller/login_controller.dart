@@ -58,14 +58,14 @@ class LoginController {
           builder: (context) => const Start(),
         ),
       );
-    } else if (roles == '"employees"') {
+    } else if (roles == '"employee"') {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => const StartKaryawan(),
         ),
       );
-    } else if (roles == '"supervisors"') {
+    } else if (roles == '"supervisor"') {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -93,8 +93,12 @@ class LoginController {
         if (token != null && validateToken(token)) {
           var roles = localStorage.getString('roles');
           var user = localStorage.getString('user');
+          var karyawan = localStorage.getString('karyawan');
+          var supervisor = localStorage.getString('supervisor');
           print('roles: $roles');
           print('userprofile: $user');
+          print('karyawanprofile: $karyawan');
+          print('supervisorprofile: $supervisor');
           if (roles != null && roles.isNotEmpty) {
             final snackBar = SnackBar(
               elevation: 0,

@@ -6,7 +6,7 @@ import 'package:outsourcing/z_pengguna/order/widget/buttonbayar_widget.dart';
 
 class OrderBayar extends StatefulWidget {
   final Function()? onTap;
-  final String id;
+  final int id;
   final String namapesanan;
   final String tanggal;
   final String tanggalorder;
@@ -90,7 +90,7 @@ class _OrderBayarState extends State<OrderBayar> {
     DateTime parsedDeadlineDate = DateTime.parse(widget.deadlinebayar);
     String formattedDeadlineDate =
         DateFormat('dd-MM-yyyy').format(parsedDeadlineDate);
-    String id = widget.id;
+    String id = widget.id.toString();
     String alamat = widget.alamat;
     String status = widget.status;
     String namapesanan = widget.namapesanan;

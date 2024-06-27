@@ -10,7 +10,7 @@ import 'package:file_picker/file_picker.dart';
 
 class OrderMOU extends StatefulWidget {
   final Function()? onTap;
-  final String id;
+  final int id;
   final String namapesanan;
   final String tanggal;
   final String tanggalorder;
@@ -96,7 +96,7 @@ class _OrderMOUState extends State<OrderMOU> {
     DateTime parsedDeadlineDate = DateTime.parse(widget.deadlinebayar);
     String formattedDeadlineDate =
         DateFormat('dd-MM-yyyy').format(parsedDeadlineDate);
-    String id = widget.id;
+    String id = widget.id.toString();
     String alamat = widget.alamat;
     String status = widget.status;
     String namapesanan = widget.namapesanan;

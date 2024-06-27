@@ -93,7 +93,7 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
                               // final order = orderController.filteredOrderList[index];
                               var order = orderCon.filteredOrderList[index];
                               return orderlist(
-                                order.id.toString(),
+                                order.id!.toInt(),
                                 order.companyName.toString(),
                                 order.startDate.toString(),
                                 order.orderDate.toString(),
@@ -122,7 +122,7 @@ class _OrderHolderWidgetState extends State<OrderHolderWidget> {
   }
 
   Widget orderlist(
-    String id,
+    int id,
     String namapesanan,
     String tanggal,
     String tanggalorder,

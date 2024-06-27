@@ -1,34 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/z_pengguna/feedback_complaint/controller/complaint_controller.dart';
-import 'package:outsourcing/z_pengguna/feedback_complaint/widget/buttonkirimfc.dart';
-import 'package:outsourcing/z_pengguna/feedback_complaint/widget/dropdownfc_widget.dart';
-import 'package:outsourcing/z_pengguna/feedback_complaint/widget/dropdownkfc.dart';
-import 'package:outsourcing/z_pengguna/feedback_complaint/widget/textfieldfc_widget.dart';
 
-class ComplaintWidget extends StatefulWidget {
-  const ComplaintWidget({super.key});
+class ComplaintBWidget extends StatefulWidget {
+  const ComplaintBWidget({super.key});
 
   @override
-  State<ComplaintWidget> createState() => _ComplaintWidgetState();
+  State<ComplaintBWidget> createState() => _ComplaintBWidgetState();
 }
 
-class _ComplaintWidgetState extends State<ComplaintWidget> {
-  final _formKey = GlobalKey<FormState>();
-  //text editing controllers
-  final complaintController = ComplaintController();
-  // int? jumlahCleaner = 1;
+class _ComplaintBWidgetState extends State<ComplaintBWidget> {
   var animate = false;
   var opacity = 0.0;
   bool position = false;
   late Size size;
+  var complaintCon = Get.put(ComplaintBController());
+  bool isDataLoaded = false;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
     });
+    _loadData();
+  }
+
+  // Fungsi untuk memuat data
+  void _loadData() async {
+    await _refreshData();
+    await complaintCon.getComplaint();
+    setState(() {
+      isDataLoaded = true;
+    });
+  }
+
+  // Function to handle refreshing
+  Future<void> _refreshData() async {
+    await complaintCon.getComplaint();
+    setState(() {});
   }
 
   animator() {
@@ -47,71 +59,136 @@ class _ComplaintWidgetState extends State<ComplaintWidget> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Container(
-          color: Colors.white,
-          height: size.height,
-          width: size.width,
-          child: Stack(children: [
-            AnimatedPositioned(
-              duration: const Duration(milliseconds: 400),
-              top: position ? 10 : 100,
-              left: 20,
-              right: 20,
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 400),
-                opacity: opacity,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const DropdownFC(
-                        items: [
-                          'Order 1',
-                          'Order 2',
-                          'Order 3'
-                        ], // Sesuaikan dengan list item yang sesuai di sini
-                      ),
-                      const SizedBox(height: 10),
-                      const DropdownKFC(
-                        items: [
-                          'Karyawan 1',
-                          'Karyawan 2',
-                          'Karyawan 3'
-                        ], // Sesuaikan dengan list item yang sesuai di sini
-                      ),
-                      const SizedBox(height: 10),
-                      TextFieldFC(
-                        controller: complaintController.complainttextController,
-                        upText: 'Complaint',
-                        hintText: 'ex: Karyawan menghilang...',
-                        obscureText: false,
-                        validator: complaintController.validateComplaint,
-                        onChanged: (_) {
-                          setState(() {
-                            complaintController.complaintError = null;
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      ButtonKirim(onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          complaintController.onKirimPressed(context);
-                        } else {
-                          setState(() {
-                            complaintController.complaintError =
-                                complaintController
-                                        .complainttextController.text.isEmpty
-                                    ? 'Masukkan complaint'
-                                    : null;
-                          });
-                        }
-                      }),
-                    ]),
+    return RefreshIndicator(
+      onRefresh: _refreshData,
+      child: isDataLoaded
+          ? Container(
+              color: Colors.white,
+              height: size.height,
+              width: size.width,
+              child: Stack(
+                children: [
+                  AnimatedPositioned(
+                    top: position ? 1 : 50,
+                    left: 0,
+                    right: 0,
+                    duration: const Duration(milliseconds: 400),
+                    child: AnimatedOpacity(
+                      duration: const Duration(milliseconds: 400),
+                      opacity: opacity,
+                      child: SizedBox(
+                          height: 550,
+                          width: MediaQuery.of(context).size.width,
+                          child: Obx(
+                            () => complaintCon.isLoading.value
+                                ? const SpinKitWanderingCubes(
+                                    color: Colors.deepPurple,
+                                    size: 50.0,
+                                  )
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount:
+                                        complaintCon.listComplaint.length,
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      var complaint =
+                                          complaintCon.listComplaint[index];
+                                      return complaintlistCard(
+                                        complaint.employee!.fullname.toString(),
+                                        complaint.comment.toString(),
+                                        complaint.replies!.isNotEmpty
+                                            ? complaint.replies!.first.reply
+                                                .toString()
+                                            : '', // Check if reply list is not empty
+                                      );
+                                    },
+                                  ),
+                          )),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ]),
+            )
+          : const Center(
+              child: SpinKitWanderingCubes(
+              color: Colors.deepPurple,
+              size: 50.0,
+            ) // Tampilkan loading indicator jika data masih dimuat
+              ),
+    );
+  }
+
+  Widget complaintlistCard(String namakaryawan, String comment, String reply) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const TextWidget(
+                'Complaint',
+                15,
+                Color.fromRGBO(129, 12, 168, 1),
+                FontWeight.normal,
+                letterSpace: 0,
+                textAlign: TextAlign.left,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              TextWidget(
+                namakaryawan,
+                15,
+                const Color.fromRGBO(45, 3, 59, 1),
+                FontWeight.bold,
+                letterSpace: 0,
+                textAlign: TextAlign.left,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              TextWidget(
+                comment,
+                16,
+                const Color.fromRGBO(45, 3, 59, 1),
+                FontWeight.normal,
+                letterSpace: 0,
+                textAlign: TextAlign.left,
+              ),
+              Divider(
+                height: 10,
+                thickness: 1,
+                color: Colors.black.withOpacity(0.2),
+              ),
+              const TextWidget(
+                'Response',
+                15,
+                Color.fromRGBO(129, 12, 168, 1),
+                FontWeight.normal,
+                letterSpace: 0,
+                textAlign: TextAlign.left,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              TextWidget(
+                reply.isNotEmpty ? reply : 'Mohon menunggu respon supervisor!',
+                16,
+                const Color.fromRGBO(45, 3, 59, 1),
+                FontWeight.normal,
+                letterSpace: 0,
+                textAlign: TextAlign.left,
+              ),
+            ],
+          ),
         ),
       ),
     );

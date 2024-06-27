@@ -1,37 +1,23 @@
-import 'package:flutter/material.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'dart:convert';
 
-class ComplaintController {
-  final TextEditingController complainttextController = TextEditingController();
-  String? complaintError;
+import 'package:get/get.dart';
+import 'package:outsourcing/model/complaints_model.dart';
+import 'package:outsourcing/service/complaint_service.dart';
 
-  String? validateComplaint(String? value) {
-    if (value == null || value.isEmpty) {
-      complaintError = 'Masukkan complaint';
-      return complaintError;
+class ComplaintBController extends GetxController implements GetxService {
+  var listComplaint = <ComplaintModel>[].obs;
+  final complaint = ComplaintService();
+  var isLoading = false.obs;
+
+  Future<void> getComplaint() async {
+    isLoading.value = true;
+    var response = await complaint.getComplaint();
+    var responsedecode = jsonDecode(response.body);
+    listComplaint.clear();
+    for (var i = 0; i < responsedecode['datas'].length; i++) {
+      ComplaintModel data = ComplaintModel.fromJson(responsedecode['datas'][i]);
+      listComplaint.add(data);
     }
-    complaintError = null;
-    return null;
-  }
-
-  void onKirimPressed(BuildContext context) {
-    if (complainttextController.text.isEmpty) {
-      complaintError = 'Masukkan complaint';
-    } else {
-      final snackBar = SnackBar(
-        elevation: 0,
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.transparent,
-        content: AwesomeSnackbarContent(
-          title: 'Info',
-          message:
-              'Mohon maaf atas ketidaknyamanannya, admin akan merespon sesegera mungkin',
-          contentType: ContentType.help,
-        ),
-      );
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(snackBar);
-    }
+    isLoading.value = false;
   }
 }

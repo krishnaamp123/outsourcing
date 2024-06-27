@@ -8,6 +8,7 @@ import 'package:outsourcing/model/order_model.dart';
 import 'package:outsourcing/service/order_service.dart';
 import 'package:outsourcing/z_pengguna/order/view/ordermou.dart';
 import 'package:outsourcing/z_pengguna/order/view/orderpenilaian.dart';
+import 'package:outsourcing/z_pengguna/order/widget/feedbackdialog_widget.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart' as dot_env;
 
 class OrderControllerApi extends GetxController implements GetxService {
@@ -41,7 +42,7 @@ class OrderControllerApi extends GetxController implements GetxService {
 
   void navigateToDetails(
     BuildContext context,
-    String id,
+    int id,
     String namapesanan,
     String tanggal,
     String tanggalorder,
@@ -114,22 +115,46 @@ class OrderControllerApi extends GetxController implements GetxService {
           ),
         ),
       );
-    } else if (status == "done") {
-      final snackBar = SnackBar(
-        elevation: 0,
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.transparent,
-        content: AwesomeSnackbarContent(
-          title: 'Info',
-          message:
-              'Terimakasih sudah memesan layanan kami, kontrak pemesanan anda sudah berakhir',
-          contentType: ContentType.help,
-        ),
-      );
+      // } else if (status == "done") {
+      //   final snackBar = SnackBar(
+      //     elevation: 0,
+      //     behavior: SnackBarBehavior.floating,
+      //     backgroundColor: Colors.transparent,
+      //     content: AwesomeSnackbarContent(
+      //       title: 'Info',
+      //       message:
+      //           'Terimakasih sudah memesan layanan kami, kontrak pemesanan anda sudah berakhir',
+      //       contentType: ContentType.help,
+      //     ),
+      //   );
 
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(snackBar);
+      //   ScaffoldMessenger.of(context)
+      //     ..hideCurrentSnackBar()
+      //     ..showSnackBar(snackBar);
+    } else if (status == "done") {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return FeedbackDialogWidget(
+            id: id,
+          );
+        },
+      );
+      // final snackBar = SnackBar(
+      //   elevation: 0,
+      //   behavior: SnackBarBehavior.floating,
+      //   backgroundColor: Colors.transparent,
+      //   content: AwesomeSnackbarContent(
+      //     title: 'Info',
+      //     message:
+      //         'Terimakasih sudah memesan layanan kami, kontrak pemesanan anda sudah berakhir',
+      //     contentType: ContentType.help,
+      //   ),
+      // );
+
+      // ScaffoldMessenger.of(context)
+      //   ..hideCurrentSnackBar()
+      //   ..showSnackBar(snackBar);
     } else if (status == "cancelled") {
       final snackBar = SnackBar(
         elevation: 0,

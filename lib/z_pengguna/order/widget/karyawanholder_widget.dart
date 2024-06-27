@@ -92,6 +92,7 @@ class KaryawanHolderWidgetState extends State<KaryawanHolderWidget> {
                                     employee.employee!.lastEducation.toString(),
                                     employee.expectedSalaryTotal.toString(),
                                     employee.expectedSalary.toString(),
+                                    employee.id!.toInt(),
                                   );
                                 }).toList(),
                               );
@@ -122,6 +123,7 @@ class KaryawanHolderWidgetState extends State<KaryawanHolderWidget> {
     String education,
     String salarytotal,
     String salary,
+    int id,
   ) {
     return InkWell(
       onTap: () {
@@ -140,6 +142,7 @@ class KaryawanHolderWidgetState extends State<KaryawanHolderWidget> {
               education: education,
               salarytotal: salarytotal,
               salary: salary,
+              id: id,
             ),
           ),
         );

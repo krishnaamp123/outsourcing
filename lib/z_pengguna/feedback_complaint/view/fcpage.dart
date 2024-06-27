@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:outsourcing/z_pengguna/feedback_complaint/view/complaint.dart';
 import 'package:outsourcing/z_pengguna/feedback_complaint/view/feedback.dart';
-import 'package:outsourcing/z_pengguna/feedback_complaint/view/response.dart';
 import 'package:outsourcing/z_pengguna/feedback_complaint/widget/titlefc_widget.dart';
 
 class FeedbackComplaint extends StatefulWidget {
@@ -43,7 +42,7 @@ class _FeedbackComplaintState extends State<FeedbackComplaint> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         body: SafeArea(
           child: Container(
@@ -94,12 +93,6 @@ class _FeedbackComplaintState extends State<FeedbackComplaint> {
                                   size: 28),
                               text: "Complaint",
                             ),
-                            Tab(
-                              icon: Icon(Icons.question_answer_outlined,
-                                  color: Color.fromRGBO(45, 3, 59, 1),
-                                  size: 28),
-                              text: "Response",
-                            ),
                           ],
                           labelColor: Color.fromRGBO(45, 3, 59, 1),
                           unselectedLabelColor: Color.fromRGBO(45, 3, 59, 1),
@@ -115,9 +108,8 @@ class _FeedbackComplaintState extends State<FeedbackComplaint> {
                         Expanded(
                           child: TabBarView(
                             children: [
-                              FeedbackWidget(),
-                              ComplaintWidget(),
-                              ResponseWidget(),
+                              FeedbackBWidget(),
+                              ComplaintBWidget(),
                             ],
                           ),
                         ),

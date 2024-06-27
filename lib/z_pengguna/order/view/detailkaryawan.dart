@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:outsourcing/core.dart';
+import 'package:outsourcing/z_pengguna/order/widget/complaintdialog_widget.dart';
 
 // This class handles the Page to edit the Name Section of the User Profile.
 class DetailKaryawan extends StatefulWidget {
@@ -15,6 +16,7 @@ class DetailKaryawan extends StatefulWidget {
   final String education;
   final String salarytotal;
   final String salary;
+  final int id;
   const DetailKaryawan(
       {Key? key,
       required this.fullname,
@@ -27,7 +29,8 @@ class DetailKaryawan extends StatefulWidget {
       required this.phone,
       required this.education,
       required this.salarytotal,
-      required this.salary})
+      required this.salary,
+      required this.id})
       : super(key: key);
 
   @override
@@ -97,16 +100,17 @@ class DetailKaryawanState extends State<DetailKaryawan> {
     String gender = widget.gender;
     String phone = widget.phone;
     String education = widget.education;
-    String salarytotal = widget.salarytotal;
-    int hargatotalInt = int.parse(salarytotal);
-    String formattedSalaryTotal =
-        NumberFormat.currency(locale: 'id', symbol: 'Rp.', decimalDigits: 0)
-            .format(hargatotalInt);
-    String salary = widget.salary;
-    int hargaInt = int.parse(salary);
-    String formattedSalary =
-        NumberFormat.currency(locale: 'id', symbol: 'Rp.', decimalDigits: 0)
-            .format(hargaInt);
+    // String salarytotal = widget.salarytotal;
+    // int hargatotalInt = int.parse(salarytotal);
+    // String formattedSalaryTotal =
+    //     NumberFormat.currency(locale: 'id', symbol: 'Rp.', decimalDigits: 0)
+    //         .format(hargatotalInt);
+    // String salary = widget.salary;
+    // int hargaInt = int.parse(salary);
+    // String formattedSalary =
+    //     NumberFormat.currency(locale: 'id', symbol: 'Rp.', decimalDigits: 0)
+    //         .format(hargaInt);
+    int id = widget.id;
     return Scaffold(
       // appBar: buildAppBar(context),
       body: SafeArea(
@@ -189,58 +193,24 @@ class DetailKaryawanState extends State<DetailKaryawan> {
                         indent: 20,
                         endIndent: 20,
                       ),
+                      const SizedBox(height: 20),
                       Padding(
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Card(
                           elevation: 2,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: SizedBox(
-                            height: 380,
+                            height: 325,
                             width: MediaQuery.of(context).size.width,
                             child: SingleChildScrollView(
                               child: Padding(
-                                padding: const EdgeInsets.all(20),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
-                                      'Estimasi Gaji :',
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(129, 12, 168, 1),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      formattedSalary,
-                                      style: const TextStyle(
-                                        color: Color.fromRGBO(45, 3, 59, 1),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    const Text(
-                                      'Estimasi Gaji Total :',
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(129, 12, 168, 1),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      formattedSalaryTotal,
-                                      style: const TextStyle(
-                                        color: Color.fromRGBO(45, 3, 59, 1),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
                                     const Text(
                                       'Alamat :',
                                       style: TextStyle(
@@ -368,6 +338,48 @@ class DetailKaryawanState extends State<DetailKaryawan> {
                                     ),
                                   ],
                                 ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Menampilkan popup dialog ketika tombol ditekan
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return ComplaintDialogWidget(
+                                  id: id,
+                                );
+                              },
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(240, 40),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            backgroundColor:
+                                const Color.fromRGBO(193, 71, 233, 1),
+                          ),
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            margin: const EdgeInsets.symmetric(horizontal: 60),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Center(
+                              child: TextWidget(
+                                "Ajukan Complaint",
+                                16,
+                                Colors.white,
+                                FontWeight.bold,
+                                letterSpace: 0,
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           ),

@@ -1,37 +1,23 @@
-import 'package:flutter/material.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'dart:convert';
 
-class FeedbackController {
-  final TextEditingController feedbacktextController = TextEditingController();
-  String? feedbackError;
+import 'package:get/get.dart';
+import 'package:outsourcing/model/feedbacks_model.dart';
+import 'package:outsourcing/service/feedback_service.dart';
 
-  String? validateFeedback(String? value) {
-    if (value == null || value.isEmpty) {
-      feedbackError = 'Masukkan feedback';
-      return feedbackError;
+class FeedbackBController extends GetxController implements GetxService {
+  var listFeedback = <FeedbackModel>[].obs;
+  final feedback = FeedbackService();
+  var isLoading = false.obs;
+
+  Future<void> getFeedback() async {
+    isLoading.value = true;
+    var response = await feedback.getFeedback();
+    var responsedecode = jsonDecode(response.body);
+    listFeedback.clear();
+    for (var i = 0; i < responsedecode['datas'].length; i++) {
+      FeedbackModel data = FeedbackModel.fromJson(responsedecode['datas'][i]);
+      listFeedback.add(data);
     }
-    feedbackError = null;
-    return null;
-  }
-
-  void onKirimPressed(BuildContext context) {
-    if (feedbacktextController.text.isEmpty) {
-      feedbackError = 'Masukkan feedback';
-    } else {
-      final snackBar = SnackBar(
-        elevation: 0,
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.transparent,
-        content: AwesomeSnackbarContent(
-          title: 'Info',
-          message:
-              'Terimakasih atas masukannya, kami akan berusaha memperbaikinya',
-          contentType: ContentType.help,
-        ),
-      );
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(snackBar);
-    }
+    isLoading.value = false;
   }
 }
