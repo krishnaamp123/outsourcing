@@ -32,11 +32,8 @@ export 'package:outsourcing/z_pengguna/order_paketlayanan/widget/backbutton_widg
 export 'package:outsourcing/z_pengguna/order_paketlayanan/widget/textfieldalamat.dart';
 export 'package:outsourcing/z_pengguna/profile/widget/appbar_widget.dart';
 export 'package:outsourcing/z_pengguna/profile/widget/display_image_widget.dart';
-export 'package:outsourcing/z_pengguna/profile/view/edit_email.dart';
-export 'package:outsourcing/z_pengguna/profile/view/edit_image.dart';
 export 'package:outsourcing/z_pengguna/profile/view/profile.dart';
 export 'package:outsourcing/z_pengguna/profile/view/edit_profile.dart';
-export 'package:outsourcing/z_pengguna/profile/view/profile_user.dart';
 export 'package:outsourcing/z_autentikasi/view/regis_page.dart';
 export 'package:outsourcing/z_pengguna/order_paketlayanan/view/see_all.dart';
 export 'package:outsourcing/splash.dart';

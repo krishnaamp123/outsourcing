@@ -111,6 +111,8 @@ class SupervisorHolderWidgetState extends State<SupervisorHolderWidget> {
     String gender,
     String phone,
   ) {
+    // final imageURL = '$baseURL/resource/packages/$idpaket/main_image/';
+    // print('Image URL: $imageURL');
     return InkWell(
       onTap: () {
         Navigator.push(

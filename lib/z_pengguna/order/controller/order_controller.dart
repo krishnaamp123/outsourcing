@@ -95,6 +95,26 @@ class OrderControllerApi extends GetxController implements GetxService {
           ),
         ),
       );
+    } else if (status == 'waiting_for_further_payment') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OrderBayar(
+            id: id,
+            namapesanan: namapesanan,
+            tanggal: tanggal,
+            tanggalorder: tanggalorder,
+            alamat: alamat,
+            jumlahkaryawan: jumlahkaryawan,
+            lamakontrak: lamakontrak,
+            status: status,
+            harga: harga,
+            hargaterbayar: hargaterbayar,
+            metodebayar: metodebayar,
+            deadlinebayar: deadlinebayar,
+          ),
+        ),
+      );
     } else if (status == "ongoing") {
       Navigator.push(
         context,
@@ -140,22 +160,7 @@ class OrderControllerApi extends GetxController implements GetxService {
           );
         },
       );
-      // final snackBar = SnackBar(
-      //   elevation: 0,
-      //   behavior: SnackBarBehavior.floating,
-      //   backgroundColor: Colors.transparent,
-      //   content: AwesomeSnackbarContent(
-      //     title: 'Info',
-      //     message:
-      //         'Terimakasih sudah memesan layanan kami, kontrak pemesanan anda sudah berakhir',
-      //     contentType: ContentType.help,
-      //   ),
-      // );
-
-      // ScaffoldMessenger.of(context)
-      //   ..hideCurrentSnackBar()
-      //   ..showSnackBar(snackBar);
-    } else if (status == "cancelled") {
+    } else if (status == "suspended") {
       final snackBar = SnackBar(
         elevation: 0,
         behavior: SnackBarBehavior.floating,
@@ -163,7 +168,7 @@ class OrderControllerApi extends GetxController implements GetxService {
         content: AwesomeSnackbarContent(
           title: 'Info',
           message:
-              'Terimakasih sudah memesan layanan kami, kontrak pemesanan anda harus kami batalkan',
+              'Terimakasih sudah memesan layanan kami, kontrak pemesanan kami batalkan',
           contentType: ContentType.failure,
         ),
       );

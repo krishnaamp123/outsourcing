@@ -25,7 +25,7 @@ AppBar buildEditAppBar(BuildContext context) {
       ),
     ),
     centerTitle: true,
-    toolbarHeight: 110,
+    toolbarHeight: 90,
     backgroundColor: Colors.transparent,
     elevation: 0,
   );

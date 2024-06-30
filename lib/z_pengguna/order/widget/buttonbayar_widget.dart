@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -162,7 +163,24 @@ class _ButtonBayarState extends State<ButtonBayar> {
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
-                      // Fungsi untuk mengunggah file PDF
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          title: 'Info',
+                          message:
+                              'Pembayaran offline dapat dilakukan di office, maps : Outsourcing Bali',
+                          contentType: ContentType.help,
+                        ),
+                      );
+
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(snackBar);
+                      Future.delayed(const Duration(seconds: 0), () {
+                        Navigator.of(context).pop();
+                      });
                     },
                     label: const Text('Offline',
                         style: TextStyle(
