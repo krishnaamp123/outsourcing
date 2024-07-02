@@ -65,7 +65,7 @@ class _StartSupervisorState extends State<StartSupervisor> {
         widget = ResponseComplaint();
         break;
       case 2:
-        widget = const ProfileSupervisor();
+        widget = ProfileSupervisorPage();
         break;
       default:
         widget = HomeSupervisor();

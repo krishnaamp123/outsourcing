@@ -1,7 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:outsourcing/core.dart';
-import 'package:outsourcing/z_pengguna/profile/view/profilebaru.dart';
+import 'package:outsourcing/z_pengguna/profile/view/profileuser.dart';
 
 class Start extends StatefulWidget {
   // final String service_user;

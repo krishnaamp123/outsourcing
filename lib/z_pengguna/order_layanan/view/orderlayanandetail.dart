@@ -101,9 +101,9 @@ class _OrderLayananDetailState extends State<OrderLayananDetail> {
     var idData = localStorage.getString('user');
     if (idData != null) {
       var id = jsonDecode(idData);
-      if (id != null && id['id'] is int) {
+      if (id != null && id['user_id'] is int) {
         setState(() {
-          serviceuserid = id['id'];
+          serviceuserid = id['user_id'];
         });
       } else {
         print("id is not an integer");

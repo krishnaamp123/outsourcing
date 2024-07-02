@@ -134,23 +134,23 @@ class LoginController {
               ..hideCurrentSnackBar()
               ..showSnackBar(snackBar);
           }
-        } else {
-          final snackBar = SnackBar(
-            elevation: 0,
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Colors.transparent,
-            content: AwesomeSnackbarContent(
-              title: 'Info',
-              message:
-                  'Harap periksa kembali akun yang anda masukan, akun yang anda masukan belum terdaftar',
-              contentType: ContentType.failure,
-            ),
-          );
-
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(snackBar);
         }
+      } else {
+        final snackBar = SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: 'Info',
+            message:
+                'Harap periksa kembali email dan password, akun yang anda masukan belum terdaftar',
+            contentType: ContentType.failure,
+          ),
+        );
+
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(snackBar);
       }
     }
   }

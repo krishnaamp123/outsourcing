@@ -56,7 +56,7 @@ class _StartKaryawanState extends State<StartKaryawan> {
         widget = const HomeKaryawan();
         break;
       case 1:
-        widget = const ProfileKaryawan();
+        widget = const ProfileEmployeePage();
         break;
       default:
         widget = const HomeKaryawan();

@@ -59,9 +59,9 @@ class ProfilePageState extends State<ProfilePage> {
     var idData = localStorage.getString('user');
     if (idData != null) {
       var id = jsonDecode(idData);
-      if (id != null && id['id'] is int) {
+      if (id != null && id['user_id'] is int) {
         setState(() {
-          userid = id['id'];
+          userid = id['user_id'];
         });
       } else {
         print("ID bukan integer");

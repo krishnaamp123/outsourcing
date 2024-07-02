@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:outsourcing/z_autentikasi/controller/otp_controller.dart';
 import 'package:outsourcing/z_autentikasi/widget/my_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OTPPage extends StatefulWidget {
   final Function()? onTap;
@@ -17,6 +20,7 @@ class _OTPPageState extends State<OTPPage> {
   var opacity = 0.0;
   bool position = false;
   late Size size;
+  int? userid;
 
   @override
   void initState() {
@@ -24,6 +28,7 @@ class _OTPPageState extends State<OTPPage> {
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
+      _loadIdData();
     });
   }
 
@@ -38,6 +43,21 @@ class _OTPPageState extends State<OTPPage> {
       position = true;
     }
     setState(() {});
+  }
+
+  _loadIdData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var idData = localStorage.getString('userregis');
+    if (idData != null) {
+      var id = jsonDecode(idData);
+      if (id != null && id['user_id'] is int) {
+        setState(() {
+          userid = id['user_id'];
+        });
+      } else {
+        print("id is not an integer");
+      }
+    }
   }
 
   @override
@@ -119,10 +139,11 @@ class _OTPPageState extends State<OTPPage> {
                     duration: const Duration(milliseconds: 400),
                     opacity: opacity,
                     child: MyButton(
-                      text: "Login Sekarang",
+                      text: "Kirim Email",
                       onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          otpController.loginNow(context);
+                        if (_formKey.currentState!.validate() &&
+                            userid != null) {
+                          otpController.postVerified(context, userid!);
                         }
                       },
                     ),
@@ -161,16 +182,16 @@ class _OTPPageState extends State<OTPPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Tidak Menerima Email?',
+                          'Sudah Berhasil Verifikasi?',
                           style: TextStyle(color: Colors.grey[700]),
                         ),
                         const SizedBox(width: 4),
                         GestureDetector(
                           onTap: () {
-                            otpController.checkEmail(context);
+                            otpController.loginNow(context);
                           },
                           child: const Text(
-                            'Periksa Kembali Email Anda',
+                            'Masuk Sekarang',
                             style: TextStyle(
                               color: Color.fromRGBO(129, 12, 168, 1),
                               fontWeight: FontWeight.bold,
@@ -180,7 +201,7 @@ class _OTPPageState extends State<OTPPage> {
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

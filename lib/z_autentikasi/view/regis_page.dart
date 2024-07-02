@@ -17,7 +17,6 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
-  //text editing controllers
   final RegisController regisController = RegisController();
   final RegisController regisController1 = Get.put(RegisController());
   var animate = false;
@@ -26,20 +25,20 @@ class _RegisterPageState extends State<RegisterPage> {
   late Size size;
   DateTime selectedDate = DateTime.now();
   String _formatDate(DateTime date) {
-    return "${date.year} - ${date.month} - ${date.day}";
+    return "${date.year}-${date.month}-${date.day}";
   }
 
   String dateValidationError = "";
   bool isDateSelected = false;
   String? selectedGender;
-  List<String> genderOptions = ['L', 'P'];
+  List<String> genderOptions = ['l', 'p'];
   bool isDataLoaded = false;
   String? selectedDomisili;
+  Map<String, int> domisiliMap = {};
   List<String> domisiliOptions = [];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(Duration.zero, () {
       animator();
@@ -92,8 +91,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-
-                //welcome back, you've been missed!
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
                   top: position ? 230 : 290,
@@ -113,8 +110,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-
-                //fullname textfield
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
                   top: position ? 260 : 320,
@@ -124,7 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     duration: const Duration(milliseconds: 400),
                     opacity: opacity,
                     child: SizedBox(
-                      height: 400,
+                      height: 380,
                       width: MediaQuery.of(context).size.width,
                       child: SingleChildScrollView(
                         child: Column(
@@ -133,8 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               controller: regisController.usernameController,
                               hintText: 'Nama Lengkap',
                               obscureText: false,
-                              validator: regisController
-                                  .validateUsername, // Set validator dari controller
+                              validator: regisController.validateUsername,
                               onChanged: (_) {
                                 setState(() {
                                   regisController.usernameError = null;
@@ -146,8 +140,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               controller: regisController.emailController,
                               hintText: 'Email',
                               obscureText: false,
-                              validator: regisController
-                                  .validateEmail, // Set validator dari controller
+                              validator: regisController.validateEmail,
                               onChanged: (_) {
                                 setState(() {
                                   regisController.emailError = null;
@@ -158,8 +151,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             PassTextField(
                               controller: regisController.passwordController,
                               hintText: 'Password',
-                              validator: regisController
-                                  .validatePassword, // Set validator dari controller
+                              validator: regisController.validatePassword,
                               onChanged: (_) {
                                 setState(() {
                                   regisController.passwordError = null;
@@ -171,8 +163,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               controller: regisController.alamatController,
                               hintText: 'Alamat',
                               obscureText: false,
-                              validator: regisController
-                                  .validateAlamat, // Set validator dari controller
+                              validator: regisController.validateAlamat,
                               onChanged: (_) {
                                 setState(() {
                                   regisController.alamatError = null;
@@ -184,8 +175,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               controller: regisController.nikController,
                               hintText: 'No NIK',
                               obscureText: false,
-                              validator: regisController
-                                  .validateNIK, // Set validator dari controller
+                              validator: regisController.validateNIK,
                               onChanged: (_) {
                                 setState(() {
                                   regisController.nikError = null;
@@ -197,8 +187,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               controller: regisController.telponController,
                               hintText: 'No Telpon',
                               obscureText: false,
-                              validator: regisController
-                                  .validateTelpon, // Set validator dari controller
+                              validator: regisController.validateTelpon,
                               onChanged: (_) {
                                 setState(() {
                                   regisController.telponError = null;
@@ -210,8 +199,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               controller: regisController.tempatController,
                               hintText: 'Tempat Lahir',
                               obscureText: false,
-                              validator: regisController
-                                  .validateTempat, // Set validator dari controller
+                              validator: regisController.validateTempat,
                               onChanged: (_) {
                                 setState(() {
                                   regisController.tempatError = null;
@@ -228,10 +216,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                   lastDate: DateTime.now(),
                                 );
                                 if (dateTime != null) {
+                                  print("date is sudah terpilih");
                                   setState(() {
                                     selectedDate = dateTime;
                                     isDateSelected = true;
                                     dateValidationError = "";
+                                    regisController.selectedDate = selectedDate;
                                   });
                                 }
                               },
@@ -282,8 +272,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               ),
                             const SizedBox(height: 5),
-
-                            // Jenis Kelamin
                             Card(
                               elevation: 0,
                               shape: RoundedRectangleBorder(
@@ -302,7 +290,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ),
                                   width: MediaQuery.of(context).size.width,
                                   child: DropdownButton2<String>(
-                                    value: selectedGender,
                                     hint: const Text(
                                       "Jenis Kelamin",
                                       style: TextStyle(
@@ -311,9 +298,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                               Color.fromARGB(255, 80, 80, 80),
                                           fontWeight: FontWeight.normal),
                                     ),
+                                    value: selectedGender,
                                     onChanged: (newValue) {
                                       setState(() {
-                                        selectedGender = newValue!;
+                                        selectedGender = newValue;
+                                        regisController.selectedGender =
+                                            newValue;
                                       });
                                     },
                                     items: genderOptions.map((String option) {
@@ -323,40 +313,35 @@ class _RegisterPageState extends State<RegisterPage> {
                                           option,
                                           style: const TextStyle(
                                               fontSize: 16,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.normal),
+                                              color: Colors.black),
                                         ),
                                       );
                                     }).toList(),
-                                    buttonStyleData: const ButtonStyleData(
-                                      height: 50,
-                                    ),
-                                    iconStyleData: const IconStyleData(
-                                      icon: Icon(
-                                        Icons.arrow_drop_down_outlined,
-                                      ),
-                                      iconSize: 25,
-                                      iconEnabledColor: Colors.grey,
-                                    ),
-                                    dropdownStyleData:
-                                        const DropdownStyleData(maxHeight: 120),
-                                    menuItemStyleData: const MenuItemStyleData(
-                                      height: 50,
-                                    ),
                                   ),
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 5),
 
-                            // const DomisiliDropdown(),
+                            // Domisili
+                            GetBuilder<RegisController>(
+                              builder: (value) {
+                                if (!isDataLoaded &&
+                                    value.listRegency.isNotEmpty) {
+                                  domisiliMap = {
+                                    for (var item in value.listRegency)
+                                      item.regency.toString(): item.id!
+                                  };
+                                  domisiliOptions = domisiliMap.keys.toList();
+                                  isDataLoaded = true;
+                                }
 
-                            //Domisili
-                            Card(
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Obx(() => DropdownButtonHideUnderline(
+                                return Card(
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: DropdownButtonHideUnderline(
                                     child: Container(
                                       decoration: const BoxDecoration(
                                         color:
@@ -370,7 +355,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                       ),
                                       width: MediaQuery.of(context).size.width,
                                       child: DropdownButton2<String>(
-                                        value: selectedDomisili,
                                         hint: const Text(
                                           "Domisili",
                                           style: TextStyle(
@@ -379,54 +363,83 @@ class _RegisterPageState extends State<RegisterPage> {
                                                   255, 80, 80, 80),
                                               fontWeight: FontWeight.normal),
                                         ),
+                                        value: selectedDomisili,
                                         onChanged: (newValue) {
                                           setState(() {
-                                            selectedDomisili = newValue!;
+                                            selectedDomisili = newValue;
+                                            regisController.selectedDomisili =
+                                                domisiliMap[newValue];
                                           });
                                         },
-                                        items: regisController1
-                                                .listRegency.isEmpty
-                                            ? []
-                                            : regisController1.listRegency
-                                                .map((regency) =>
-                                                    regency.regency ??
-                                                    "") // Ubah disini
-                                                .toList()
-                                                .map((option) =>
-                                                    DropdownMenuItem<String>(
-                                                      value: option,
-                                                      child: Text(
-                                                        option,
-                                                        style: const TextStyle(
-                                                            fontSize: 16,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
-                                                      ),
-                                                    ))
-                                                .toList(),
-                                        buttonStyleData: const ButtonStyleData(
-                                          height: 50,
-                                        ),
-                                        iconStyleData: const IconStyleData(
-                                          icon: Icon(
-                                            Icons.arrow_drop_down_outlined,
-                                          ),
-                                          iconSize: 25,
-                                          iconEnabledColor: Colors.grey,
-                                        ),
-                                        dropdownStyleData:
-                                            const DropdownStyleData(
-                                                maxHeight: 120),
-                                        menuItemStyleData:
-                                            const MenuItemStyleData(
-                                          height: 50,
-                                        ),
+                                        items: domisiliOptions
+                                            .map((String option) {
+                                          return DropdownMenuItem<String>(
+                                            value: option,
+                                            child: Text(
+                                              option,
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.black),
+                                            ),
+                                          );
+                                        }).toList(),
                                       ),
                                     ),
-                                  )),
+                                  ),
+                                );
+                              },
                             ),
+                            const SizedBox(height: 15),
+
+                            // //sign up button
+                            // MyButton(
+                            //   text: "Sign Up",
+                            //   onTap: () {
+                            //     // Validate inputs
+                            //     if (_formKey.currentState!.validate() &&
+                            //         isDateSelected &&
+                            //         selectedGender != null &&
+                            //         selectedDomisili != null) {
+                            //       regisController.handleSignin(context);
+                            //     } else {
+                            //       setState(() {
+                            //         if (!isDateSelected) {
+                            //           dateValidationError =
+                            //               "Tanggal lahir harus dipilih";
+                            //         }
+                            //         if (selectedGender == null) {
+                            //           regisController.selectedGender = null;
+                            //         }
+                            //         if (selectedDomisili == null) {
+                            //           regisController.selectedDomisili = null;
+                            //         }
+                            //       });
+                            //     }
+                            //   },
+                            // ),
+                            // const SizedBox(height: 15),
+
+                            // //already have an account? login here
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     Text(
+                            //       'Sudah punya akun?',
+                            //       style: TextStyle(color: Colors.grey[700]),
+                            //     ),
+                            //     const SizedBox(width: 4),
+                            //     GestureDetector(
+                            //       onTap: widget.onTap,
+                            //       child: const Text(
+                            //         'Login sekarang',
+                            //         style: TextStyle(
+                            //           color: Colors.blue,
+                            //           fontWeight: FontWeight.bold,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                           ],
                         ),
                       ),
@@ -437,20 +450,33 @@ class _RegisterPageState extends State<RegisterPage> {
                 //sign in button
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 670 : 720,
+                  top: position ? 650 : 700,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 400),
                     opacity: opacity,
                     child: MyButton(
-                      text: "Daftar",
+                      text: "Sign Up",
                       onTap: () {
-                        if (_formKey.currentState!.validate()) {
+                        // Validate inputs
+                        if (_formKey.currentState!.validate() &&
+                            isDateSelected &&
+                            selectedGender != null &&
+                            selectedDomisili != null) {
                           regisController.handleSignin(context);
                         } else {
                           setState(() {
-                            dateValidationError = "Masukkan tanggal lahir";
+                            if (!isDateSelected) {
+                              dateValidationError =
+                                  "Tanggal lahir harus dipilih";
+                            }
+                            if (selectedGender == null) {
+                              regisController.selectedGender = null;
+                            }
+                            if (selectedDomisili == null) {
+                              regisController.selectedDomisili = null;
+                            }
                           });
                         }
                       },
@@ -458,10 +484,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
 
-                // divider
+                // or continue with
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 715 : 770,
+                  top: position ? 700 : 750,
                   left: 0,
                   right: 0,
                   child: AnimatedOpacity(
@@ -477,10 +503,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
 
-                // login now
+                // not a member? register now
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 400),
-                  top: position ? 735 : 795,
+                  top: position ? 725 : 775,
                   left: 20,
                   right: 20,
                   child: AnimatedOpacity(
@@ -490,7 +516,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Sudah Memiliki Akun?',
+                          'Sudah Punya Akun?',
                           style: TextStyle(color: Colors.grey[700]),
                         ),
                         const SizedBox(width: 4),
@@ -509,7 +535,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ],
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),
