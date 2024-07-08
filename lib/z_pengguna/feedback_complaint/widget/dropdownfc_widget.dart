@@ -43,6 +43,7 @@ class _DropdownFCState extends State<DropdownFC> {
         ),
         const SizedBox(height: 5),
         Card(
+          color: Colors.white,
           elevation: 5, // Atur elevation di sini
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),

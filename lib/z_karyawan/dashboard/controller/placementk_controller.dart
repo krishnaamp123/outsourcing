@@ -50,6 +50,8 @@ class PlacementKController extends GetxController implements GetxService {
     String namaSupervisor,
     String alamatSupervisor,
     String telponSupervisor,
+    String profileSupervisor,
+    String useridSupervisor,
     List<Employees> employees,
   ) {
     Navigator.push(
@@ -68,6 +70,8 @@ class PlacementKController extends GetxController implements GetxService {
           namaSupervisor: namaSupervisor,
           alamatSupervisor: alamatSupervisor,
           telponSupervisor: telponSupervisor,
+          profileSupervisor: profileSupervisor,
+          useridSupervisor: useridSupervisor,
           employees: employees,
         ),
       ),

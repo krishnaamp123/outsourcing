@@ -17,6 +17,10 @@ class PlacementModel {
   String? name;
   String? address;
   List<Details>? details;
+  Null? formGenerateSchedule;
+  Null? lastFormDate;
+  Null? nextFormDate;
+  List<Forms>? forms;
 
   PlacementModel(
       {this.id,
@@ -36,7 +40,11 @@ class PlacementModel {
       this.totalEmployee,
       this.name,
       this.address,
-      this.details});
+      this.details,
+      this.formGenerateSchedule,
+      this.lastFormDate,
+      this.nextFormDate,
+      this.forms});
 
   PlacementModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -63,6 +71,15 @@ class PlacementModel {
       details = <Details>[];
       json['details'].forEach((v) {
         details!.add(new Details.fromJson(v));
+      });
+    }
+    formGenerateSchedule = json['form_generate_schedule'];
+    lastFormDate = json['last_form_date'];
+    nextFormDate = json['next_form_date'];
+    if (json['forms'] != null) {
+      forms = <Forms>[];
+      json['forms'].forEach((v) {
+        forms!.add(new Forms.fromJson(v));
       });
     }
   }
@@ -93,6 +110,12 @@ class PlacementModel {
     if (this.details != null) {
       data['details'] = this.details!.map((v) => v.toJson()).toList();
     }
+    data['form_generate_schedule'] = this.formGenerateSchedule;
+    data['last_form_date'] = this.lastFormDate;
+    data['next_form_date'] = this.nextFormDate;
+    if (this.forms != null) {
+      data['forms'] = this.forms!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
@@ -102,6 +125,7 @@ class Supervisor {
   String? createdAt;
   String? updatedAt;
   int? userId;
+  User? user;
   String? fullname;
   int? regencyId;
   Null? regency;
@@ -113,12 +137,14 @@ class Supervisor {
   String? gender;
   bool? marriageStatus;
   String? phone;
+  Null? status;
 
   Supervisor(
       {this.id,
       this.createdAt,
       this.updatedAt,
       this.userId,
+      this.user,
       this.fullname,
       this.regencyId,
       this.regency,
@@ -129,13 +155,15 @@ class Supervisor {
       this.npwp,
       this.gender,
       this.marriageStatus,
-      this.phone});
+      this.phone,
+      this.status});
 
   Supervisor.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     userId = json['user_id'];
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
     fullname = json['fullname'];
     regencyId = json['regency_id'];
     regency = json['regency'];
@@ -147,6 +175,7 @@ class Supervisor {
     gender = json['gender'];
     marriageStatus = json['marriage_status'];
     phone = json['phone'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -155,6 +184,9 @@ class Supervisor {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['user_id'] = this.userId;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
     data['fullname'] = this.fullname;
     data['regency_id'] = this.regencyId;
     data['regency'] = this.regency;
@@ -166,6 +198,52 @@ class Supervisor {
     data['gender'] = this.gender;
     data['marriage_status'] = this.marriageStatus;
     data['phone'] = this.phone;
+    data['status'] = this.status;
+    return data;
+  }
+}
+
+class User {
+  int? id;
+  String? createdAt;
+  String? updatedAt;
+  String? profilePic;
+  String? email;
+  String? password;
+  String? role;
+  String? verifiedAt;
+
+  User(
+      {this.id,
+      this.createdAt,
+      this.updatedAt,
+      this.profilePic,
+      this.email,
+      this.password,
+      this.role,
+      this.verifiedAt});
+
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    profilePic = json['profile_pic'];
+    email = json['email'];
+    password = json['password'];
+    role = json['role'];
+    verifiedAt = json['verified_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['profile_pic'] = this.profilePic;
+    data['email'] = this.email;
+    data['password'] = this.password;
+    data['role'] = this.role;
+    data['verified_at'] = this.verifiedAt;
     return data;
   }
 }
@@ -339,6 +417,7 @@ class Employees {
   int? expectedSalary;
   int? expectedSalaryTotal;
   Null? complaints;
+  Null? performanceFormFeedbacks;
 
   Employees(
       {this.id,
@@ -355,7 +434,8 @@ class Employees {
       this.duration,
       this.expectedSalary,
       this.expectedSalaryTotal,
-      this.complaints});
+      this.complaints,
+      this.performanceFormFeedbacks});
 
   Employees.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -375,6 +455,7 @@ class Employees {
     expectedSalary = json['expected_salary'];
     expectedSalaryTotal = json['expected_salary_total'];
     complaints = json['complaints'];
+    performanceFormFeedbacks = json['performance_form_feedbacks'];
   }
 
   Map<String, dynamic> toJson() {
@@ -396,6 +477,7 @@ class Employees {
     data['expected_salary'] = this.expectedSalary;
     data['expected_salary_total'] = this.expectedSalaryTotal;
     data['complaints'] = this.complaints;
+    data['performance_form_feedbacks'] = this.performanceFormFeedbacks;
     return data;
   }
 }
@@ -405,6 +487,7 @@ class Employee {
   String? createdAt;
   String? updatedAt;
   int? userId;
+  User? user;
   String? fullname;
   int? categoryId;
   Null? category;
@@ -421,12 +504,14 @@ class Employee {
   String? lastEducation;
   String? ijazah;
   String? fieldCertification;
+  Null? status;
 
   Employee(
       {this.id,
       this.createdAt,
       this.updatedAt,
       this.userId,
+      this.user,
       this.fullname,
       this.categoryId,
       this.category,
@@ -442,13 +527,15 @@ class Employee {
       this.phone,
       this.lastEducation,
       this.ijazah,
-      this.fieldCertification});
+      this.fieldCertification,
+      this.status});
 
   Employee.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     userId = json['user_id'];
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
     fullname = json['fullname'];
     categoryId = json['category_id'];
     category = json['category'];
@@ -465,6 +552,7 @@ class Employee {
     lastEducation = json['last_education'];
     ijazah = json['ijazah'];
     fieldCertification = json['field_certification'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -473,6 +561,9 @@ class Employee {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['user_id'] = this.userId;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
     data['fullname'] = this.fullname;
     data['category_id'] = this.categoryId;
     data['category'] = this.category;
@@ -489,6 +580,56 @@ class Employee {
     data['last_education'] = this.lastEducation;
     data['ijazah'] = this.ijazah;
     data['field_certification'] = this.fieldCertification;
+    data['status'] = this.status;
+    return data;
+  }
+}
+
+class Forms {
+  int? id;
+  String? createdAt;
+  String? updatedAt;
+  String? updateEmailUser;
+  int? placementId;
+  Null? placement;
+  String? date;
+  String? fiiledDate;
+  Null? feedbacks;
+
+  Forms(
+      {this.id,
+      this.createdAt,
+      this.updatedAt,
+      this.updateEmailUser,
+      this.placementId,
+      this.placement,
+      this.date,
+      this.fiiledDate,
+      this.feedbacks});
+
+  Forms.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    updateEmailUser = json['update_email_user'];
+    placementId = json['placement_id'];
+    placement = json['placement'];
+    date = json['date'];
+    fiiledDate = json['fiiled_date'];
+    feedbacks = json['feedbacks'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['update_email_user'] = this.updateEmailUser;
+    data['placement_id'] = this.placementId;
+    data['placement'] = this.placement;
+    data['date'] = this.date;
+    data['fiiled_date'] = this.fiiledDate;
+    data['feedbacks'] = this.feedbacks;
     return data;
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:outsourcing/components/text_widget.dart';
+import 'package:outsourcing/global.dart';
 import 'package:outsourcing/z_pengguna/order/controller/placementuser_controller.dart';
 import 'package:outsourcing/z_pengguna/order/view/detailsupervisor.dart';
 
@@ -60,8 +61,8 @@ class SupervisorHolderWidgetState extends State<SupervisorHolderWidget> {
                 ),
                 SizedBox(
                   height: 100,
-                  width: 350,
-                  // width: MediaQuery.of(context).size.width,
+                  // width: 350,
+                  width: MediaQuery.of(context).size.width,
                   child: Obx(
                     () => placementuserCon.isLoading.value
                         ? const SpinKitWanderingCubes(
@@ -86,6 +87,9 @@ class SupervisorHolderWidgetState extends State<SupervisorHolderWidget> {
                                 placementuser.supervisor!.npwp.toString(),
                                 placementuser.supervisor!.gender.toString(),
                                 placementuser.supervisor!.phone.toString(),
+                                placementuser.supervisor!.user!.profilePic
+                                    .toString(),
+                                placementuser.supervisor!.userId.toString(),
                               );
                             }),
                   ),
@@ -110,9 +114,11 @@ class SupervisorHolderWidgetState extends State<SupervisorHolderWidget> {
     String npwp,
     String gender,
     String phone,
+    String profile,
+    String userid,
   ) {
-    // final imageURL = '$baseURL/resource/packages/$idpaket/main_image/';
-    // print('Image URL: $imageURL');
+    final imageURL = '$baseURL/resource/users/$userid/profile/';
+    print('Image URL: $imageURL');
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -127,11 +133,14 @@ class SupervisorHolderWidgetState extends State<SupervisorHolderWidget> {
               npwp: npwp,
               gender: gender,
               phone: phone,
+              profile: profile,
+              userid: userid,
             ),
           ),
         );
       },
       child: Card(
+        color: Colors.white,
         elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -146,8 +155,9 @@ class SupervisorHolderWidgetState extends State<SupervisorHolderWidget> {
               ),
               CircleAvatar(
                 radius: 30,
-                backgroundImage:
-                    const AssetImage('lib/images/icon/ic_driver.png'),
+                backgroundImage: NetworkImage(
+                  imageURL,
+                ),
                 onBackgroundImageError: (error, stackTrace) {
                   print('Error loading image: $error');
                 },

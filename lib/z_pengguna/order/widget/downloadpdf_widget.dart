@@ -16,7 +16,7 @@ class DownloadPdfCard extends StatelessWidget {
       final path = '${directory.path}/test.pdf';
 
       // Load the PDF file from the assets.
-      final byteData = await rootBundle.load('lib/pdf/test.pdf');
+      final byteData = await rootBundle.load('lib/pdf/MOUOutsourcingApp.pdf');
 
       // Write the PDF file to the local file system.
       final file = File(path);
@@ -83,7 +83,8 @@ class PdfViewScreen extends StatelessWidget {
   Future<void> _downloadPdf(BuildContext context) async {
     try {
       final directory = await getExternalStorageDirectory();
-      final downloadPath = '${directory!.path}/downloaded_test.pdf';
+      final downloadPath =
+          '${directory!.path}/downloaded_MOUOutsourcingApp.pdf';
 
       // Copy the PDF file to the download directory.
       final file = File(path);

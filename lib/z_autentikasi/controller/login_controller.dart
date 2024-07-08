@@ -115,7 +115,7 @@ class LoginController {
               ..hideCurrentSnackBar()
               ..showSnackBar(snackBar);
 
-            await Future.delayed(Duration(seconds: 3));
+            await Future.delayed(Duration(seconds: 2));
             navigateBasedOnRole(context, roles);
           } else {
             final snackBar = SnackBar(

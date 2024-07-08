@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:outsourcing/core.dart';
 import 'package:outsourcing/z_pengguna/order/controller/order_controller.dart';
-import 'package:outsourcing/z_pengguna/order/widget/buttonpenilaian_widget.dart';
+import 'package:outsourcing/z_pengguna/order/view/form_performance.dart';
 import 'package:intl/intl.dart';
 import 'package:outsourcing/z_pengguna/order/widget/karyawanholder_widget.dart';
 import 'package:outsourcing/z_pengguna/order/widget/supervisorholder_widget.dart';
@@ -134,11 +134,11 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 400),
                   opacity: opacity,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SizedBox(
-                      height: 600,
-                      width: MediaQuery.of(context).size.width,
+                  child: SizedBox(
+                    height: 600,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,14 +228,15 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                               ],
                             ),
                             Card(
+                              color: Colors.white,
                               elevation: 2,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: SizedBox(
                                 height: 230,
-                                width: 350,
-                                // width: MediaQuery.of(context).size.width,
+                                // width: 350,
+                                width: MediaQuery.of(context).size.width,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 25.0),
@@ -403,28 +404,6 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                                           ],
                                         ),
                                         const SizedBox(
-                                          height: 5,
-                                        ),
-                                        const TextWidget(
-                                          "Deskripsi Layanan :",
-                                          15,
-                                          Color.fromRGBO(129, 12, 168, 1),
-                                          FontWeight.normal,
-                                          letterSpace: 0,
-                                          textAlign: TextAlign.left,
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        TextWidget(
-                                          "description",
-                                          15,
-                                          Colors.black.withOpacity(.6),
-                                          FontWeight.bold,
-                                          letterSpace: 0,
-                                          textAlign: TextAlign.left,
-                                        ),
-                                        const SizedBox(
                                           height: 10,
                                         ),
                                       ],
@@ -434,14 +413,15 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                               ),
                             ),
                             Card(
+                              color: Colors.white,
                               elevation: 2,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: SizedBox(
                                 height: 125,
-                                width: 350,
-                                // width: MediaQuery.of(context).size.width,
+                                // width: 350,
+                                width: MediaQuery.of(context).size.width,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 25.0),
@@ -555,348 +535,6 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                     ),
                   ),
                 )),
-            // AnimatedPositioned(
-            //   duration: const Duration(milliseconds: 400),
-            //   top: position ? 1200 : 330,
-            //   left: 20,
-            //   right: 20,
-            //   child: AnimatedOpacity(
-            //     duration: const Duration(milliseconds: 400),
-            //     opacity: opacity,
-            //     child: Card(
-            //       elevation: 2,
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(20),
-            //       ),
-            //       child: SizedBox(
-            //         height: 230,
-            //         width: MediaQuery.of(context).size.width,
-            //         child: Padding(
-            //           padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            //           child: SingleChildScrollView(
-            //             child: Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 const SizedBox(
-            //                   height: 10,
-            //                 ),
-            //                 const TextWidget(
-            //                   'Rincian Pesanan',
-            //                   20,
-            //                   Color.fromRGBO(45, 3, 59, 1),
-            //                   FontWeight.bold,
-            //                   letterSpace: 0,
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //                 const TextWidget(
-            //                   "Atas Nama :",
-            //                   15,
-            //                   Color.fromRGBO(129, 12, 168, 1),
-            //                   FontWeight.normal,
-            //                   letterSpace: 0,
-            //                   textAlign: TextAlign.left,
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //                 TextWidget(
-            //                   namapesanan,
-            //                   15,
-            //                   const Color.fromRGBO(45, 3, 59, 1),
-            //                   FontWeight.bold,
-            //                   letterSpace: 0,
-            //                   textAlign: TextAlign.left,
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //                 const TextWidget(
-            //                   "Alamat Anda :",
-            //                   15,
-            //                   Color.fromRGBO(129, 12, 168, 1),
-            //                   FontWeight.normal,
-            //                   letterSpace: 0,
-            //                   textAlign: TextAlign.left,
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //                 TextWidget(
-            //                   alamat,
-            //                   15,
-            //                   const Color.fromRGBO(45, 3, 59, 1),
-            //                   FontWeight.bold,
-            //                   letterSpace: 0,
-            //                   textAlign: TextAlign.left,
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //                 Row(
-            //                   mainAxisAlignment: MainAxisAlignment.start,
-            //                   children: [
-            //                     const TextWidget(
-            //                       "Lama Kontrak : ",
-            //                       15,
-            //                       Color.fromRGBO(129, 12, 168, 1),
-            //                       FontWeight.normal,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                     TextWidget(
-            //                       '$lamakontrak Hari',
-            //                       15,
-            //                       const Color.fromRGBO(45, 3, 59, 1),
-            //                       FontWeight.bold,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                   ],
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //                 Row(
-            //                   mainAxisAlignment: MainAxisAlignment.start,
-            //                   children: [
-            //                     const TextWidget(
-            //                       "Jumlah Karyawan : ",
-            //                       15,
-            //                       Color.fromRGBO(129, 12, 168, 1),
-            //                       FontWeight.normal,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                     TextWidget(
-            //                       '$jumlahkaryawan Orang',
-            //                       15,
-            //                       const Color.fromRGBO(45, 3, 59, 1),
-            //                       FontWeight.bold,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                   ],
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //                 Row(
-            //                   mainAxisAlignment: MainAxisAlignment.start,
-            //                   children: [
-            //                     const TextWidget(
-            //                       "Tanggal Pemesanan : ",
-            //                       15,
-            //                       Color.fromRGBO(129, 12, 168, 1),
-            //                       FontWeight.normal,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                     TextWidget(
-            //                       formattedDate,
-            //                       15,
-            //                       const Color.fromRGBO(45, 3, 59, 1),
-            //                       FontWeight.bold,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                   ],
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //                 Row(
-            //                   mainAxisAlignment: MainAxisAlignment.start,
-            //                   children: [
-            //                     const TextWidget(
-            //                       "Tanggal Dipesan : ",
-            //                       15,
-            //                       Color.fromRGBO(129, 12, 168, 1),
-            //                       FontWeight.normal,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                     TextWidget(
-            //                       formattedOrderDate,
-            //                       15,
-            //                       const Color.fromRGBO(45, 3, 59, 1),
-            //                       FontWeight.bold,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                   ],
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //                 const TextWidget(
-            //                   "Deskripsi Layanan :",
-            //                   15,
-            //                   Color.fromRGBO(129, 12, 168, 1),
-            //                   FontWeight.normal,
-            //                   letterSpace: 0,
-            //                   textAlign: TextAlign.left,
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //                 TextWidget(
-            //                   "description",
-            //                   15,
-            //                   Colors.black.withOpacity(.6),
-            //                   FontWeight.bold,
-            //                   letterSpace: 0,
-            //                   textAlign: TextAlign.left,
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 10,
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // AnimatedPositioned(
-            //   duration: const Duration(milliseconds: 400),
-            //   top: position ? 1520 : 570,
-            //   left: 20,
-            //   right: 20,
-            //   child: AnimatedOpacity(
-            //     duration: const Duration(milliseconds: 400),
-            //     opacity: opacity,
-            //     child: Card(
-            //       elevation: 2,
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(20),
-            //       ),
-            //       child: SizedBox(
-            //         height: 125,
-            //         width: MediaQuery.of(context).size.width,
-            //         child: Padding(
-            //           padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            //           child: SingleChildScrollView(
-            //             child: Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 const SizedBox(
-            //                   height: 10,
-            //                 ),
-            //                 const TextWidget(
-            //                   'Pembayaran',
-            //                   20,
-            //                   Color.fromRGBO(45, 3, 59, 1),
-            //                   FontWeight.bold,
-            //                   letterSpace: 0,
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //                 Row(
-            //                   mainAxisAlignment: MainAxisAlignment.start,
-            //                   children: [
-            //                     const TextWidget(
-            //                       "Metode Pembayaran : ",
-            //                       15,
-            //                       Color.fromRGBO(129, 12, 168, 1),
-            //                       FontWeight.normal,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                     TextWidget(
-            //                       metodebayar,
-            //                       15,
-            //                       const Color.fromRGBO(45, 3, 59, 1),
-            //                       FontWeight.bold,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                   ],
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //                 Row(
-            //                   mainAxisAlignment: MainAxisAlignment.start,
-            //                   children: [
-            //                     const TextWidget(
-            //                       "Harga Terbayarkan : ",
-            //                       15,
-            //                       Color.fromRGBO(129, 12, 168, 1),
-            //                       FontWeight.normal,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                     TextWidget(
-            //                       formattedHargaTerbayar,
-            //                       15,
-            //                       const Color.fromRGBO(45, 3, 59, 1),
-            //                       FontWeight.bold,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                   ],
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //                 Row(
-            //                   mainAxisAlignment: MainAxisAlignment.start,
-            //                   children: [
-            //                     const TextWidget(
-            //                       "Deadline Pembayaran : ",
-            //                       15,
-            //                       Color.fromRGBO(129, 12, 168, 1),
-            //                       FontWeight.normal,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                     TextWidget(
-            //                       formattedDeadlineDate,
-            //                       15,
-            //                       const Color.fromRGBO(45, 3, 59, 1),
-            //                       FontWeight.bold,
-            //                       letterSpace: 0,
-            //                       textAlign: TextAlign.left,
-            //                     ),
-            //                   ],
-            //                 ),
-            //                 const SizedBox(
-            //                   height: 5,
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // AnimatedPositioned(
-            //   top: position ? 1300 : 450,
-            //   left: 20,
-            //   right: 20,
-            //   duration: const Duration(milliseconds: 500),
-            //   child: AnimatedOpacity(
-            //     duration: const Duration(milliseconds: 500),
-            //     opacity: opacity,
-            //     child: SupervisorHolderWidget(id: id),
-            //   ),
-            // ),
-            // AnimatedPositioned(
-            //   top: position ? 1450 : 450,
-            //   left: 20,
-            //   right: 20,
-            //   duration: const Duration(milliseconds: 500),
-            //   child: AnimatedOpacity(
-            //     duration: const Duration(milliseconds: 500),
-            //     opacity: opacity,
-            //     child: KaryawanHolderWidget(id: id),
-            //   ),
-            // ),
             AnimatedPositioned(
               top: position ? 660 : 710,
               right: 30,
@@ -907,10 +545,107 @@ class _OrderPenilaianState extends State<OrderPenilaian> {
                 duration: const Duration(milliseconds: 400),
                 child: SizedBox(
                   width: size.width,
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ButtonPenilaian(),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Menampilkan bottom sheet "Pesanan dibuat" ketika tombol ditekan
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(75, 16, 75, 16),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const TextWidget(
+                                      "Unggah Penilaian",
+                                      20,
+                                      Color.fromRGBO(45, 3, 59, 1),
+                                      FontWeight.bold,
+                                      letterSpace: 0,
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextWidget(
+                                      "Unggah file penilaian anda\nPastikan penilaian sudah diisi",
+                                      15,
+                                      Colors.black.withOpacity(0.6),
+                                      FontWeight.bold,
+                                      letterSpace: 0,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                FormPerformance(
+                                              id: id,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      label: const Text('Unggah Penilaian',
+                                          style: TextStyle(
+                                            color:
+                                                Color.fromRGBO(193, 71, 233, 1),
+                                          )),
+                                      icon: const Icon(
+                                        Icons.upload_file,
+                                        color: Color.fromRGBO(193, 71, 233, 1),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        shadowColor:
+                                            Colors.purple, // Warna teks
+                                        minimumSize: const Size(240, 40),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(240, 40),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          backgroundColor:
+                              const Color.fromRGBO(193, 71, 233, 1),
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.symmetric(horizontal: 60),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Center(
+                            child: TextWidget(
+                              "Unggah Penilaian",
+                              16,
+                              Colors.white,
+                              FontWeight.bold,
+                              letterSpace: 0,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

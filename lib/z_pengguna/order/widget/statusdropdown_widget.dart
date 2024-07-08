@@ -45,6 +45,7 @@ class _StatusDropdownState extends State<StatusDropdown> {
         ),
         const SizedBox(height: 5),
         Card(
+          color: Colors.white,
           elevation: 5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),

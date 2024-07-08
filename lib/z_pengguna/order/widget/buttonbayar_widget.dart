@@ -113,7 +113,7 @@ class _ButtonBayarState extends State<ButtonBayar> {
           context: context,
           builder: (BuildContext context) {
             return Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.fromLTRB(73, 16, 73, 16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -141,7 +141,7 @@ class _ButtonBayarState extends State<ButtonBayar> {
                   ),
                   ElevatedButton.icon(
                     onPressed: () => _payWithBankTransfer(context),
-                    label: const Text('Transfer Bank',
+                    label: const Text('Pembayaran Online',
                         style: TextStyle(
                           color: Color.fromRGBO(193, 71, 233, 1),
                         )),

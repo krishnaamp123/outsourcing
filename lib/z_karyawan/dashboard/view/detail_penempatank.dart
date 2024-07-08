@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:outsourcing/core.dart';
+import 'package:outsourcing/global.dart';
 import 'package:outsourcing/model/placement_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,6 +21,8 @@ class DetailPenempatanK extends StatefulWidget {
   final String namaSupervisor;
   final String alamatSupervisor;
   final String telponSupervisor;
+  final String profileSupervisor;
+  final String useridSupervisor;
   final List<Employees> employees;
 
   const DetailPenempatanK({
@@ -37,6 +40,8 @@ class DetailPenempatanK extends StatefulWidget {
     required this.namaSupervisor,
     required this.alamatSupervisor,
     required this.telponSupervisor,
+    required this.profileSupervisor,
+    required this.useridSupervisor,
     required this.employees,
   }) : super(key: key);
 
@@ -182,6 +187,10 @@ class _DetailPenempatanKState extends State<DetailPenempatanK> {
     String namaSupervisor = widget.namaSupervisor;
     String alamatSupervisor = widget.alamatSupervisor;
     String telponSupervisor = widget.telponSupervisor;
+    String useridSupervisor = widget.useridSupervisor;
+    final imageSupervisorURL =
+        '$baseURL/resource/users/$useridSupervisor/profile/';
+    print('Image URL: $imageSupervisorURL');
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -296,6 +305,7 @@ class _DetailPenempatanKState extends State<DetailPenempatanK> {
                 duration: const Duration(milliseconds: 400),
                 opacity: opacity,
                 child: Card(
+                  color: Colors.white,
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -531,6 +541,7 @@ class _DetailPenempatanKState extends State<DetailPenempatanK> {
                         textAlign: TextAlign.left,
                       ),
                       Card(
+                        color: Colors.white,
                         elevation: 2,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -545,11 +556,9 @@ class _DetailPenempatanKState extends State<DetailPenempatanK> {
                               ),
                               CircleAvatar(
                                 radius: 30,
-                                // backgroundImage: const NetworkImage(
-                                //   imageURL,
-                                // ),
-                                backgroundImage: const AssetImage(
-                                    'lib/images/icon/ic_driver.png'),
+                                backgroundImage: NetworkImage(
+                                  imageSupervisorURL,
+                                ),
                                 onBackgroundImageError: (error, stackTrace) {
                                   print('Error loading image: $error');
                                 },
@@ -609,7 +618,7 @@ class _DetailPenempatanKState extends State<DetailPenempatanK> {
             ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 490 : 460,
+              top: position ? 490 : 540,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
@@ -635,7 +644,13 @@ class _DetailPenempatanKState extends State<DetailPenempatanK> {
                           padding: const EdgeInsets.only(bottom: 10),
                           itemBuilder: (context, index) {
                             final employee = widget.employees[index];
+                            String useridEmployee =
+                                employee.employee!.userId.toString();
+                            final imageEmployeeURL =
+                                '$baseURL/resource/users/$useridEmployee/profile/';
+                            print('Image URL: $imageEmployeeURL');
                             return Card(
+                              color: Colors.white,
                               elevation: 2,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
@@ -650,11 +665,9 @@ class _DetailPenempatanKState extends State<DetailPenempatanK> {
                                     ),
                                     CircleAvatar(
                                       radius: 30,
-                                      // backgroundImage: const NetworkImage(
-                                      //   imageURL,
-                                      // ),
-                                      backgroundImage: const AssetImage(
-                                          'lib/images/icon/ic_driver.png'),
+                                      backgroundImage: NetworkImage(
+                                        imageEmployeeURL,
+                                      ),
                                       onBackgroundImageError:
                                           (error, stackTrace) {
                                         print('Error loading image: $error');

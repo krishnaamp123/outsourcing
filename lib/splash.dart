@@ -51,13 +51,13 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
           children: [
             AnimatedOpacity(
               opacity: _showLogo ? 1.0 : 0.0,
-              curve: Curves.easeInOut,
+              curve: Curves.decelerate,
               duration: const Duration(milliseconds: 400),
               child: Center(
                 child: Image.asset(
                   'lib/images/logotok.png',
-                  height: 200,
-                  width: 200,
+                  height: 100,
+                  width: 100,
                 ),
               ),
             ),
@@ -121,21 +121,21 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                           Color.fromRGBO(129, 12, 168, 1), FontWeight.bold,
                           letterSpace: 2),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 40),
+                    Center(
                       child: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Image.asset(
                             'lib/images/logonyamping.png',
                             height: 50,
-                            width: 200,
+                            width: 190,
                           ),
                           const TextWidget(
                             "Aja!",
                             18,
                             Color.fromRGBO(129, 12, 168, 1),
                             FontWeight.bold,
-                            letterSpace: 5,
+                            letterSpace: 2,
                           ),
                         ],
                       ),
@@ -145,7 +145,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
               ),
             ),
             AnimatedPositioned(
-              bottom: 90,
+              bottom: 80,
               duration: const Duration(milliseconds: 400),
               left: _showContent ? 70 : -100,
               child: AnimatedOpacity(

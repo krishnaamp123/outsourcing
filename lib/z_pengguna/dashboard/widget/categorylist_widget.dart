@@ -118,6 +118,7 @@ class _CategoryListState extends State<CategoryList> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Card(
+                    color: Colors.white,
                     elevation: 5,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),

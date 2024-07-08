@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:outsourcing/core.dart';
+import 'package:outsourcing/global.dart';
 
 // This class handles the Page to edit the Name Section of the User Profile.
 class DetailKaryawanS extends StatefulWidget {
@@ -15,20 +16,22 @@ class DetailKaryawanS extends StatefulWidget {
   final String education;
   final String salarytotal;
   final String salary;
-  const DetailKaryawanS(
-      {Key? key,
-      required this.fullname,
-      required this.address,
-      required this.birthplace,
-      required this.birthdate,
-      required this.nik,
-      required this.npwp,
-      required this.gender,
-      required this.phone,
-      required this.education,
-      required this.salarytotal,
-      required this.salary})
-      : super(key: key);
+  final String useridKaryawan;
+  const DetailKaryawanS({
+    Key? key,
+    required this.fullname,
+    required this.address,
+    required this.birthplace,
+    required this.birthdate,
+    required this.nik,
+    required this.npwp,
+    required this.gender,
+    required this.phone,
+    required this.education,
+    required this.salarytotal,
+    required this.salary,
+    required this.useridKaryawan,
+  }) : super(key: key);
 
   @override
   DetailKaryawanSState createState() {
@@ -74,7 +77,7 @@ class DetailKaryawanSState extends State<DetailKaryawanS> {
             height: MediaQuery.of(context).size.height * 0.4,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(imagePath),
+                image: NetworkImage(imagePath),
                 fit: BoxFit.cover,
               ),
             ),
@@ -107,6 +110,9 @@ class DetailKaryawanSState extends State<DetailKaryawanS> {
     String formattedSalary =
         NumberFormat.currency(locale: 'id', symbol: 'Rp.', decimalDigits: 0)
             .format(hargaInt);
+    String useridKaryawan = widget.useridKaryawan;
+    final imageURL = '$baseURL/resource/users/$useridKaryawan/profile/';
+    print('Image URL: $imageURL');
     return Scaffold(
       // appBar: buildAppBar(context),
       body: SafeArea(
@@ -144,18 +150,25 @@ class DetailKaryawanSState extends State<DetailKaryawanS> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          _showLargeImage(
-                              context, 'lib/images/icon/ic_driver.png');
+                          _showLargeImage(context, imageURL);
                         },
                         child: ClipOval(
                           child: Material(
                             color: Colors.transparent,
-                            child: Ink.image(
-                              image:
-                                  AssetImage('lib/images/icon/ic_driver.png'),
+                            child: Image.network(
+                              imageURL,
                               fit: BoxFit.cover,
                               width: 128,
                               height: 128,
+                              errorBuilder: (context, error, stackTrace) {
+                                print('Error loading image: $error');
+                                return Image.asset(
+                                  'lib/images/icon/ic_user.png',
+                                  fit: BoxFit.cover,
+                                  width: 128,
+                                  height: 128,
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -192,6 +205,7 @@ class DetailKaryawanSState extends State<DetailKaryawanS> {
                       Padding(
                         padding: const EdgeInsets.all(20),
                         child: Card(
+                          color: Colors.white,
                           elevation: 2,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),

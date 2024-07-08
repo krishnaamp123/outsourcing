@@ -340,6 +340,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                 duration: const Duration(milliseconds: 400),
                 opacity: opacity,
                 child: Card(
+                  color: Colors.white,
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -480,6 +481,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                               height: 5,
                             ),
                             Card(
+                              color: Colors.white,
                               elevation: 5, // Atur elevation di sini
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -542,6 +544,7 @@ class _PaketLayananState extends State<PaketLayanan> {
                 duration: const Duration(milliseconds: 400),
                 opacity: opacity,
                 child: Card(
+                  color: Colors.white,
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),

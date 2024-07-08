@@ -8,6 +8,7 @@ class RegencyService {
     http.Response response = await http.get(url, headers: {
       'Content-Type': 'application/json',
     });
+    print("ini urlnya : $url");
     print(response.body);
     return response;
   }

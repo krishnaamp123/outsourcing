@@ -48,7 +48,7 @@ class _CheckAuthState extends State<CheckAuth> {
     if (token != null) {
       setState(() {
         isAuth = true;
-        roles = localStorage.getString('roles'); // Ambil peran (role) pengguna
+        roles = localStorage.getString('roles');
       });
     }
   }
@@ -58,11 +58,11 @@ class _CheckAuthState extends State<CheckAuth> {
     Widget child;
     if (isAuth) {
       // Berdasarkan peran (role) pengguna, tentukan halaman yang akan ditampilkan
-      if (roles == 'service_user') {
+      if (roles == '"service_user"') {
         child = Start();
-      } else if (roles == 'employee') {
+      } else if (roles == '"employee"') {
         child = StartKaryawan();
-      } else if (roles == 'supervisor') {
+      } else if (roles == '"supervisor"') {
         child = StartSupervisor();
       } else {
         // Jika peran tidak sesuai, bisa menampilkan halaman default atau splash screen

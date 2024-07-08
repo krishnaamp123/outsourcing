@@ -8,7 +8,6 @@ import 'package:outsourcing/z_karyawan/dashboard/widget/titlepenempatank.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeKaryawan extends StatefulWidget {
-  // final String username;
   const HomeKaryawan({Key? key}) : super(key: key);
 
   @override
@@ -19,6 +18,8 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
   String name = '';
   var opacity = 0.0;
   bool position = false;
+  String statusnya = '';
+  Color statusColor = Colors.orange;
   @override
   void initState() {
     super.initState();
@@ -26,6 +27,7 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
       animator();
     });
     _loadUserData();
+    _loadStatusData();
   }
 
   animator() {
@@ -61,6 +63,34 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
 
         setState(() {
           name = firstName;
+        });
+      }
+    }
+  }
+
+  _loadStatusData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var statusData = localStorage.getString('karyawan');
+    if (statusData != null) {
+      var status = jsonDecode(statusData);
+      if (status != null && status['status'] != null) {
+        String statuskaryawan = status['status'];
+        setState(() {
+          if (statuskaryawan == 'ACTIVE') {
+            statusnya = 'Aktif';
+            statusColor = Colors.green;
+          } else if (statuskaryawan == 'NONACTIVE') {
+            statusnya = 'Tidak Aktif';
+            statusColor = Colors.red;
+          } else {
+            statusnya = 'Belum Aktif';
+            statusColor = Colors.orange;
+          }
+        });
+      } else {
+        setState(() {
+          statusnya = 'Belum Aktif';
+          statusColor = Colors.orange;
         });
       }
     }
@@ -129,11 +159,11 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
                   child: AnimatedOpacity(
                     opacity: opacity,
                     duration: const Duration(milliseconds: 400),
-                    child: const SizedBox(
+                    child: SizedBox(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          TextWidget(
+                          const TextWidget(
                             "Status Karyawan : ",
                             18,
                             Color.fromRGBO(45, 3, 59, 1),
@@ -141,9 +171,9 @@ class _HomeKaryawanState extends State<HomeKaryawan> {
                             letterSpace: 0,
                           ),
                           TextWidget(
-                            "Aktif",
+                            statusnya,
                             18,
-                            Colors.green,
+                            statusColor,
                             FontWeight.bold,
                             letterSpace: 0,
                           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:outsourcing/core.dart';
+import 'package:outsourcing/global.dart';
 
 // This class handles the Page to edit the Name Section of the User Profile.
 class DetailSupervisor extends StatefulWidget {
@@ -12,17 +13,21 @@ class DetailSupervisor extends StatefulWidget {
   final String npwp;
   final String gender;
   final String phone;
-  const DetailSupervisor(
-      {Key? key,
-      required this.fullname,
-      required this.address,
-      required this.birthplace,
-      required this.birthdate,
-      required this.nik,
-      required this.npwp,
-      required this.gender,
-      required this.phone})
-      : super(key: key);
+  final String profile;
+  final String userid;
+  const DetailSupervisor({
+    Key? key,
+    required this.fullname,
+    required this.address,
+    required this.birthplace,
+    required this.birthdate,
+    required this.nik,
+    required this.npwp,
+    required this.gender,
+    required this.phone,
+    required this.profile,
+    required this.userid,
+  }) : super(key: key);
 
   @override
   DetailSupervisorState createState() {
@@ -68,7 +73,7 @@ class DetailSupervisorState extends State<DetailSupervisor> {
             height: MediaQuery.of(context).size.height * 0.4,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(imagePath),
+                image: NetworkImage(imagePath),
                 fit: BoxFit.cover,
               ),
             ),
@@ -90,6 +95,9 @@ class DetailSupervisorState extends State<DetailSupervisor> {
     String npwp = widget.npwp;
     String gender = widget.gender;
     String phone = widget.phone;
+    String userid = widget.userid;
+    final imageURL = '$baseURL/resource/users/$userid/profile/';
+    print('Image URL: $imageURL');
     return Scaffold(
       // appBar: buildAppBar(context),
       body: SafeArea(
@@ -127,18 +135,25 @@ class DetailSupervisorState extends State<DetailSupervisor> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          _showLargeImage(
-                              context, 'lib/images/icon/ic_driver.png');
+                          _showLargeImage(context, imageURL);
                         },
                         child: ClipOval(
                           child: Material(
                             color: Colors.transparent,
-                            child: Ink.image(
-                              image:
-                                  AssetImage('lib/images/icon/ic_driver.png'),
+                            child: Image.network(
+                              imageURL,
                               fit: BoxFit.cover,
                               width: 128,
                               height: 128,
+                              errorBuilder: (context, error, stackTrace) {
+                                print('Error loading image: $error');
+                                return Image.asset(
+                                  'lib/images/icon/ic_user.png',
+                                  fit: BoxFit.cover,
+                                  width: 128,
+                                  height: 128,
+                                );
+                              },
                             ),
                           ),
                         ),

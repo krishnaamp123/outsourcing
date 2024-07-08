@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:outsourcing/core.dart';
+import 'package:outsourcing/global.dart';
 import 'package:outsourcing/z_pengguna/order/widget/complaintdialog_widget.dart';
 
 // This class handles the Page to edit the Name Section of the User Profile.
@@ -14,6 +15,7 @@ class DetailKaryawan extends StatefulWidget {
   final String gender;
   final String phone;
   final String education;
+  final String userid;
   final String salarytotal;
   final String salary;
   final int id;
@@ -28,6 +30,7 @@ class DetailKaryawan extends StatefulWidget {
       required this.gender,
       required this.phone,
       required this.education,
+      required this.userid,
       required this.salarytotal,
       required this.salary,
       required this.id})
@@ -77,7 +80,7 @@ class DetailKaryawanState extends State<DetailKaryawan> {
             height: MediaQuery.of(context).size.height * 0.4,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(imagePath),
+                image: NetworkImage(imagePath),
                 fit: BoxFit.cover,
               ),
             ),
@@ -100,6 +103,9 @@ class DetailKaryawanState extends State<DetailKaryawan> {
     String gender = widget.gender;
     String phone = widget.phone;
     String education = widget.education;
+    String userid = widget.userid;
+    final imageURL = '$baseURL/resource/users/$userid/profile/';
+    print('Image URL: $imageURL');
     // String salarytotal = widget.salarytotal;
     // int hargatotalInt = int.parse(salarytotal);
     // String formattedSalaryTotal =
@@ -148,18 +154,25 @@ class DetailKaryawanState extends State<DetailKaryawan> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          _showLargeImage(
-                              context, 'lib/images/icon/ic_driver.png');
+                          _showLargeImage(context, imageURL);
                         },
                         child: ClipOval(
                           child: Material(
                             color: Colors.transparent,
-                            child: Ink.image(
-                              image:
-                                  AssetImage('lib/images/icon/ic_driver.png'),
+                            child: Image.network(
+                              imageURL,
                               fit: BoxFit.cover,
                               width: 128,
                               height: 128,
+                              errorBuilder: (context, error, stackTrace) {
+                                print('Error loading image: $error');
+                                return Image.asset(
+                                  'lib/images/icon/ic_user.png',
+                                  fit: BoxFit.cover,
+                                  width: 128,
+                                  height: 128,
+                                );
+                              },
                             ),
                           ),
                         ),

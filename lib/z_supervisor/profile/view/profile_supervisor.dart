@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:outsourcing/components/text_widget.dart';
 import 'package:outsourcing/z_supervisor/profile/controller/supervisor_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -84,6 +85,11 @@ class ProfileSupervisorPageState extends State<ProfileSupervisorPage> {
       supervisorCon.setUserId(userid!);
       setState(() {});
     }
+  }
+
+  String formatDate(String dateString) {
+    DateTime date = DateTime.parse(dateString);
+    return DateFormat('dd MMMM yyyy').format(date);
   }
 
   @override
@@ -182,6 +188,7 @@ class ProfileSupervisorPageState extends State<ProfileSupervisorPage> {
                             Padding(
                               padding: const EdgeInsets.all(20),
                               child: Card(
+                                color: Colors.white,
                                 elevation: 2,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
@@ -248,7 +255,7 @@ class ProfileSupervisorPageState extends State<ProfileSupervisorPage> {
                                           ),
                                           const SizedBox(height: 4),
                                           Text(
-                                            userprofile.birthDate!,
+                                            formatDate(userprofile.birthDate!),
                                             style: const TextStyle(
                                               color:
                                                   Color.fromRGBO(45, 3, 59, 1),

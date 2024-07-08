@@ -118,6 +118,7 @@ class _FeedbackBWidgetState extends State<FeedbackBWidget> {
 
   Widget feedbacklistCard(int orderid, int review, String comment) {
     return Card(
+      color: Colors.white,
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),

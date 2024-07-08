@@ -243,6 +243,7 @@ class _OrderMOUState extends State<OrderMOU> {
                 duration: const Duration(milliseconds: 400),
                 opacity: opacity,
                 child: Card(
+                  color: Colors.white,
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -407,28 +408,6 @@ class _OrderMOUState extends State<OrderMOU> {
                               ],
                             ),
                             const SizedBox(
-                              height: 5,
-                            ),
-                            const TextWidget(
-                              "Deskripsi Layanan :",
-                              15,
-                              Color.fromRGBO(129, 12, 168, 1),
-                              FontWeight.normal,
-                              letterSpace: 0,
-                              textAlign: TextAlign.left,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            TextWidget(
-                              "description",
-                              15,
-                              Colors.black.withOpacity(.6),
-                              FontWeight.bold,
-                              letterSpace: 0,
-                              textAlign: TextAlign.left,
-                            ),
-                            const SizedBox(
                               height: 10,
                             ),
                           ],
@@ -448,6 +427,7 @@ class _OrderMOUState extends State<OrderMOU> {
                 duration: const Duration(milliseconds: 400),
                 opacity: opacity,
                 child: Card(
+                  color: Colors.white,
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -603,8 +583,9 @@ class _OrderMOUState extends State<OrderMOU> {
                                 behavior: SnackBarBehavior.floating,
                                 backgroundColor: Colors.transparent,
                                 content: AwesomeSnackbarContent(
-                                  title: 'Error',
-                                  message: 'Gagal mengunggah file MOU.',
+                                  title: 'Info',
+                                  message:
+                                      'Gagal mengunggah MOU, ukuran file harus dibawah 10 mb!',
                                   contentType: ContentType.failure,
                                 ),
                               );

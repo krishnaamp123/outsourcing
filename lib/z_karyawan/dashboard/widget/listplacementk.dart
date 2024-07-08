@@ -73,7 +73,9 @@ class _ListPlacementKWidgetState extends State<ListPlacementKWidget> {
                             placement.supervisor!.fullname.toString(),
                             placement.supervisor!.fullAddress.toString(),
                             placement.supervisor!.phone.toString(),
-                            placement.details!.first.employees!.toList(),
+                            placement.supervisor!.user!.profilePic.toString(),
+                            placement.supervisor!.userId.toString(),
+                            placement.details!.toList(),
                           );
                         },
                       ),
@@ -101,102 +103,106 @@ class _ListPlacementKWidgetState extends State<ListPlacementKWidget> {
     String namaSupervisor,
     String alamatSupervisor,
     String telponSupervisor,
-    List<Employees> employees,
+    String profileSupervisor,
+    String useridSupervisor,
+    List<Details> details,
   ) {
-    // int hargaInt = int.parse(salaryKaryawan);
-    // String formattedSalaryKaryawan =
-    //     NumberFormat.currency(locale: 'id', symbol: 'Rp.', decimalDigits: 0)
-    //         .format(hargaInt);
     DateTime parsedstartDate = DateTime.parse(startDate);
     String formattedstartDate =
         DateFormat('dd-MM-yyyy').format(parsedstartDate);
     Color statusColor = _getStatusColor(status);
-    // final imageURL = '$baseURL/resource/packages/$idpaket/main_image/';
-    // print('Image URL: $imageURL');
-    return GestureDetector(
-      onTap: () {
-        var placementKController = PlacementKController();
-        placementKController.navigateToDetails(
-          context,
-          id,
-          startDate,
-          endDate,
-          status,
-          note,
-          duration,
-          totalEmployee,
-          namaPemesan,
-          alamat,
-          namaSupervisor,
-          alamatSupervisor,
-          telponSupervisor,
-          employees,
-        );
-      },
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: SizedBox(
-          height: 100,
-          width: double.infinity,
-          child: Row(
-            children: [
-              const SizedBox(
-                width: 15,
+    return Column(
+      children: details.map((details) {
+        final employees = details.employees!.toList();
+        return GestureDetector(
+          onTap: () {
+            var placementKController = PlacementKController();
+            placementKController.navigateToDetails(
+              context,
+              id,
+              startDate,
+              endDate,
+              status,
+              note,
+              duration,
+              totalEmployee,
+              namaPemesan,
+              alamat,
+              namaSupervisor,
+              alamatSupervisor,
+              telponSupervisor,
+              profileSupervisor,
+              useridSupervisor,
+              employees,
+            );
+          },
+          child: Card(
+            color: Colors.white,
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: SizedBox(
+              height: 100,
+              width: double.infinity,
+              child: Row(
+                children: [
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextWidget(
+                          'Order $id',
+                          18,
+                          const Color.fromRGBO(45, 3, 59, 1),
+                          FontWeight.bold,
+                          letterSpace: 0,
+                          textAlign: TextAlign.left,
+                        ),
+                        TextWidget(
+                          formattedstartDate,
+                          15,
+                          Colors.black.withOpacity(.6),
+                          FontWeight.bold,
+                          letterSpace: 0,
+                          textAlign: TextAlign.left,
+                        ),
+                        Text(
+                          alamat,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black.withOpacity(.6),
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0,
+                          ),
+                          textAlign: TextAlign.left,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        TextWidget(
+                          status,
+                          15,
+                          statusColor,
+                          FontWeight.bold,
+                          letterSpace: 0,
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                ],
               ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextWidget(
-                      'Order $id',
-                      18,
-                      const Color.fromRGBO(45, 3, 59, 1),
-                      FontWeight.bold,
-                      letterSpace: 0,
-                      textAlign: TextAlign.left,
-                    ),
-                    TextWidget(
-                      formattedstartDate,
-                      15,
-                      Colors.black.withOpacity(.6),
-                      FontWeight.bold,
-                      letterSpace: 0,
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      alamat,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black.withOpacity(.6),
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0,
-                      ),
-                      textAlign: TextAlign.left,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    TextWidget(
-                      status,
-                      15,
-                      statusColor,
-                      FontWeight.bold,
-                      letterSpace: 0,
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      }).toList(),
     );
   }
 

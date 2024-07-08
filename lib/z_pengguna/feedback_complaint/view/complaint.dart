@@ -121,6 +121,7 @@ class _ComplaintBWidgetState extends State<ComplaintBWidget> {
 
   Widget complaintlistCard(String namakaryawan, String comment, String reply) {
     return Card(
+      color: Colors.white,
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),

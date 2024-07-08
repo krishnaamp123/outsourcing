@@ -183,9 +183,8 @@ class EditEmployeeProfilePageState extends State<EditEmployeeProfilePage> {
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: 'Error',
-            message:
-                'Update profile gagal dilakukan. silakan periksa inputan kembali!',
+            title: 'Info',
+            message: 'Update profile gagal. ukuran gambar harus dibawah 2 mb!',
             contentType: ContentType.failure,
           ),
         );
@@ -208,128 +207,121 @@ class EditEmployeeProfilePageState extends State<EditEmployeeProfilePage> {
           color: Colors.white,
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: AnimatedPositioned(
-            duration: const Duration(milliseconds: 400),
-            top: position ? 1 : 1,
-            child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 400),
-              opacity: opacity,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    Center(
-                      child: Stack(
-                        children: [
-                          _profileImage == null
-                              ? buildImageWithCookie(widget.id)
-                              : ClipOval(
-                                  child: Image.file(
-                                    _profileImage!,
-                                    fit: BoxFit.cover,
-                                    width: 128,
-                                    height: 128,
-                                  ),
-                                ),
-                          Positioned(
-                            bottom: 0,
-                            right: 4,
-                            child: GestureDetector(
-                              onTap: _pickImage,
-                              child: buildEditIcon(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: SizedBox(
-                          height: 400,
-                          width: MediaQuery.of(context).size.width,
-                          child: SingleChildScrollView(
-                            child: Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Column(
-                                children: [
-                                  TextFormField(
-                                    controller: fullnameController,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(45, 3, 59, 1),
-                                    ),
-                                    decoration: const InputDecoration(
-                                      labelText: 'Nama Lengkap :',
-                                      labelStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(129, 12, 168, 1),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  TextFormField(
-                                    controller: passwordController,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(45, 3, 59, 1),
-                                    ),
-                                    decoration: const InputDecoration(
-                                      labelText: 'Password :',
-                                      labelStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(129, 12, 168, 1),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  TextFormField(
-                                    controller: addressController,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(45, 3, 59, 1),
-                                    ),
-                                    decoration: const InputDecoration(
-                                      labelText: 'Alamat :',
-                                      labelStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(129, 12, 168, 1),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  TextFormField(
-                                    controller: phoneController,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(45, 3, 59, 1),
-                                    ),
-                                    decoration: const InputDecoration(
-                                      labelText: 'Nomor Telpon :',
-                                      labelStyle: TextStyle(
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(129, 12, 168, 1),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                Center(
+                  child: Stack(
+                    children: [
+                      _profileImage == null
+                          ? buildImageWithCookie(widget.id)
+                          : ClipOval(
+                              child: Image.file(
+                                _profileImage!,
+                                fit: BoxFit.cover,
+                                width: 128,
+                                height: 128,
                               ),
                             ),
+                      Positioned(
+                        bottom: 0,
+                        right: 4,
+                        child: GestureDetector(
+                          onTap: _pickImage,
+                          child: buildEditIcon(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: SizedBox(
+                      height: 400,
+                      width: MediaQuery.of(context).size.width,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: fullnameController,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Color.fromRGBO(45, 3, 59, 1),
+                                ),
+                                decoration: const InputDecoration(
+                                  labelText: 'Nama Lengkap :',
+                                  labelStyle: TextStyle(
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(129, 12, 168, 1),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              TextFormField(
+                                controller: passwordController,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Color.fromRGBO(45, 3, 59, 1),
+                                ),
+                                decoration: const InputDecoration(
+                                  labelText: 'Password :',
+                                  labelStyle: TextStyle(
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(129, 12, 168, 1),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              TextFormField(
+                                controller: addressController,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Color.fromRGBO(45, 3, 59, 1),
+                                ),
+                                decoration: const InputDecoration(
+                                  labelText: 'Alamat :',
+                                  labelStyle: TextStyle(
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(129, 12, 168, 1),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              TextFormField(
+                                controller: phoneController,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Color.fromRGBO(45, 3, 59, 1),
+                                ),
+                                decoration: const InputDecoration(
+                                  labelText: 'Nomor Telpon :',
+                                  labelStyle: TextStyle(
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(129, 12, 168, 1),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
-                    ButtonSimpan(
-                      onTap: () => _updateProfile(context),
-                      width: 350,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                ButtonSimpan(
+                  onTap: () => _updateProfile(context),
+                  width: 350,
+                ),
+              ],
             ),
           ),
         ),

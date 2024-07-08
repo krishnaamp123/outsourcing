@@ -225,19 +225,20 @@ class _OrderBayarState extends State<OrderBayar> {
                 )),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 210 : 330,
+              top: position ? 220 : 270,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
                 duration: const Duration(milliseconds: 400),
                 opacity: opacity,
                 child: Card(
+                  color: Colors.white,
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: SizedBox(
-                    height: 300,
+                    height: 260,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -396,28 +397,6 @@ class _OrderBayarState extends State<OrderBayar> {
                               ],
                             ),
                             const SizedBox(
-                              height: 5,
-                            ),
-                            const TextWidget(
-                              "Deskripsi Layanan :",
-                              15,
-                              Color.fromRGBO(129, 12, 168, 1),
-                              FontWeight.normal,
-                              letterSpace: 0,
-                              textAlign: TextAlign.left,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            TextWidget(
-                              "description",
-                              15,
-                              Colors.black.withOpacity(.6),
-                              FontWeight.bold,
-                              letterSpace: 0,
-                              textAlign: TextAlign.left,
-                            ),
-                            const SizedBox(
                               height: 10,
                             ),
                           ],
@@ -430,13 +409,14 @@ class _OrderBayarState extends State<OrderBayar> {
             ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 400),
-              top: position ? 520 : 570,
+              top: position ? 500 : 550,
               left: 20,
               right: 20,
               child: AnimatedOpacity(
                 duration: const Duration(milliseconds: 400),
                 opacity: opacity,
                 child: Card(
+                  color: Colors.white,
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
